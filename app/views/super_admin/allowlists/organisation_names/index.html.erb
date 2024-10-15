@@ -15,8 +15,10 @@
         <%= link_to "Allow an organisation", new_super_admin_allowlist_organisation_name_path, class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
       </div>
     </div>
-    <%= label_tag "search_orgs_label", "Search for existing organisations on GovWifi before adding them", class: "govuk-label" %>
-    <%= select_tag "organisations_register", options_for_select(@fetched_organisations_from_register << "", ""), class: "govuk-select" %>
+    <%= label_tag "organisations_register", "Search for existing organisations on GovWifi before adding them", class: "govuk-label" %>
+    <%= select_tag "organisations_register", options_for_select(@fetched_organisations_from_register, ""), class: "govuk-select", id: "organisations_register" %>
+    <%# <%= label_tag "organisations_register","search_orgs_label", "Search for existing organisations on GovWifi before adding them", class: "govuk-label" %>
+    <%# <%= select_tag "organisations_register", options_for_select(@fetched_organisations_from_register << "", ""), class: "govuk-select" %>
 
     <%= render "super_admin/allowlists/organisation_names/table", organisations: @custom_organisation_names %>
   </div>
