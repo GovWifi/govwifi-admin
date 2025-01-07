@@ -5,7 +5,7 @@ describe "POST /users/invitation", type: :request do
 
   before do
     https!
-    login_as(user, scope: :user)
+    sign_in_user(user)
   end
 
   context "with tampered organisation_id parameter" do

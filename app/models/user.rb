@@ -5,8 +5,7 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :organisations, :memberships
 
-  devise :invitable,
-         :confirmable,
+  devise :confirmable,
          :database_authenticatable,
          :registerable,
          :recoverable,
@@ -48,7 +47,7 @@ class User < ApplicationRecord
   end
 
   def invitation_pending?
-    invitation_sent_at && !invitation_accepted?
+    invitation_sent_at
   end
 
   def pending_membership_for?(organisation:)

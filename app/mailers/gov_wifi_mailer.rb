@@ -37,7 +37,7 @@ class GovWifiMailer < ::Devise::Mailer
   def invitation_instructions(record, token, _opts = {})
     opts = {
       email_address: record.email,
-      personalisation: { invite_url: accept_invitation_url(record, invitation_token: token) },
+      personalisation: { invite_url: accept_user_invitation_url(record, invitation_token: token) },
       template_id: NotifyTemplates.template(:invite_email),
       reference: "invite_email",
     }

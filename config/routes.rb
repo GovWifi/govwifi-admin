@@ -5,7 +5,6 @@ Rails.application.routes.draw do
              controllers: {
                confirmations: "users/confirmations",
                registrations: "users/registrations",
-               invitations: "users/invitations",
                passwords: "users/passwords",
                two_factor_authentication: "users/two_factor_authentication",
              }
@@ -20,6 +19,12 @@ Rails.application.routes.draw do
     delete "users/:id/two_factor_authentication", to: "users/two_factor_authentication#destroy"
   end
   get "confirm_new_membership", to: "users/memberships#create"
+
+  get "users/invitation/accept", to: "users/invitations#edit", as: :accept_user_invitation
+  get "users/invitation/remove", to: "users/invitations#destroy", as: :remove_user_invitation
+  get "users/invitation/new", to: "users/invitations#new", as: :new_user_invitation
+  put "users/invitation", to: "users/invitations#update", as: :user_invitation
+  post "users/invitation", to: "users/invitations#create"
 
   get "/healthcheck", to: "monitoring#healthcheck"
   get "change_organisation", to: "current_organisation#edit"
