@@ -8,7 +8,7 @@
 
   <div class="govuk-grid-column-one-third text-right">
     <% if current_user.can_manage_team?(current_organisation) %>
-      <%= link_to "Invite a team member", new_user_invitation_path, class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
+      <%= link_to "Invite a team member", new_users_invitation_path, class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
     <% end %>
   </div>
 </div>

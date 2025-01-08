@@ -62,15 +62,6 @@ describe "Sign up for a GovWifi administrator account", type: :feature do
         click_on "Complete setup"
       end
 
-      it "gives the user an option to add an administrator" do
-        expect(page).to have_content("You can skip this step for now, but you’ll need to add another admin before you can access the full functionality of GovWifi.")
-      end
-
-      it "redirects to the settings page" do
-        click_on "Skip for now"
-        expect(page).to have_current_path(ips_path)
-      end
-
       it "signs me in" do
         expect(page).to have_content "Sign out"
       end

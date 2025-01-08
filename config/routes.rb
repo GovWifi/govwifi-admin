@@ -18,13 +18,10 @@ Rails.application.routes.draw do
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"
     delete "users/:id/two_factor_authentication", to: "users/two_factor_authentication#destroy"
   end
-  get "confirm_new_membership", to: "users/memberships#create"
 
-  get "users/invitation/accept", to: "users/invitations#edit", as: :accept_user_invitation
-  get "users/invitation/remove", to: "users/invitations#destroy", as: :remove_user_invitation
-  get "users/invitation/new", to: "users/invitations#new", as: :new_user_invitation
-  put "users/invitation", to: "users/invitations#update", as: :user_invitation
-  post "users/invitation", to: "users/invitations#create"
+  namespace :users do
+    resource :invitation, only: %i[new create edit update]
+  end
 
   get "/healthcheck", to: "monitoring#healthcheck"
   get "change_organisation", to: "current_organisation#edit"
