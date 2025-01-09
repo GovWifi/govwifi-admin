@@ -6,6 +6,8 @@ class Users::InvitationsController < ApplicationController
   end
 
   def create
+    user = User.create(email: params[:invitation_form][:email])
+    Membership.create(user:, organisation: current_organisation)
     redirect_to memberships_path
   end
 
@@ -22,6 +24,10 @@ class Users::InvitationsController < ApplicationController
   end
 
 private
+
+  def invitation_params
+    params.require(:invitation_form).permit(:email)
+  end
 
   def show_navigation_bars
     false if action_name == "invite_second_action"
