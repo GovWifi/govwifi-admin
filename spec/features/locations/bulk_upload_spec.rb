@@ -15,9 +15,8 @@ describe "Bulk upload locations and IPs", type: :feature do
   end
 
   context "when uploading a locations CSV file" do
-    let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
-
     before do
+      create(:membership, :confirmed, :administrator, user: create(:user), organisation:)
       sign_in_user user
       visit ips_path
       click_on "Upload Locations"

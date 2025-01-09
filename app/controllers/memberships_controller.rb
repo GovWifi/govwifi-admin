@@ -1,7 +1,8 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[edit update destroy]
   before_action :validate_can_manage_team, only: %i[edit update destroy]
-  before_action :validate_preserve_admin_permissions, only: %i[update destroy], unless: :super_admin?
+  before_action :validate_ensure_minimum_admins, only: %i[destroy], unless: :super_admin?
+  before_action :validate_preserve_admin_permissions, only: %i[update], unless: :super_admin?
   skip_before_action :redirect_user_with_no_organisation, only: %i[destroy edit update]
 
   def edit
@@ -96,11 +97,15 @@ private
 
   def validate_can_manage_team
     unless current_user.can_manage_team?(current_organisation)
-      raise ActionController::RoutingError, "Not Found"
+      raise "The user does not have permission to manage team"
     end
   end
 
+  def validate_ensure_minimum_admins
+    raise "Not enough administrators for the organisation" if @membership.organisation.memberships.confirmed_administrators.count < 3
+  end
+
   def validate_preserve_admin_permissions
-    raise ActionController::RoutingError, "Not Found" if @membership.preserve_admin_permissions?
+    raise "Changing permissions would result in too few administrators in the organisation" unless @membership.allow_change_permission?
   end
 end

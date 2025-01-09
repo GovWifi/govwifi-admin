@@ -10,7 +10,7 @@ class Organisation < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :service_email, format: { with: Devise.email_regexp }
-  validate :validate_in_register?, unless: proc { |org| org.name.blank? }
+  validate :validate_in_register?
 
   validates :cba_enabled, inclusion: { in: [true, false] }, allow_nil: true
 
@@ -57,12 +57,8 @@ class Organisation < ApplicationRecord
     update(cba_enabled: false)
   end
 
-  def meets_invited_admin_user_minimum?
-    memberships.count(&:administrator?) >= 2
-  end
-
   def meets_admin_user_minimum?
-    memberships.count { |membership| membership.administrator? && membership.confirmed? } > 2
+    Membership.confirmed_administrators.count >= 2
   end
 
   def ip_addresses

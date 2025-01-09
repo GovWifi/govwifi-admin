@@ -22,7 +22,7 @@ describe "PATCH /memberships/:id", type: :request do
         membership.confirm!
         expect {
           patch membership_path(membership), params: { permission_level: new_permission_level }
-        }.to raise_error(ActionController::RoutingError, "Not Found")
+        }.to raise_error(StandardError, /Changing permissions would result in too few administrators/)
       end
     end
 

@@ -63,13 +63,12 @@ describe "Sign up for a GovWifi administrator account", type: :feature do
       end
 
       it "signs me in" do
+        visit root_path
         expect(page).to have_content "Sign out"
       end
 
       it "creates a confirmed membership joining the user to the org" do
-        user = User.find_by(email:)
-        organisation = Organisation.find_by(name: "Gov Org 1")
-        expect(user.membership_for(organisation)).to be_confirmed
+        user_is_a_member_of(Organisation.find_by(name: "Gov Org 1"))
       end
     end
 

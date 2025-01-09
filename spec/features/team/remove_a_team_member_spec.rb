@@ -1,21 +1,21 @@
 describe "Remove a team member", type: :feature do
   let(:organisation) { create(:organisation) }
-  let(:user) { create(:user, organisations: [organisation]) }
-  let(:second_user) { create(:user, organisations: [organisation]) }
-  let(:third_user) { create(:user, organisations: [organisation]) }
+
+  let(:first_user) { create(:user) }
+  let(:second_user) { create(:user) }
+  let(:third_user) { create(:user) }
+
 
   before do
-    user.membership_for(organisation).update!(can_manage_team: true)
-    second_user.membership_for(organisation).update!(can_manage_team: true)
-    user.membership_for(organisation).confirm!
-    second_user.membership_for(organisation).confirm!
-    sign_in_user user
+    create(:membership, :confirmed, :administrator, user: first_user, organisation:)
+    sign_in_user first_user
   end
 
   context "with the correct permissions" do
-    context "when there are less than three confirmed admin users in the organisation" do
+    context "when there are fewer than three confirmed admin users in the organisation" do
       before do
-        visit edit_membership_path(second_user.membership_for(organisation))
+        membership = create(:membership, :confirmed, :administrator, user: second_user, organisation:)
+        visit edit_membership_path(membership)
         click_on "Remove user from GovWifi admin"
       end
 
@@ -26,9 +26,9 @@ describe "Remove a team member", type: :feature do
 
     context "when there are more than three admin users in the organisation" do
       before do
-        third_user.membership_for(organisation).update!(can_manage_team: true)
-        third_user.membership_for(organisation).confirm!
-        visit edit_membership_path(second_user.membership_for(organisation))
+        membership = create(:membership, :confirmed, :administrator, user: second_user, organisation:)
+        create(:membership, :confirmed, :administrator, user: third_user, organisation:)
+        visit edit_membership_path(membership)
         click_on "Remove user from GovWifi admin"
       end
 
@@ -63,14 +63,14 @@ describe "Remove a team member", type: :feature do
 
   context "without correct permissions" do
     before do
-      user.membership_for(organisation).update!(can_manage_team: false)
+      first_user.membership_for(organisation).update!(can_manage_team: false)
     end
 
     context "when visiting remove team member url directly" do
       it "does not show the page" do
         expect {
-          visit edit_membership_path(second_user.membership_for(organisation), remove_team_member: true)
-        }.to raise_error(ActionController::RoutingError)
+          visit edit_membership_path(first_user.membership_for(organisation), remove_team_member: true)
+        }.to raise_error(StandardError, /The user does not have permission to manage team/)
       end
     end
   end

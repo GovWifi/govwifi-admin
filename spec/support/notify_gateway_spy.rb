@@ -11,15 +11,15 @@ class NotifyGatewaySpy
   end
 
   def last_confirmation_url
-    @email_parameters.last.dig(:personalisation, :confirmation_url)
+    URI.parse(@email_parameters.last.dig(:personalisation, :confirmation_url)).request_uri
   end
 
   def last_invite_url
-    @email_parameters.last.dig(:personalisation, :invite_url)
+    URI.parse(@email_parameters.last.dig(:personalisation, :invite_url)).request_uri
   end
 
   def last_reset_password_url
-    @email_parameters.last.dig(:personalisation, :reset_url)
+    URI.parse(@email_parameters.last.dig(:personalisation, :reset_url)).request_uri
   end
 
   def send_email(opts)

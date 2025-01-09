@@ -9,7 +9,6 @@ class User < ApplicationRecord
          :database_authenticatable,
          :registerable,
          :recoverable,
-         :rememberable,
          :trackable,
          :timeoutable,
          :validatable,
@@ -19,11 +18,11 @@ class User < ApplicationRecord
 
   has_one_time_password(encrypted: true)
 
-  validates :name, presence: true, on: :update
+  validates :name, presence: true, if: :confirmed?
+
   validates :password,
             presence: true,
             length: { within: 6..80 },
-            on: :update,
             if: :password_present?,
             confirmation: true
 
@@ -44,10 +43,6 @@ class User < ApplicationRecord
   # Must be defined to allow Devise to create users without passwords
   def password_required?
     false
-  end
-
-  def invitation_pending?
-    invitation_sent_at
   end
 
   def pending_membership_for?(organisation:)

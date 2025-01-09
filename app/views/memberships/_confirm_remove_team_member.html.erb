@@ -1,6 +1,6 @@
 <% content_for :page_title, "Remove team member - #{yield :page_title}", flush: true %>
 
-<% if @membership.preserve_admin_permissions? %>
+<% if !current_user.is_super_admin? && @membership.organisation.memberships.confirmed_administrators.count < 3 %>
   <%= render "memberships/cannot_remove_user" %>
 <% else %>
   <div class="govuk-error-summary" role="alert">

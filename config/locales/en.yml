@@ -5,6 +5,12 @@ en:
   activemodel:
     errors:
       models:
+        accept_invitation_form:
+          attributes:
+            name:
+              blank: "Name can't be blank"
+            password:
+              weak_password: "Password is not strong enough. Choose a different password."
         search_form:
           attributes:
             search_term:

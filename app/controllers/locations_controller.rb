@@ -150,7 +150,7 @@ private
   end
 
   def authorise_ip_actions
-    unless current_organisation.meets_invited_admin_user_minimum?
+    unless current_organisation.meets_admin_user_minimum?
       flash[:alert] = "You must add another administrator before you can add IPs or multiple locations."
       redirect_to ips_path
     end

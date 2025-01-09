@@ -1,8 +1,11 @@
 describe "Adding an IP to an existing location", type: :feature do
-  let(:user) { create(:user, :with_organisation) }
+  let(:organisation) { create(:organisation) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
   let(:location) { create(:location, organisation: user.organisations.first) }
-  let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
-
+  let(:another_administrator) { create(:user) }
+  before do
+    create(:membership, :confirmed, :administrator, user: another_administrator, organisation:)
+  end
   context "when viewing the form" do
     before do
       sign_in_user user

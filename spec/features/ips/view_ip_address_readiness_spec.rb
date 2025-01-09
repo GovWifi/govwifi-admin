@@ -1,10 +1,11 @@
 describe "View whether IPs are ready", type: :feature do
   context "when one IP has been added" do
-    let(:user) { create(:user, :with_organisation) }
-    let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
+    let(:organisation) { create(:organisation) }
+    let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
     let!(:location) { create(:location, organisation: user.organisations.first) }
 
     before do
+      create(:membership, :confirmed, :administrator, user: create(:user), organisation:)
       sign_in_user user
       visit location_add_ips_path(location_id: location.id)
       fill_in "location_ips_form[ip_1]", with: "141.0.149.130"

@@ -1,8 +1,8 @@
 describe "Tracking new organisations", type: :feature do
   let(:user) { create(:user, :with_organisation) }
-  let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
 
   before do
+    create(:membership, :confirmed, user: create(:user), organisation: user.organisations.first)
     sign_in_user user
     visit root_path
   end

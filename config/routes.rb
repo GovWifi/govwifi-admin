@@ -20,7 +20,9 @@ Rails.application.routes.draw do
   end
 
   namespace :users do
-    resource :invitation, only: %i[new create edit update]
+    resource :invitation, only: %i[new create edit update] do
+      post "resend"
+    end
   end
 
   get "/healthcheck", to: "monitoring#healthcheck"

@@ -16,7 +16,7 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
 
       disable_2fa_checks_for_session
 
-      redirect_path = if current_user.is_super_admin? || (current_organisation.present? && current_organisation.meets_invited_admin_user_minimum?)
+      redirect_path = if current_user.is_super_admin? || (current_organisation.present? && current_organisation.meets_admin_user_minimum?)
                         stored_location_for(:user) || root_path
                       else
                         invite_second_admin_path

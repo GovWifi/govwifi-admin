@@ -1,14 +1,19 @@
 class Membership < ApplicationRecord
+  PERMISSIONS = %w[administrator manage_locations]
+
   belongs_to :organisation
   belongs_to :user
   before_create :set_invitation_token
 
   scope :pending, -> { where(confirmed_at: nil) }
   scope :confirmed, -> { where.not(confirmed_at: nil) }
-  delegate :meets_admin_user_minimum?, to: :organisation
+  scope :administrators, -> { where(can_manage_team: true, can_manage_locations: true) }
+  scope :confirmed_administrators, -> { administrators.confirmed }
+  delegate :name, to: :organisation
 
-  def preserve_admin_permissions?
-    confirmed? && administrator? && !meets_admin_user_minimum?
+  def allow_change_permission?
+    return true if !confirmed?  || !administrator?
+    organisation.memberships.confirmed_administrators.count >= 3
   end
 
   def confirm!
@@ -36,7 +41,7 @@ class Membership < ApplicationRecord
   end
 
   def permission_level=(value)
-    self.can_manage_locations = %w[administrator manage_locations].include?(value)
+    self.can_manage_locations = PERMISSIONS.include?(value)
     self.can_manage_team = value == "administrator"
   end
 

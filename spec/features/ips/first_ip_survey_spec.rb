@@ -3,9 +3,10 @@ describe "Sending a survey when adding the first IP to an organisation", type: :
   let(:user) { create(:user, :with_organisation, sent_first_ip_survey:) }
   let(:organisation) { user.organisations.first }
   let(:location) { create(:location, organisation:) }
-  let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) } # a minimium of two administrators are now required to add IP addresses
   let(:notify_gateway) { Services.notify_gateway }
+  let(:another_administrator) { create(:user) }
   before do
+    create(:membership, :confirmed, :administrator, user: another_administrator, organisation:)
     sign_in_user user
     visit location_add_ips_path(location_id: location.id)
     fill_in "location_ips_form[ip_1]", with: "1.1.1.1"

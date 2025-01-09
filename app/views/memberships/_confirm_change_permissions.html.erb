@@ -1,6 +1,6 @@
 <% content_for :page_title, "Change permissions - #{yield :page_title}", flush: true %>
 
-<% if @membership.preserve_admin_permissions? %>
+<% unless @membership.allow_change_permission? %>
   <%= render "memberships/cannot_change_permissions" %>
 <% else %>
   <div class="govuk-error-summary" role="alert">
