@@ -11,7 +11,7 @@ class UserMembershipForm
     if user.valid?
       user.save!
       user.confirm
-      user.default_membership.confirm!
+      user.memberships.last.confirm!
       true
     else
       copy_errors_from(user)
