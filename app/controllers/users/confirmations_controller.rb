@@ -41,7 +41,7 @@ protected
   def ensure_user_not_confirmed
     if @user.confirmed?
       flash[:alert] = "Email was already confirmed"
-      render "users/confirmations/new"
+      redirect_to root_path
     end
   end
 
