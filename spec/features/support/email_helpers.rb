@@ -1,4 +1,8 @@
 module EmailHelpers
+  def it_sent_a_confirmation_email
+    expect(email_count("confirmation_email_template")).to eq(1)
+  end
+
   def it_sent_a_confirmation_email_twice
     expect(email_count("confirmation_email_template")).to eq(2)
   end
