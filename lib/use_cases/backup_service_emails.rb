@@ -1,3 +1,5 @@
+require "csv"
+
 module UseCases
   class BackupServiceEmails
     def initialize(writer:)
