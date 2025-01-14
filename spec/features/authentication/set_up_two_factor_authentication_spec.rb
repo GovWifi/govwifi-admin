@@ -34,6 +34,11 @@ describe "Set up two factor authentication", type: :feature do
     expect(page).to have_field(:code)
   end
 
+  it "signs out" do
+    click_on "Sign out"
+    expect(page).to have_content("Sign in to your GovWifi admin account")
+  end
+
   context "when navigating to another page" do
     before { visit root_path }
 

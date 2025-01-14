@@ -4,7 +4,7 @@ describe "GET /home", type: :request do
     create(:ip, location: org.locations.first)
     org
   end
-  let(:user) { create(:user, :with_2fa, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, :with_2fa, organisations: [organisation]) }
   let(:super_admin) { create(:user, :super_admin) }
 
   before do

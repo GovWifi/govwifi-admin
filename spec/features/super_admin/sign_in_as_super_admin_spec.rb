@@ -22,7 +22,7 @@ describe "Signing in as a super admin", type: :feature do
 
     context "when visiting a normal organisation" do
       before do
-        user.organisations << organisation
+        create(:membership, :confirmed, organisation:, user:)
 
         visit root_path
 

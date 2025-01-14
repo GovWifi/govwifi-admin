@@ -1,13 +1,17 @@
 describe "Removing a team member from an organisation as a super admin", type: :feature do
   let(:organisation) { create(:organisation, name: "Gov Org 3") }
   let(:super_admin) { create(:user, :super_admin) }
-  let(:user) { create(:user, organisations: [organisation]) }
 
   before do
-    user
+    organisation = create(:organisation, name: "Gov Org 3")
+    create(:user, organisations: [organisation])
     sign_in_user super_admin
-    visit super_admin_organisation_path(organisation)
-    click_on "Remove user"
+    visit "/"
+    click_on "Assume Membership"
+    click_on organisation.name
+    click_on "Team members"
+    click_on "Edit permissions", match: :first
+    click_on "Remove user from GovWifi admin"
   end
 
   it "requires confirmation of user removal" do
@@ -18,7 +22,7 @@ describe "Removing a team member from an organisation as a super admin", type: :
     before { click_on "Yes, remove this team member" }
 
     it "redirects back to the original organisation" do
-      expect(page).to have_current_path(super_admin_organisation_path(organisation))
+      expect(page).to have_current_path(memberships_path)
     end
 
     it "notifies that a team member has been removed" do

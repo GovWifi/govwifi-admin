@@ -16,7 +16,7 @@ describe "Confirming an invite to a second or subsequent organisation", type: :f
     end
 
     it "Confirms the invitation" do
-      expect(invited_user.organisations).to include(organisation)
+      expect(invited_user.membership_for(organisation)).to be_confirmed
     end
 
     it "prints a success message" do

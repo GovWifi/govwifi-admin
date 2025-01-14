@@ -5,25 +5,6 @@ require "factory_bot"
 
 FactoryBot.find_definitions
 
-def create_user_for_organisations(
-  organisations,
-  email: nil,
-  confirmed_at: nil,
-  is_super_admin: false
-)
-  first_name = Faker::Name.first_name
-  last_name = Faker::Name.last_name
-  email ||= "#{first_name}.#{last_name}@example.gov.uk"
-  User.create!(
-    email:,
-    password: "password",
-    name: "#{first_name} #{last_name}",
-    confirmed_at:,
-    organisations:,
-    is_super_admin:,
-  )
-end
-
 organisation = Organisation.create!(
   name: "UKTI Education", service_email: "it@parks.com",
 )
@@ -31,25 +12,16 @@ empty_organisation = Organisation.create!(
   name: "Academy for Social Justice Commissioning", service_email: "empty@example.net",
 )
 
-create_user_for_organisations(
-  [],
-  email: "admin@gov.uk",
-  confirmed_at: Time.zone.now,
-  is_super_admin: true,
-)
-
-create_user_for_organisations(
-  [organisation, empty_organisation],
-  email: "test@gov.uk",
-  confirmed_at: Time.zone.now,
-)
+FactoryBot.create(:user, :super_admin, email: "admin@gov.uk", password: "password")
+FactoryBot.create(:user, :confirm_all_memberships, :super_admin,
+                  email: "test@gov.uk", password: "password", organisations: [organisation, empty_organisation])
 
 3.times do
-  create_user_for_organisations([organisation], confirmed_at: Time.zone.now)
+  FactoryBot.create(:user, :confirm_all_memberships, organisations: [organisation])
 end
 
 2.times do
-  create_user_for_organisations([organisation])
+  FactoryBot.create(:user, :unconfirmed, organisations: [organisation])
 end
 
 # Location with no IP addresses

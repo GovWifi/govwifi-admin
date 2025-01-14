@@ -1,15 +1,15 @@
 describe "Inviting a user to their second or subsequent organisation", type: :feature do
   include EmailHelpers
 
-  let(:inviter_organisation) { create(:organisation) }
-  let(:betty) { create(:user, organisations: [inviter_organisation]) }
-  let(:confirmed_user) { create(:user, :with_organisation) }
+  let(:inviter_organisation) { inviter.organisations.first }
+  let(:inviter) { create(:user, :with_organisation) }
+  let(:invited_user) { create(:user, :with_organisation) }
 
   context "with a confirmed user" do
     before do
-      sign_in_user confirmed_user
+      sign_in_user inviter
       visit new_user_invitation_path
-      fill_in "Email", with: betty.email
+      fill_in "Email", with: invited_user.email
       click_on "Send invitation email"
     end
 
@@ -22,24 +22,26 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
     end
 
     it "creates a join organisation invitation" do
-      expect(betty.memberships.count).to eq(2)
+      expect(invited_user.memberships.count).to eq(2)
     end
 
     it "notifies the user with a success message" do
-      expect(page).to have_content("#{betty.email} has been invited to join #{confirmed_user.organisations.first.name}")
+      expect(page).to have_content("#{invited_user.email} has been invited to join #{inviter_organisation.name}")
     end
 
     context "when the invited user signs in aftwards" do
       before do
         sign_out
-        sign_in_user betty
-        visit confirm_new_membership_url(token: betty.membership_for(inviter_organisation).invitation_token)
+        sign_in_user invited_user
+        visit confirm_new_membership_url(token: invited_user.membership_for(inviter_organisation).invitation_token)
+      end
+
+      it "confirms the membership" do
+        expect(invited_user.membership_for(inviter_organisation)).to be_confirmed
       end
 
       it "changes your current organisation to this organisation" do
-        within(".govuk-header") do
-          expect(page.html).to include(inviter_organisation.name)
-        end
+        expect(page).to have_content("You have successfully joined #{inviter_organisation.name}")
       end
     end
   end
@@ -49,7 +51,7 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
 
     before do
       sign_up_for_account(email: unconfirmed_email)
-      sign_in_user confirmed_user
+      sign_in_user inviter
       visit new_user_invitation_path
       fill_in "Email", with: unconfirmed_email
       click_on "Send invitation email"

@@ -1,19 +1,23 @@
 describe "Inviting a team member as a super admin", type: :feature do
-  let(:organisation) { create(:organisation, name: "Gov Org 3") }
+  let(:organisation) { Organisation.find_by_name("Gov Org 3") }
   let(:super_admin) { create(:user, :super_admin) }
   let(:email) { "barry@gov.uk" }
   let(:notify_gateway) { Services.notify_gateway }
 
   before do
+    organisation = create(:organisation, name: "Gov Org 3")
     sign_in_user super_admin
-    visit super_admin_organisation_path(organisation)
-    click_on "Add team member"
+    visit "/"
+    click_on "Assume Membership"
+    click_on organisation.name
+    click_on "Team members"
+    click_on "Invite a team member", match: :first
     fill_in "Email address", with: email
   end
 
   it "will take the user to the organisation when they click 'Cancel'" do
     click_on "Cancel"
-    expect(page).to have_current_path(super_admin_organisation_path(organisation))
+    expect(page).to have_current_path(memberships_path)
   end
 
   it "will display the name of the organisation you want to add a team member to" do
@@ -32,7 +36,7 @@ describe "Inviting a team member as a super admin", type: :feature do
 
   it "will redirect the user to the organisation page on success" do
     click_on "Send invitation email"
-    expect(page).to have_current_path(super_admin_organisation_path(organisation))
+    expect(page).to have_current_path(memberships_path)
   end
 
   context "without an email address" do
@@ -68,7 +72,7 @@ describe "Inviting a team member as a super admin", type: :feature do
       end
 
       it "will redirect the user to the organisation page on success" do
-        expect(page).to have_current_path(super_admin_organisation_path(organisation))
+        expect(page).to have_current_path(memberships_path)
       end
     end
   end

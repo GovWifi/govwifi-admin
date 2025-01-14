@@ -1,5 +1,18 @@
 describe "A confirmed user with no organisation memberships logs in", type: :feature do
-  context "a regular user" do
+  context "a regular user with an unconfirmed membership" do
+    let(:user) { create(:user, organisations: [create(:organisation)]) }
+    before do
+      sign_in_user user
+      visit root_path
+    end
+    it "redirects to the help path" do
+      expect(page).to have_current_path(signed_in_new_help_path)
+    end
+    it "prints an instruction" do
+      expect(page).to have_content("You do not belong to an organisation")
+    end
+  end
+  context "a regular user without a membership" do
     let(:user) { create(:user, organisations: []) }
 
     context "with an existing confirmed user" do

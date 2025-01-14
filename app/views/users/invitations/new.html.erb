@@ -11,7 +11,7 @@
       <h1 class="govuk-heading-l">
         Invite a team member
         <% if super_admin? %>
-          to <%= @target_organisation.name %>
+          to <%= current_organisation.name %>
         <% end %>
       </h1>
 
@@ -84,18 +84,10 @@
         </fieldset>
       </div>
 
-      <% if super_admin? %>
-        <%= hidden_field_tag :organisation_id, @target_organisation.id %>
-      <% end %>
-
       <%= f.govuk_submit "Send invitation email" %>
 
       <p class="govuk-body">
-        <% if super_admin? %>
-          <%= link_to "Cancel", super_admin_organisation_path(@target_organisation.id), class: "govuk-link--no-visited-state" %>
-        <% else %>
-          <%= link_to "Cancel", memberships_path, class: "govuk-link--no-visited-state" %>
-        <% end %>
+        <%= link_to "Cancel", memberships_path, class: "govuk-link--no-visited-state" %>
       </p>
     </div>
   </div>

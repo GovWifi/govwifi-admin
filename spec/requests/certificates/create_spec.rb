@@ -4,7 +4,7 @@ describe "POST /certificates", type: :request do
   let(:certificate) { Certificate.find_by_name("test") }
 
   let(:organisation) { create(:organisation, :with_cba_enabled) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
   let(:perform) do
     post certificates_path, params: { certificate_form: { file: certificate_file, name: "mycert" } }
   end
@@ -40,7 +40,7 @@ describe "POST /certificates", type: :request do
     it "re-renders the new page" do
       perform
       expect(response).to render_template(:new)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -53,7 +53,7 @@ describe "POST /certificates", type: :request do
     it "re-renders the new page" do
       perform
       expect(response).to render_template(:new)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end

@@ -5,10 +5,10 @@
               method: :put do |f| %>
   <%= f.govuk_error_summary %>
   <%= f.govuk_fieldset legend: { text: "Change your password", size: "xl" } do %>
-    <%= f.govuk_password_field :current_password, label: { text: "Current password" } %>
-    <%= f.govuk_password_field :password, label: { text: "Password" } %>
+    <%= f.govuk_password_field :current_password, label: { text: "Current password" }, autocomplete: "new-password" %>
+    <%= f.govuk_password_field :password, label: { text: "Password" }, autocomplete: "new-password" %>
     <%= render "users/registrations/password_details" %>
-    <%= f.govuk_password_field :password_confirmation, label: { text: "Password confirmation" } %>
+    <%= f.govuk_password_field :password_confirmation, label: { text: "Password confirmation" }, autocomplete: "new-password" %>
     <%= f.govuk_submit "Submit" %>
   <% end %>
 <% end %>

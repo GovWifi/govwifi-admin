@@ -3,21 +3,45 @@ class ApplicationController < ActionController::Base
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
 
   include Pagy::Backend
-  include GovWifiAuthenticatable
 
-  before_action :redirect_user_with_no_organisation, unless: :devise_controller?
   before_action :update_active_sidebar_path
+  before_action :authenticate_user!, except: :error
+  before_action :confirm_two_factor_setup, unless: :signing_out?
+  before_action :redirect_user_with_no_organisation, unless: :devise_controller?
+  before_action :configure_devise_permitted_parameters, if: :devise_controller?
   helper_method :current_organisation, :super_admin?
   helper_method :sidebar
   helper_method :subnav
   helper_method :show_navigation_bars
 
+  def error
+    render :error, code: params[:code]
+  end
+
+  def signing_out?
+    params["controller"] == "devise/sessions" && params["action"] == "destroy"
+  end
+
+  def confirm_two_factor_setup
+    return if current_user.nil? ||
+      !current_user.need_two_factor_authentication?(request) ||
+      current_user.totp_enabled?
+
+    redirect_to users_two_factor_authentication_setup_path
+  end
+
+  def configure_devise_permitted_parameters
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name])
+  end
+
   def current_organisation
-    if session[:organisation_id] && (current_user.member_of?(session[:organisation_id].to_i) || super_admin?)
+    if session[:organisation_id] && (current_user.confirmed_member_of?(session[:organisation_id].to_i) || super_admin?)
       Organisation.find(session[:organisation_id])
     elsif user_signed_in?
-      current_user.organisations.first
+      current_user.confirmed_organisations.first
     end
+  rescue ActiveRecord::RecordNotFound
+    current_user.confirmed_organisations.first
   end
 
   def super_admin?
@@ -25,14 +49,12 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_user_with_no_organisation
-    if current_user&.organisations&.empty?
-      redirection_url, message = if current_user&.is_super_admin?
-                                   [super_admin_organisations_path, "You do not belong to an organisation."]
-                                 else
-                                   [signed_in_new_help_path,
-                                    "You do not belong to an organisation. Please mention this in your support request."]
-                                 end
-      redirect_to redirection_url, notice: message
+    return if current_user.is_super_admin? && current_organisation.present?
+
+    if current_user.is_super_admin? && current_organisation.nil?
+      redirect_to super_admin_organisations_path, notice: "You have not assumed a membership."
+    elsif current_user.memberships.confirmed.empty?
+      redirect_to signed_in_new_help_path, notice: "You do not belong to an organisation. Please mention this in your support request."
     end
   end
 

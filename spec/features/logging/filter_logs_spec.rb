@@ -30,7 +30,7 @@ describe "Filter CBA requests for an IP", type: :feature do
   context "as a super admin" do
     before do
       organisation = create(:organisation, cba_enabled: true)
-      super_admin_user = create(:user, :super_admin, organisations: [organisation])
+      super_admin_user = create(:user, :confirm_all_memberships, :super_admin, organisations: [organisation])
       sign_in_user super_admin_user
       visit logs_path(log_search_form: { ip: ip.address, filter_option: LogSearchForm::IP_FILTER_OPTION })
     end

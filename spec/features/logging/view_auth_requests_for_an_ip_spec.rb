@@ -1,26 +1,27 @@
 describe "View authentication requests for an IP", type: :feature do
-  let(:user) { create(:user) }
-
   before do
     sign_in_user user
   end
 
   context "User has an organisation, with a location and an IP" do
-    let(:ip) { location.ips.first.address }
-    let(:location) { user.organisations.first.locations.first }
+    let(:ip_address) { ip.address }
+    let(:ip) { create(:ip) }
+    let(:location) { create(:location, ips: [ip]) }
+    let(:organisation) { create(:organisation, locations: [location], cba_enabled: true) }
+    let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
+
     before do
-      create(:organisation, :with_location_and_ip, users: [user], cba_enabled: true)
-      create(:session, siteIP: ip, username: "Aaaaaa", cert_name: "EAP-TLS")
+      create(:session, siteIP: ip_address, username: "Aaaaaa", cert_name: "EAP-TLS")
     end
     describe "when using a link" do
       before do
         visit ips_path
-        within(:xpath, "//tr[th[normalize-space(text())=\"#{ip}\"]]") do
+        within(:xpath, "//tr[th[normalize-space(text())=\"#{ip_address}\"]]") do
           click_on "View logs"
         end
       end
       it "displays the authentication requests" do
-        expect(page).to have_content("Found 1 result for IP: \"#{ip}\"")
+        expect(page).to have_content("Found 1 result for IP: \"#{ip_address}\"")
       end
 
       context "when the organisations is using CBA" do
@@ -39,14 +40,14 @@ describe "View authentication requests for an IP", type: :feature do
       end
 
       context "with a correct IP" do
-        let(:search_string) { ip }
+        let(:search_string) { ip_address }
 
         it "displays the authentication requests" do
-          expect(page).to have_content("Found 1 result for IP: \"#{ip}\"")
+          expect(page).to have_content("Found 1 result for IP: \"#{ip_address}\"")
         end
 
         it "displays address associated with the IP" do
-          expect(page).to have_content("IP address #{ip} is located at #{location.address}, #{location.postcode}")
+          expect(page).to have_content("IP address #{ip_address} is located at #{location.address}, #{location.postcode}")
         end
 
         it "has hyperlinks for username" do
@@ -57,15 +58,13 @@ describe "View authentication requests for an IP", type: :feature do
     end
 
     context "with an IP that is not part of the current organisation" do
-      let!(:other_organisation) { create(:organisation, :with_location_and_ip) }
-      let(:search_string) { other_ip }
-      let(:other_ip) { other_organisation.locations.first.ips.first.address }
-
+      let(:other_ip) { other_org.locations.first.ips.first.address }
+      let(:other_org) { create(:organisation, :with_location_and_ip) }
       before do
         create(:session, siteIP: other_ip, username: "BBBBBB")
         visit new_logs_search_path
         choose "IP address"
-        fill_in "Enter an IP address associated within your organisation", with: search_string
+        fill_in "Enter an IP address associated within your organisation", with: other_ip
         click_on "Show logs"
       end
       context "as a regular admin" do

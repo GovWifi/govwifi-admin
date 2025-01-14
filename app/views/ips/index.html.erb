@@ -10,7 +10,7 @@
     <div class="govuk-grid-column-two-thirds govuk-!-padding-0">
       <h1 class="govuk-heading-l">Locations</h1>
     </div>
-    <% unless current_organisation.meets_invited_admin_user_minimum? %>
+    <% unless current_organisation&.meets_invited_admin_user_minimum? %>
       <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-9">
         There must be a minimum of 2 administrators to add IPs<br />or multiple locations. <%= link_to "Invite a team member.", new_user_invitation_path, class: "govuk-link govuk-link--no-underline" %>
       </div>

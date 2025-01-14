@@ -1,9 +1,9 @@
 describe "Inviting an existing user which belongs to an organisation", type: :feature do
   let!(:organisation) { create(:organisation) }
-  let!(:user) { create(:user, organisations: [organisation]) }
+  let!(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
 
   let!(:organisation_2) { create(:organisation) }
-  let!(:user_2) { create(:user, email: "inviteme@gov.uk", organisations: [organisation_2]) }
+  let!(:user_2) { create(:user, :confirm_all_memberships, email: "inviteme@gov.uk", organisations: [organisation_2]) }
 
   context "with a user that already belongs to an organisation" do
     before do

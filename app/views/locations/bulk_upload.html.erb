@@ -1,3 +1,4 @@
+<% content_for :page_title, "Bulk upload" %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-quarters">
     <%= form_with url: upload_locations_csv_path, model: @upload_form, multipart: true  do |form| %>

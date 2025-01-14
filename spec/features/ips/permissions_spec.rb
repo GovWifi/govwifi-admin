@@ -1,6 +1,6 @@
 describe "Add an IP", type: :feature do
   let(:organisation) { create(:organisation) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
 
   before do
     sign_in_user user

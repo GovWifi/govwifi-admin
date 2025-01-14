@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "govuk-frontend": "^5.7.1",
-    "govwifi-shared-frontend": "https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz",
+    "govwifi-shared-frontend": "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz",
     "html5shiv": "^3.7.3",
     "postcss": "^8.4.37",
     "prettier": "^3.3.3"
@@ -19,5 +19,6 @@
       "max-nesting-depth": 3,
       "media-feature-range-notation": null
     }
-  }
+  },
+  "version": "0.0.0"
 }

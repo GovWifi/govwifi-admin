@@ -1,11 +1,9 @@
 describe "Update location", type: :feature do
-  let(:organisation) { create(:organisation) }
-  let(:user) { create(:user) }
-  let(:location) { create(:location, organisation:) }
+  let(:organisation) { create(:organisation, locations: [location]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
+  let(:location) { create(:location) }
 
   before do
-    user.organisations << organisation
-    organisation.locations << location
     sign_in_user user
     visit ips_path
     click_on "Update this location"

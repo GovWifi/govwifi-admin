@@ -45,7 +45,7 @@ describe "Lookup wifi user contact details", type: :feature do
   end
 
   context "with a phone number search term" do
-    let(:search_term) { "+44 7891 234567" }
+    let(:search_term) { "+447891234567" }
     let(:contact) { "+447891234567" }
 
     it "presents the end user username" do

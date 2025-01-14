@@ -8,7 +8,7 @@ class MousController < ApplicationController
     elsif action == "nominate_user"
       redirect_to new_nomination_path
     else
-      render :show_options, alert: "Please choose an option to proceed.", status: :unprocessable_entity
+      render :show_options, alert: "Please choose an option to proceed.", status: :unprocessable_content
     end
   end
 

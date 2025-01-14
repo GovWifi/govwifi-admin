@@ -2,7 +2,7 @@ describe "Inviting a user to their first organisation", type: :feature do
   include EmailHelpers
 
   let(:organisation) { create(:organisation) }
-  let(:invitor) { create(:user, organisations: [organisation]) }
+  let(:invitor) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
   context "when the user does not exist yet" do
     let(:invitee_email) { "newuser@gov.uk" }
     before do
@@ -30,6 +30,10 @@ describe "Inviting a user to their first organisation", type: :feature do
 
       it "confirms the user" do
         expect(User.find_by(email: invitee_email)).to be_confirmed
+      end
+
+      it "confirms the membership" do
+        expect(User.find_by(email: invitee_email).membership_for(organisation)).to be_confirmed
       end
 
       it "allows the user to sign in successfully" do

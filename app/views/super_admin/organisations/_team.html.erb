@@ -11,7 +11,7 @@
     <tbody class="govuk-table__body">
       <% team.each do |user| %>
         <tr class="govuk-table__row">
-          <th class="govuk-table__cell" scope="row"><%= user.name %></th>
+          <td class="govuk-table__cell"><%= user.name %></td>
           <td class="govuk-table__cell">
             <% if user.current_sign_in_at.present? %>
                 <%= user.current_sign_in_at.strftime("%-d %b %Y") %>
@@ -19,20 +19,6 @@
             </td>
           <td class="govuk-table__cell text-right"><%= user.sign_in_count %></td>
           <td class="govuk-table__cell text-right"><%= user.email %></td>
-          <td class="govuk-table__cell text-right">
-            <%= link_to edit_membership_path(user.membership_for(@organisation), remove_team_member: true),
-                        class: "govuk-button red-button" do %>
-              Remove user <span class='govuk-visually-hidden'>- <%= user.email %></span>
-            <% end %>
-          </td>
-          <td class="govuk-table__cell text-right">
-            <% if user.totp_enabled? %>
-              <%= link_to({ controller: "users/two_factor_authentication", action: "edit", id: user },
-                          class: "govuk-button govuk-button--secondary") do %>
-                Reset 2FA <span class='govuk-visually-hidden'>for <%= user.email %></span>
-              <% end %>
-            <% end %>
-          </td>
         </tr>
       <% end %>
     </tbody>

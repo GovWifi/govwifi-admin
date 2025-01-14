@@ -25,9 +25,6 @@
     <% end %>
 
     <%= render "section", heading: "Team" do %>
-      <% if current_user.can_manage_team?(current_organisation) %>
-        <%= link_to "Add team member", new_user_invitation_path(organisation_id: @organisation.id), class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
-      <% end %>
       <%= render "team", team: @team %>
     <% end %>
 

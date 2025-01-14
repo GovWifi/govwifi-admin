@@ -19,7 +19,7 @@ describe "POST /mous/choose_option", type: :request do
   describe "choose an unknown option" do
     it "rerenders to the choose MOU page" do
       post choose_option_mous_path, params: { chosen_action: "invalid" }
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       expect(response).to render_template(:show_options)
     end
   end

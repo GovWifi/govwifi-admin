@@ -2,7 +2,7 @@ describe "Delete Certificate", type: :feature do
   let(:root_subject) { "/CN=rootca" }
   let(:root_key) { OpenSSL::PKey::RSA.new(512) }
   let(:organisation) { create(:organisation, :with_cba_enabled) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
   let(:root_name) { "root_cert" }
   let(:intermediate_name) { "intermediate_cert" }
 

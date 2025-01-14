@@ -12,7 +12,7 @@ RSpec.describe LocationsController, type: :controller do
   describe "GET /add_ips" do
     context "when the user does not belong to the organisation" do
       it "redirects to the root path" do
-        response = get :add_ips, params: { location_id: other_location.id }
+        get :add_ips, params: { location_id: other_location.id }
 
         expect(response).to redirect_to(root_path)
       end
@@ -32,11 +32,11 @@ RSpec.describe LocationsController, type: :controller do
 
     context "when the update goes well" do
       before do
-        @response = post :update_ips, params:
+        post :update_ips, params:
       end
 
       it "redirects to the created ips path" do
-        expect(@response).to redirect_to(ips_path)
+        expect(response).to redirect_to(ips_path)
       end
     end
 
@@ -48,11 +48,11 @@ RSpec.describe LocationsController, type: :controller do
       end
 
       before do
-        @response = post :update_ips, params: other_params
+        post :update_ips, params: other_params
       end
 
       it "redirects them to the root path" do
-        expect(@response).to redirect_to root_path
+        expect(response).to redirect_to root_path
       end
 
       it "does not update the location" do
@@ -64,17 +64,17 @@ RSpec.describe LocationsController, type: :controller do
   describe "POST /update" do
     context "when the user does not belong to the requested location" do
       it "redirects to the root path" do
-        @response = put :update, params: { id: other_location.id }
+        put :update, params: { id: other_location.id }
 
-        expect(@response).to redirect_to(root_path)
+        expect(response).to redirect_to(root_path)
       end
     end
 
     context "when the user belongs to the requested location" do
       it "redirects to the ips path" do
-        @response = put :update, params: { id: location.id }
+        put :update, params: { id: location.id }
 
-        expect(@response).to redirect_to(ips_path)
+        expect(response).to redirect_to(ips_path)
       end
     end
   end

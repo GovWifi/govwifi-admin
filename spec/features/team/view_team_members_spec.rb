@@ -7,7 +7,7 @@ describe "View team members of my organisation", type: :feature do
 
   context "when logged in" do
     let(:organisation) { create(:organisation) }
-    let(:user) { create(:user, email: "me@example.gov.uk", name: "bob", organisations: [organisation]) }
+    let(:user) { create(:user, :confirm_all_memberships, email: "me@example.gov.uk", name: "bob", organisations: [organisation]) }
 
     before do
       ENV["LONDON_RADIUS_IPS"] = "1.1.1.1,2.2.2.2"

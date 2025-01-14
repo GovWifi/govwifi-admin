@@ -11,7 +11,7 @@
 
       <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
         <%= f.hidden_field :reset_password_token %>
-        <%= f.govuk_password_field :password, label: { text: "New password" } %>
+        <%= f.govuk_password_field :password, label: { text: "New password" }, autocomplete: "new-password" %>
         <%= f.govuk_submit "Change my password" %>
         <%= render "users/shared/links" %>
       </div>

@@ -1,7 +1,7 @@
 describe "GET /certificates/new", type: :request do
   let(:organisation) { create(:organisation, :with_cba_enabled) }
   let(:certificate) { create(:certificate, organisation:) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
   subject(:perform) { get edit_certificate_path(certificate) }
   before :each do
     https!

@@ -1,7 +1,7 @@
 describe "View authentication requests for a username", type: :feature do
-  let!(:admin_user) { create(:user) }
-  let!(:organisation_one) { create(:organisation, :with_location_and_ip, users: [admin_user]) }
-  let!(:organisation_two) { create(:organisation, :with_location_and_ip, users: [admin_user]) }
+  let(:admin_user) { create(:user, :confirm_all_memberships, organisations: [organisation_one, organisation_two]) }
+  let(:organisation_one) { create(:organisation, :with_location_and_ip) }
+  let(:organisation_two) { create(:organisation, :with_location_and_ip) }
   let(:ip_organisation_one) { organisation_one.ip_addresses.first }
   let(:ip_organisation_two) { organisation_two.ip_addresses.first }
   let(:other_ip) { "6.6.6.6" }
@@ -40,7 +40,7 @@ describe "View authentication requests for a username", type: :feature do
 
   describe "With results" do
     context "Super admin" do
-      let!(:admin_user) { create(:user, :super_admin) }
+      let!(:admin_user) { create(:user, :super_admin, :with_organisation) }
       describe "Searching a username that does not belong to the current organisation" do
         let(:search_string) { "BBBBBB" }
 

@@ -1,6 +1,6 @@
 describe "GET /certificates/edit/:id", type: :request do
   let(:organisation) { create(:organisation, :with_cba_enabled) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
   let(:root_key) { OpenSSL::PKey::RSA.new(512) }
   let(:certificate) { create(:certificate, organisation:, key: root_key) }
   let(:perform) { delete certificate_path(certificate) }

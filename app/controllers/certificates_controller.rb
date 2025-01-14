@@ -34,7 +34,7 @@ class CertificatesController < ApplicationController
     if @certificate.update(name:)
       redirect_to certificates_path, notice: t(".renamed")
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -51,7 +51,7 @@ class CertificatesController < ApplicationController
     if @certificate_form.save
       redirect_to(certificates_path, notice: t(".new_certificate", name: @certificate_form.name))
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

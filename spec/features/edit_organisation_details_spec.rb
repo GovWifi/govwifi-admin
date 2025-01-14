@@ -1,6 +1,6 @@
 describe "Editing an organisations details", type: :feature do
   let(:organisation) { create(:organisation, name: "Gov Org 2", service_email: "testme@gov.uk") }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
 
   context "when editing an organisation you belong to" do
     before do

@@ -343,3 +343,12 @@ Devise.setup do |config|
   config.delete_cookie_on_logout = false # Delete cookie when user signs out, to force 2fA again on login
   config.direct_otp_valid_for = 30.minutes
 end
+
+Warden::Manager.before_failure do |env, opts|
+  if opts[:message] == :invalid
+    logger = env["action_dispatch.logger"]
+    email_address = env.dig("rack.request.form_hash", "user", "email")
+    remote_address = env["REMOTE_ADDR"]
+    logger&.info("Invalid authentication: email: #{email_address}, ip: #{remote_address}")
+  end
+end

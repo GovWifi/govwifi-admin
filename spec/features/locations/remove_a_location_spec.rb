@@ -1,11 +1,9 @@
 describe "Remove a location", type: :feature do
-  let(:organisation) { create(:organisation) }
-  let(:user) { create(:user) }
-  let(:location) { create(:location, organisation:) }
+  let(:location) { create(:location) }
+  let(:organisation) { create(:organisation, locations: [location]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
 
   before do
-    user.organisations << organisation
-    organisation.locations << location
     sign_in_user user
   end
 

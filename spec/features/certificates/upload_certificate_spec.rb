@@ -28,7 +28,7 @@ describe "Upload Certificate", type: :feature do
   end
 
   let(:organisation) { create(:organisation, :with_cba_enabled) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
 
   let(:root_certificate_file) do
     Tempfile.new("root_certificate_file").tap do |file|

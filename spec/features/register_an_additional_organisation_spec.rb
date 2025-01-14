@@ -1,6 +1,6 @@
 describe "Register an additional organisation", type: :feature do
   let(:organisation_1) { create(:organisation) }
-  let(:user) { create(:user, organisations: [organisation_1]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation_1]) }
 
   before do
     sign_in_user user

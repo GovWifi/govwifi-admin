@@ -1,6 +1,6 @@
 describe "Invite a team member", type: :feature do
   let(:organisation) { create(:organisation) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
 
   before { sign_in_user user }
 

@@ -1,5 +1,5 @@
 describe "POST /users/invitation", type: :request do
-  let(:user) { create(:user, :with_2fa, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, :with_2fa, organisations: [organisation]) }
   let(:organisation) { create(:organisation) }
   let(:notify_gateway) { Services.notify_gateway }
 

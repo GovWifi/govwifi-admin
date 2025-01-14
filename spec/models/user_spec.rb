@@ -205,4 +205,18 @@ describe User do
         .to include("#{email},#{name},#{current_sign_in_at},#{last_sign_in_at},#{sign_in_count},#{organisation_name}\n")
     end
   end
+
+  describe "#confirmed_member_of?" do
+    let(:user) { create(:user) }
+    let(:organisation) { create(:organisation) }
+
+    it "is a confirmed member" do
+      create(:membership, :confirmed, user:, organisation:)
+      expect(user.reload.confirmed_member_of?(organisation)).to be true
+    end
+    it "is not confirmed member" do
+      create(:membership, :unconfirmed, user:, organisation:)
+      expect(user.reload.confirmed_member_of?(organisation)).to be false
+    end
+  end
 end

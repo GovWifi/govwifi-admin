@@ -43,6 +43,7 @@ describe "Resending an invitation to a team member", type: :feature do
 
       it "confirms the user" do
         expect(invited_user.confirmed?).to eq(true)
+        expect(invited_user.membership_for(user.organisations.first)).to be_confirmed
       end
     end
   end

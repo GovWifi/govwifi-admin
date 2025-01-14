@@ -6,6 +6,6 @@ class SearchForm
   validates :search_term, presence: true
 
   def search_term
-    @search_term&.delete(" ")
+    @search_term&.strip
   end
 end

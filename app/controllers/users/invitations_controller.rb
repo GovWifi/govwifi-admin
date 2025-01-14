@@ -1,6 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :show_navigation_bars
-  before_action :set_target_organisation, if: :super_admin?, only: %i[create new]
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   after_action :confirm_new_user_membership, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
 
@@ -15,7 +14,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
     add_user_to_organisation(organisation)
 
-    redirect_to(after_path(organisation), notice: "#{invited_user.email} has been invited to join #{organisation.name}")
+    redirect_to(memberships_path, notice: "#{invited_user.email} has been invited to join #{organisation.name}")
   end
 
   def invite_second_admin
@@ -29,7 +28,7 @@ private
   end
 
   def organisation
-    @organisation ||= super_admin? ? @target_organisation : current_organisation
+    current_organisation
   end
 
   def add_user_to_organisation(organisation)
@@ -56,10 +55,6 @@ private
     invited_user.confirmed?
   end
 
-  def after_path(organisation)
-    super_admin? ? super_admin_organisation_path(organisation) : memberships_path
-  end
-
   def user_belongs_to_current_organisation?
     invited_user&.confirmed? && invited_user.organisations.include?(organisation)
   end
@@ -79,15 +74,6 @@ private
 
   def delete_user_record
     invited_user.destroy! unless invited_user.nil?
-  end
-
-  def set_target_organisation
-    @target_organisation =
-      if params[:organisation_id].present?
-        Organisation.find(params[:organisation_id])
-      else
-        current_organisation
-      end
   end
 
   def user_is_invalid?

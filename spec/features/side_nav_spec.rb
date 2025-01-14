@@ -29,7 +29,7 @@ describe "Side nav logic", type: :feature do
           expect(@section).to have_link("Settings", href: new_organisation_settings_path)
         end
         context "the current organisation contains a location with an ip" do
-          let(:user) { create(:user, :super_admin, organisations: [create(:organisation, :with_location_and_ip)]) }
+          let(:user) { create(:user, :confirm_all_memberships, :super_admin, organisations: [create(:organisation, :with_location_and_ip)]) }
           it "displays a settings link referring to the  settings path" do
             expect(@section).to have_link("Settings", href: settings_path)
           end

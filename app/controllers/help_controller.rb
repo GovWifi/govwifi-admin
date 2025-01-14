@@ -1,7 +1,6 @@
 class HelpController < ApplicationController
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, :redirect_user_with_no_organisation
   before_action :redirect_signed_in_user, only: :new
-  skip_before_action :redirect_user_with_no_organisation, only: %i[signed_in create]
 
   def new
     case params[:choice]

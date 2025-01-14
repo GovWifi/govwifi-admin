@@ -1,6 +1,6 @@
 describe "Set user permissions on invite", type: :feature do
   let(:organisation) { create(:organisation) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
   let(:invited_email) { "invited@gov.uk" }
   let(:invited_user) { User.find_by(email: invited_email) }
 

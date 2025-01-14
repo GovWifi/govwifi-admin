@@ -119,4 +119,12 @@ class User < ApplicationRecord
   def member_of?(organisation_id)
     Membership.exists?(organisation_id:, user: self)
   end
+
+  def confirmed_member_of?(organisation_id)
+    Membership.where.not(confirmed_at: nil).where(organisation_id:, user: self).exists?
+  end
+
+  def confirmed_organisations
+    Organisation.joins(:memberships).joins(memberships: :user).where.not(memberships: { confirmed_at: nil }).where(user: { id: self })
+  end
 end
