@@ -29,12 +29,12 @@
 <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th class="govuk-table__header govuk-!-width-one-half" scope="row"><%= sort_link "name" %></th>
-      <th class="govuk-table__header" scope="row"><%= sort_link "created_at", "Created on" %></th>
-      <th class="govuk-table__header govuk-table__header" scope="row"><%= sort_link "mous.created_at", "MOU Signed" %></th>
-      <th class="govuk-table__header govuk-table__header--numeric" scope="row"><%= sort_link "locations_count", "Locations" %></th>
-      <th class="govuk-table__header govuk-table__header--numeric"><%= sort_link "ips_count", "IPs" %></th>
-      <th class="govuk-table__header" scope="row"><%= sort_link "certificates_count", "Uses EAP-TLS" %></th>
+      <th class="govuk-table__header govuk-!-width-one-half" scope="col"><%= sort_link "name" %></th>
+      <th class="govuk-table__header" scope="col"><%= sort_link "created_at", "Created on" %></th>
+      <th class="govuk-table__header govuk-table__header" scope="col"><%= sort_link "mous.created_at", "MOU Signed" %></th>
+      <th class="govuk-table__header govuk-table__header--numeric" scope="col"><%= sort_link "locations_count", "Locations" %></th>
+      <th class="govuk-table__header govuk-table__header--numeric" scope="col"><%= sort_link "ips_count", "IPs" %></th>
+      <th class="govuk-table__header" scope="col"><%= sort_link "certificates_count", "Uses EAP-TLS" %></th>
     </tr>
   </thead>
   <tbody class="govuk-table__body" aria-live="polite">
