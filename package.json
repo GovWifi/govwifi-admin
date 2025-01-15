@@ -5,7 +5,7 @@
     "govuk-frontend": "^5.7.1",
     "govwifi-shared-frontend": "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz",
     "html5shiv": "^3.7.3",
-    "postcss": "^8.4.37",
+    "postcss": "^8.5.1",
     "prettier": "^3.3.3"
   },
   "devDependencies": {
