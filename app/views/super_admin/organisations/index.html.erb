@@ -29,34 +29,34 @@
 <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th class="govuk-table__header govuk-!-width-one-half"><%= sort_link "name" %></th>
-      <th class="govuk-table__header"><%= sort_link "created_at", "Created on" %></th>
-      <th class="govuk-table__header govuk-table__header"><%= sort_link "mous.created_at", "MOU Signed" %></th>
-      <th class="govuk-table__header govuk-table__header--numeric"><%= sort_link "locations_count", "Locations" %></th>
-      <th class="govuk-table__header govuk-table__header--numeric"><%= sort_link "ips_count", "IPs" %></th>
-      <th class="govuk-table__header"><%= sort_link "certificates_count", "Uses EAP-TLS" %></th>
+      <th class="govuk-table__header govuk-!-width-one-half" scope="col"><%= sort_link "name" %></th>
+      <th class="govuk-table__header" scope="col"><%= sort_link "created_at", "Created on" %></th>
+      <th class="govuk-table__header govuk-table__header" scope="col"><%= sort_link "mous.created_at", "MOU Signed" %></th>
+      <th class="govuk-table__header govuk-table__header--numeric" scope="col"><%= sort_link "locations_count", "Locations" %></th>
+      <th class="govuk-table__header govuk-table__header--numeric" scope="col"><%= sort_link "ips_count", "IPs" %></th>
+      <th class="govuk-table__header" scope="col"><%= sort_link "certificates_count", "Uses EAP-TLS" %></th>
     </tr>
   </thead>
   <tbody class="govuk-table__body" aria-live="polite">
     <% @organisations.each do |organisation| %>
       <tr class="govuk-table__row result-row">
-        <td class="govuk-table__cell govuk-!-width-one-half" scope="row">
+        <th class="govuk-table__cell govuk-!-width-one-half" scope="row">
           <%= link_to organisation.name, super_admin_organisation_path(organisation), class: "govuk-link filter-by" %>
-        </td>
-        <td class="govuk-table__cell" scope="row">
+        </th>
+        <td class="govuk-table__cell">
           <%= organisation.created_at.strftime("%e %b %Y") %>
         </td>
-        <td class="govuk-table__cell govuk-table__cell" scope="row">
+        <td class="govuk-table__cell govuk-table__cell">
           <% if organisation.latest_mou_created_at.present? %>
             <%= organisation.latest_mou_created_at.strftime("%e %b %Y") %>
           <% else %>
             -
           <% end %>
         </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric" scope="row">
+        <td class="govuk-table__cell govuk-table__cell--numeric">
           <%= organisation.locations_count %>
         </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric" scope="row">
+        <td class="govuk-table__cell govuk-table__cell--numeric">
           <%= organisation.ips_count %>
         </td>
         <td class="govuk-table__cell govuk-table__cell">

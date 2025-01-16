@@ -6,12 +6,20 @@ describe "Rotate RADIUS secret key", type: :feature do
     let(:set_secret_key) { location_1.update!(radius_secret_key: radius_key) }
 
     before do
+      location_1.update!(radius_secret_key: radius_key)
       sign_in_user user_1
       visit ips_path
       click_on "Rotate secret key"
       click_on "Yes, rotate this RADIUS key"
     end
 
+    it "will tell the user they have successfully rotated their RADIUS key" do
+      expect(page).to have_content("RADIUS secret key has been successfully rotated")
+    end
+
+    it "will not show the old RADIUS secret key for that location" do
+      expect(page).not_to have_content(radius_key)
+    end
     it "will tell the user they have successfully rotated their RADIUS key" do
       expect(page).to have_content("RADIUS secret key has been successfully rotated")
     end
