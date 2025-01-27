@@ -26,7 +26,7 @@
       <h1 class="govuk-heading-l">Invite a team member</h1>
       <div class="govuk-grid-column-full govuk-!-padding-left-0">
         <%= f.govuk_email_field :email, label: { text: "Email address of team member" } %>
-        <%= f.hidden_field :permission_level, value: "administrator" %>
+        <%= f.hidden_field :permission_level, value: Membership::Permissions::ADMINISTRATOR %>
         <%= f.hidden_field :source, value: "invite_admin" %>
         <%= f.govuk_submit "Invite as an admin" %>
 
