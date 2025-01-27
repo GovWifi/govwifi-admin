@@ -63,7 +63,8 @@ describe UserMembershipForm do
       it "copies the validations" do
         form.write_to(user)
         expect(form.errors.map(&:full_message)).to match_array(["Name can't be blank",
-                                                                "Service email must be in the correct format, like name@example.com"])
+                                                                "Service email must be in the correct format, like name@example.com",
+                                                                "Name isn't in the organisations allow list"])
       end
     end
   end
