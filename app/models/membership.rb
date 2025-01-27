@@ -1,4 +1,10 @@
 class Membership < ApplicationRecord
+  module Permissions
+    ADMINISTRATOR = "administrator".freeze
+    MANAGE_LOCATIONS = "manage_locations".freeze
+    VIEW_ONLY = "view_only".freeze
+  end
+
   belongs_to :organisation
   belongs_to :user
   before_create :set_invitation_token
@@ -36,14 +42,14 @@ class Membership < ApplicationRecord
   end
 
   def permission_level=(value)
-    self.can_manage_locations = %w[administrator manage_locations].include?(value)
-    self.can_manage_team = value == "administrator"
+    self.can_manage_locations = [Permissions::ADMINISTRATOR, Permissions::MANAGE_LOCATIONS].include?(value)
+    self.can_manage_team = value == Permissions::ADMINISTRATOR
   end
 
   def permission_level
-    return "administrator" if administrator?
-    return "manage_locations" if manage_locations?
+    return Permissions::ADMINISTRATOR if administrator?
+    return Permissions::MANAGE_LOCATIONS if manage_locations?
 
-    "view_only"
+    Permissions::VIEW_ONLY
   end
 end
