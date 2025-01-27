@@ -10,7 +10,7 @@ class Organisation < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :service_email, format: { with: Devise.email_regexp }
-  validate :validate_in_register?, unless: proc { |org| org.name.blank? }
+  validate :validate_in_register?
 
   validates :cba_enabled, inclusion: { in: [true, false] }, allow_nil: true
 
