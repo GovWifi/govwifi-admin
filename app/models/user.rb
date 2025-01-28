@@ -10,7 +10,6 @@ class User < ApplicationRecord
          :database_authenticatable,
          :registerable,
          :recoverable,
-         :rememberable,
          :trackable,
          :timeoutable,
          :validatable,

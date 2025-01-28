@@ -7,7 +7,7 @@ class MembershipsController < ApplicationController
   def edit
     @permission_level_data = [
       OpenStruct.new(
-        value: "administrator",
+        value: Membership::Permissions::ADMINISTRATOR,
         text: "Administrator",
         hint: <<~HINT.html_safe,
           <span>View locations and IPs, team members, and logs</span><br>
@@ -17,7 +17,7 @@ class MembershipsController < ApplicationController
         HINT
       ),
       OpenStruct.new(
-        value: "manage_locations",
+        value: Membership::Permissions::MANAGE_LOCATIONS,
         text: "Manage Locations",
         hint: <<~HINT.html_safe,
           <span>View locations and IPs, team members, and logs</span><br>
@@ -27,7 +27,7 @@ class MembershipsController < ApplicationController
         HINT
       ),
       OpenStruct.new(
-        value: "view_only",
+        value: Membership::Permissions::VIEW_ONLY,
         text: "View only",
         hint: <<~HINT.html_safe,
           <span>View locations and IPs, team members, and logs</span><br>
@@ -41,10 +41,8 @@ class MembershipsController < ApplicationController
   def update
     permission_level = params.permit(:permission_level).fetch(:permission_level)
 
-    @membership.update!(
-      can_manage_team: permission_level == "administrator",
-      can_manage_locations: %w[administrator manage_locations].include?(permission_level),
-    )
+    @membership.permission_level = permission_level
+    @membership.save!
     flash[:notice] = "Permissions updated"
     redirect_to memberships_path
   end

@@ -12,7 +12,6 @@ def update_user_details(
   service_email: "admin@gov.uk",
   organisation_name: "Org 1"
 )
-
   visit Services.notify_gateway.last_confirmation_url
   select organisation_name, from: "Organisation name"
 

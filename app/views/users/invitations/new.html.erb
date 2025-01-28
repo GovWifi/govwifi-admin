@@ -26,7 +26,7 @@
             <div class="govuk-radios__item">
               <%= radio_button_tag(
                     :permission_level,
-                    "administrator",
+                    Membership::Permissions::ADMINISTRATOR,
                     false,
                     class: "govuk-radios__input",
                     "aria-described-by" => "permission_level_administrator_hint",
@@ -45,7 +45,7 @@
             <div class="govuk-radios__item">
               <%= radio_button_tag(
                     :permission_level,
-                    "manage_locations",
+                    Membership::Permissions::MANAGE_LOCATIONS,
                     false,
                     class: "govuk-radios__input",
                     "aria-described-by" => "permission_level_manage_locations_hint",
@@ -64,7 +64,7 @@
             <div class="govuk-radios__item">
               <%= radio_button_tag(
                     :permission_level,
-                    "view_only",
+                    Membership::Permissions::VIEW_ONLY,
                     false,
                     class: "govuk-radios__input",
                     "aria-described-by" => "permission_level_view_only_hint",

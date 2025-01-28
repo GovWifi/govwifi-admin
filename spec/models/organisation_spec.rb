@@ -82,8 +82,8 @@ describe Organisation do
 
     it "explains why it is invalid" do
       organisation.valid?
-      expect(organisation.errors.full_messages).to eq([
-        "Name can't be blank",
+      expect(organisation.errors.full_messages).to match_array([
+        "Name can't be blank", "Name isn't in the organisations allow list"
       ])
     end
   end
