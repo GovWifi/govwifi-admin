@@ -6,12 +6,13 @@ class UserMembershipForm
   def write_to(user)
     return false if user.confirmed?
 
-    user.assign_attributes(name:, password:)
+    user.assign_attributes(name:, password:, confirmed_at: Time.zone.now.utc)
     user.organisations.build(name: organisation_name, service_email:)
     if user.valid?
-      user.save!
-      user.confirm
-      user.default_membership.confirm!
+      User.transaction do
+        user.save!
+        user.memberships.last.confirm!
+      end
       true
     else
       copy_errors_from(user)
