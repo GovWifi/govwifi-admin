@@ -5,8 +5,7 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :organisations, :memberships
 
-  devise :invitable,
-         :confirmable,
+  devise :confirmable,
          :database_authenticatable,
          :registerable,
          :recoverable,
