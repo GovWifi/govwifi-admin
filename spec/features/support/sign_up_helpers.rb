@@ -42,8 +42,31 @@ def sign_out
   click_on "Sign out"
 end
 
-def invite_user(email)
-  visit new_user_invitation_path
+def user_is_a_member_of(organisation)
+  visit(change_organisation_path)
+  within(".govuk-list") do |list|
+    expect(list).to have_content(organisation.name)
+  end
+end
+
+def sign_in(email:, password:)
+  totp_double = instance_double(ROTP::TOTP, provisioning_uri: "")
+  allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
+  allow(totp_double).to receive(:verify).and_return(true)
+
   fill_in "Email", with: email
+  fill_in "Password", with: password
+  click_on "Continue"
+
+  fill_in :code, with: "999999"
+  click_on "Complete setup"
+
+  visit root_path
+end
+
+def invite(email:, permission: "Administrator")
+  visit new_users_invitation_path
+  fill_in "Email", with: email
+  choose permission
   click_on "Send invitation email"
 end

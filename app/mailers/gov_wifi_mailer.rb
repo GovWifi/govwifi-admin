@@ -58,7 +58,7 @@ class GovWifiMailer < ::Devise::Mailer
   def nomination_instructions(name, email_address, nominated_by, organisation, token)
     opts = {
       email_address:,
-      personalisation: { nomination_url: new_nominated_mou_path(token:), name:, nominated_by:, organisation: },
+      personalisation: { nomination_url: new_nominated_mou_url(token:), name:, nominated_by:, organisation: },
       template_id: NotifyTemplates.template(:nominate_user_to_sign_mou),
       reference: "nomination_email",
     }
