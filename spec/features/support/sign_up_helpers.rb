@@ -66,7 +66,7 @@ end
 
 def invite(email:, permission: "Administrator")
   visit new_users_invitation_path
-  fill_in "Email", with: email
+  fill_in "Email address", with: email
   choose permission
   click_on "Send invitation email"
 end
