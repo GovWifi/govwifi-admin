@@ -149,9 +149,6 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise_invitable (2.0.9)
-      actionmailer (>= 5.0)
-      devise (>= 4.6)
     devise_zxcvbn (6.0.0)
       devise
       zxcvbn (~> 0.1.7)
@@ -559,7 +556,6 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9.3)
-  devise_invitable (~> 2.0.9)
   devise_zxcvbn (~> 6.0.0)
   elasticsearch (~> 8.14.0)
   erb_lint
