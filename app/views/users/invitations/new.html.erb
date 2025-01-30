@@ -1,8 +1,6 @@
 <% content_for :page_title, "Invite a team member" %>
 
-<%= form_with model: resource,
-              as: resource_name,
-              url: invitation_path(resource_name)  do |f| %>
+<%= form_with model: @invitation_form, url: users_invitation_path do |f| %>
 
   <%= f.govuk_error_summary %>
 
