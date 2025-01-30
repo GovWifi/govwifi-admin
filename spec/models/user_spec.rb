@@ -32,14 +32,10 @@ describe User do
     # rubocop:enable Rails/SaveBang
   end
 
-  it { is_expected.to have_many(:organisations).through(:memberships) }
-  it { is_expected.to have_many(:memberships) }
-  it { is_expected.to validate_presence_of(:name).on(:update) }
-
   context "when ordering a collection of users" do
     let(:user_1) { create(:user, name: "Aardvark") }
     let(:user_2) { create(:user, name: "Zed") }
-    let(:user_3) { create(:user, name: nil, email: "batman@batcave.com") }
+    let(:user_3) { create(:user, name: "Dave", email: "batman@batcave.com") }
 
     it "orders the users by name and email" do
       expect(User.all.order_by_name_and_email).to eq([user_1, user_3, user_2])

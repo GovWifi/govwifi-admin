@@ -18,11 +18,11 @@ class User < ApplicationRecord
 
   has_one_time_password(encrypted: true)
 
-  validates :name, presence: true, on: :update
+  validates :name, presence: true, if: :confirmed?
+
   validates :password,
             presence: true,
             length: { within: 6..80 },
-            on: :update,
             if: :password_present?,
             confirmation: true
 
