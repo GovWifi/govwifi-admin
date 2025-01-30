@@ -5,6 +5,15 @@ en:
   activemodel:
     errors:
       models:
+        accept_invitation_form:
+          attributes:
+            name:
+              blank: "Name can't be blank"
+            password:
+              weak_password: "Password is not strong enough. Choose a different password."
+              blank: "Password can't be blank"
+              too_short: "Password is too short (minimum is 6 characters)"
+              too_long: "Password is too long (maximum is 80 characters)"
         search_form:
           attributes:
             search_term:
