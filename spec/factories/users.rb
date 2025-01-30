@@ -29,6 +29,10 @@ FactoryBot.define do
       end
     end
 
+    trait :skip_notification do
+      after(:build, &:skip_confirmation_notification!)
+    end
+
     trait :with_organisation do
       after(:create) do |user|
         create(:membership, :confirmed, user:, organisation: create(:organisation))
