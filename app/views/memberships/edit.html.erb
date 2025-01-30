@@ -17,7 +17,7 @@
 <%= form_with model: @membership, url: edit_membership_path(@membership), method: :get do |form| %>
   <% permission_level = params.dig(:membership, :permission_level) %>
   <% @membership.permission_level = permission_level if permission_level.present? %>
-  <%= form.govuk_collection_radio_buttons(:permission_level, @permission_level_data, :value, :text, :hint,
+  <%= form.govuk_collection_radio_buttons(:permission_level, permissions_radio_data, :value, :text, :hint,
                                           legend: { size: "s", text: "Permission level" }) %>
   <%= form.hidden_field :confirm_change_permissions, value: true %>
 

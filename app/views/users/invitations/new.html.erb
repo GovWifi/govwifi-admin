@@ -16,74 +16,7 @@
       </h1>
 
       <%= f.govuk_email_field :email, label: { text: "Email address" }, hint: { text: "Enter the email address of the person you want to invite." } %>
-
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="sign-in-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-            Permission level
-          </legend>
-          <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item">
-              <%= radio_button_tag(
-                    :permission_level,
-                    Membership::Permissions::ADMINISTRATOR,
-                    false,
-                    class: "govuk-radios__input",
-                    "aria-described-by" => "permission_level_administrator_hint",
-                  ) %>
-              <%= label_tag(
-                    :permission_level_administrator,
-                    "Administrator",
-                    class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
-                  ) %>
-              <div id="permission_level_administrator_hint" class="govuk-hint govuk-radios__hint">
-                <span>View locations and IPs, team members, and logs</span><br>
-                <span>Manage locations and IPs</span><br>
-                <span>Add or remove team members</span>
-              </div>
-            </div>
-            <div class="govuk-radios__item">
-              <%= radio_button_tag(
-                    :permission_level,
-                    Membership::Permissions::MANAGE_LOCATIONS,
-                    false,
-                    class: "govuk-radios__input",
-                    "aria-described-by" => "permission_level_manage_locations_hint",
-                  ) %>
-              <%= label_tag(
-                    :permission_level_manage_locations,
-                    "Manage locations",
-                    class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
-                  ) %>
-              <div id="permission_level_manage_locations_hint" class="govuk-hint govuk-radios__hint">
-                <span>View locations and IPs, team members, and logs</span><br>
-                <span>Manage locations and IPs</span><br>
-                <span>Cannot add or remove team members</span>
-              </div>
-            </div>
-            <div class="govuk-radios__item">
-              <%= radio_button_tag(
-                    :permission_level,
-                    Membership::Permissions::VIEW_ONLY,
-                    false,
-                    class: "govuk-radios__input",
-                    "aria-described-by" => "permission_level_view_only_hint",
-                  ) %>
-              <%= label_tag(
-                    :permission_level_view_only,
-                    "View only",
-                    class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
-                  ) %>
-              <div id="permission_level_view_only_hint" class="govuk-hint govuk-radios__hint">
-                <span>View locations and IPs, team members, and logs</span><br>
-                <span>Cannot manage locations and IPs</span><br>
-                <span>Cannot add or remove team members</span>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-
+      <%= f.govuk_collection_radio_buttons(:permission_level, permissions_radio_data, :value, :text, :hint, legend: { size: "m", text: "Permission level" }) %>
       <%= f.govuk_submit "Send invitation email" %>
 
       <p class="govuk-body">
