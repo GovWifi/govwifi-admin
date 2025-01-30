@@ -1,4 +1,16 @@
 module EmailHelpers
+  def it_sent_one_email
+    expect(Services.notify_gateway.count_all_emails).to eq(1)
+  end
+
+  def it_sent_an_email_to(address)
+    expect(Services.notify_gateway.last_email_address).to eq(address)
+  end
+
+  def it_sent_a_confirmation_email
+    expect(email_count("confirmation_email_template")).to eq(1)
+  end
+
   def it_sent_a_confirmation_email_twice
     expect(email_count("confirmation_email_template")).to eq(2)
   end

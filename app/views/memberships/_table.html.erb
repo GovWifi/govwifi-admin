@@ -12,7 +12,7 @@
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= member.name %>
-          <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>
+          <% if member.pending_membership_for?(organisation: current_organisation) %>
             <span class="govuk-hint govuk-!-margin-bottom-0 govuk-!-display-inline-block">(invited)</span>
           <% end %>
         </dt>
@@ -39,10 +39,10 @@
                   <% end %>
                 </li>
               <% end %>
-              <% if member.invitation_pending? %>
+              <% if member.pending_membership_for?(organisation: current_organisation) %>
                 <li class="govuk-summary-list__actions-list-item">
                   <%= button_to("Resend invite",
-                                user_invitation_path(user: { email: member.email }, resend: true),
+                                resend_users_invitation_path(email: member.email),
                                 "aria-label" => "Resend invite to #{member.email}",
                                 method: :post,
                                 class: "button-as-link govuk-body") %>

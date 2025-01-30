@@ -3,6 +3,7 @@ class Membership < ApplicationRecord
     ADMINISTRATOR = "administrator".freeze
     MANAGE_LOCATIONS = "manage_locations".freeze
     VIEW_ONLY = "view_only".freeze
+    ALL = [ADMINISTRATOR, MANAGE_LOCATIONS, VIEW_ONLY].freeze
   end
 
   belongs_to :organisation
