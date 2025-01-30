@@ -5,6 +5,12 @@ en:
   activemodel:
     errors:
       models:
+        invitation_form:
+          attributes:
+            email:
+              blank: "Email can't be blank"
+            permission_level:
+              blank: "Permission level can't be blank"
         search_form:
           attributes:
             search_term:
