@@ -47,8 +47,8 @@ class HelpController < ApplicationController
         Gateways::ZendeskSupportTickets.new.create!(
           subject: "Admin support request",
           email: sender_email,
-          name: params[:support_form][:name] || current_user&.name,
-          body: params[:support_form][:details],
+          name: @support_form.name || current_user&.name,
+          body: @support_form.details,
         )
       end
 
@@ -56,8 +56,9 @@ class HelpController < ApplicationController
     else
       render @support_form.choice
     end
-  rescue ZendeskAPI::Error::RecordInvalid
+  rescue ZendeskAPI::Error::RecordInvalid => e
     @support_form.errors.add(:email, "Email is not a valid email address")
+    Sentry.capture_exception(e)
     render @support_form.choice
   end
 
