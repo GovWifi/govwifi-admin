@@ -1,3 +1,4 @@
+require "csv"
 class UploadForm
   include ActiveModel::Model
   include ActiveModel::Validations
