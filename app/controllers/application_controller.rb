@@ -49,6 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_user_with_no_organisation
+    return if current_user.nil?
     return if current_user.is_super_admin? && current_organisation.present?
 
     if current_user.is_super_admin? && current_organisation.nil?
