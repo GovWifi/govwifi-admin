@@ -37,6 +37,8 @@ class User < ApplicationRecord
     order(build_order_query)
   }
 
+  scope :unconfirmed, -> { where(confirmed_at: nil) }
+
   def password_present?
     !password.nil?
   end
