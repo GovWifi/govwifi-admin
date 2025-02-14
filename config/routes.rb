@@ -102,8 +102,11 @@ Rails.application.routes.draw do
     end
     resource :wifi_admin_search, only: %i[show create]
   end
+  # ... other routes
+  post '/extend_session', to: 'application#extend_session'
 
-  %w[404 422 500].each do |code|
-    get code, to: "application#error", code:
-  end
+%w[404 422 500].each do |code|
+  get code, to: "application#error", code: code
+end
+
 end

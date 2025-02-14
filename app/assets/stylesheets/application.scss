@@ -30,6 +30,12 @@ $govuk-font-url-function: "font-url";
 @import "./utilities/colours";
 @import "./components/*";
 @import "./utilities/*";
+/* ... other imports */
+/* ... other imports */
+// Import timeout warning styles
+@import "timeout_warning";
+
+
 
 // TODO: This shouldn't be needed, but fixes the display for actions
 // within a summary list, like on the team members page
