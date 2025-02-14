@@ -5,7 +5,6 @@ Rails.application.routes.draw do
              controllers: {
                confirmations: "users/confirmations",
                registrations: "users/registrations",
-               invitations: "users/invitations",
                passwords: "users/passwords",
                two_factor_authentication: "users/two_factor_authentication",
              }
@@ -19,7 +18,12 @@ Rails.application.routes.draw do
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"
     delete "users/:id/two_factor_authentication", to: "users/two_factor_authentication#destroy"
   end
-  get "confirm_new_membership", to: "users/memberships#create"
+
+  namespace :users do
+    resource :invitation, only: %i[new create edit update] do
+      post "resend"
+    end
+  end
 
   get "/healthcheck", to: "monitoring#healthcheck"
   get "change_organisation", to: "current_organisation#edit"

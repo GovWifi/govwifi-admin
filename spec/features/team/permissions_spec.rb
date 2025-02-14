@@ -15,8 +15,8 @@ describe "Invite a team member", type: :feature do
     end
 
     it "allows visiting the invites page directly" do
-      visit new_user_invitation_path
-      expect(page).to have_current_path(new_user_invitation_path)
+      visit new_users_invitation_path
+      expect(page).to have_current_path(new_users_invitation_path)
     end
 
     it "allows re-sending invites" do
@@ -46,7 +46,7 @@ describe "Invite a team member", type: :feature do
 
     context "when visiting the new user invitation page" do
       before do
-        visit new_user_invitation_path
+        visit new_users_invitation_path
       end
 
       it_behaves_like "shows the settings page"

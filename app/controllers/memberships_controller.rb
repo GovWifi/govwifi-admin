@@ -4,39 +4,7 @@ class MembershipsController < ApplicationController
   before_action :validate_preserve_admin_permissions, only: %i[update destroy], unless: :super_admin?
   skip_before_action :redirect_user_with_no_organisation, only: %i[destroy edit update]
 
-  def edit
-    @permission_level_data = [
-      OpenStruct.new(
-        value: Membership::Permissions::ADMINISTRATOR,
-        text: "Administrator",
-        hint: <<~HINT.html_safe,
-          <span>View locations and IPs, team members, and logs</span><br>
-          <span>Manage locations and IPs</span><br>
-          <span>Add or remove team members</span><br>
-          <span>View, add and remove certificates</span>
-        HINT
-      ),
-      OpenStruct.new(
-        value: Membership::Permissions::MANAGE_LOCATIONS,
-        text: "Manage Locations",
-        hint: <<~HINT.html_safe,
-          <span>View locations and IPs, team members, and logs</span><br>
-          <span>Manage locations and IPs</span><br>
-          <span>Cannot add or remove team members</span><br>
-          <span>View, add and remove certificates</span>
-        HINT
-      ),
-      OpenStruct.new(
-        value: Membership::Permissions::VIEW_ONLY,
-        text: "View only",
-        hint: <<~HINT.html_safe,
-          <span>View locations and IPs, team members, and logs</span><br>
-          <span>Cannot manage locations and IPs</span><br>
-          <span>Cannot add or remove team members</span>
-        HINT
-      ),
-    ]
-  end
+  def edit; end
 
   def update
     permission_level = params.permit(:permission_level).fetch(:permission_level)

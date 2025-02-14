@@ -17,7 +17,7 @@ describe "View details of an organisation", type: :feature do
 
     let!(:user_1) { create(:user, name: "Aardvark", organisations: [organisation]) }
     let!(:user_2) { create(:user, name: "Zed", organisations: [organisation]) }
-    let!(:user_3) { create(:user, name: "", email: "batman@batcave.com", organisations: [organisation]) }
+    let!(:user_3) { create(:user, name: "Dave", email: "batman@batcave.com", organisations: [organisation]) }
 
     before do
       create(:user, organisations: [organisation])
