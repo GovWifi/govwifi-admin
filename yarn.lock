@@ -702,9 +702,9 @@ postcss@^8.4.28, postcss@^8.4.37:
     picocolors "^1.0.1"
     source-map-js "^1.2.0"
 
-prettier@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.3.3.tgz#30c54fe0be0d8d12e6ae61dbb10109ea00d53105"
+prettier@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.1.tgz#22fac9d0b18c0b92055ac8fb619ac1c7bef02fb7"
 
 punycode@^2.1.0:
   version "2.1.1"
