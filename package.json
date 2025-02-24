@@ -6,7 +6,7 @@
     "govwifi-shared-frontend": "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz",
     "html5shiv": "^3.7.3",
     "postcss": "^8.4.37",
-    "prettier": "^3.3.3"
+    "prettier": "^3.5.2"
   },
   "devDependencies": {
     "stylelint": "^15.11.0",
