@@ -12,10 +12,10 @@
     If your organisation name does not appear below
     <%= link_to "contact us", technical_support_new_help_path, class: "govuk-link" %>
   <% end %>
-    <%= f.govuk_select :organisation_name,
-                       options_for_select(@register_organisations << "", @form.organisation_name || ""),
-                       label: { text: "Organisation name" },
-                       hint: -> { organisation_name_hint } %>
+  <%= f.govuk_select :organisation_name,
+                     options_for_select(@register_organisations << "", @form.organisation_name || ""),
+                     label: { text: "Organisation name" },
+                     hint: -> { organisation_name_hint } %>
   <%= f.govuk_text_field :service_email,
                          label: { text: "Service email" },
                          hint: { text: "A shared and monitored email so we can contact your organisation about GovWifi" } %>
