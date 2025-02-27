@@ -1,22 +1,34 @@
 class UserMembershipForm
+  class InvalidTokenError < StandardError; end
+  class AlreadyConfirmedError < StandardError; end
+
   include ActiveModel::Model
 
   attr_accessor :name, :service_email, :organisation_name, :confirmation_token, :password
 
-  def write_to(user)
-    return false if user.confirmed?
+  def initialize(attributes)
+    super(attributes)
+    raise InvalidTokenError, "Invalid confirmation token" if user.nil?
+    raise AlreadyConfirmedError, "Email was already confirmed" if user.confirmed?
+  end
 
-    user.assign_attributes(name:, password:)
+  def save!
+    user.assign_attributes(name:, password:, confirmed_at: Time.zone.now.utc)
     user.organisations.build(name: organisation_name, service_email:)
     if user.valid?
-      user.save!
-      user.confirm
-      user.default_membership.confirm!
+      User.transaction do
+        user.save!
+        user.memberships.last.confirm!
+      end
       true
     else
       copy_errors_from(user)
       false
     end
+  end
+
+  def user
+    @user ||= User.find_by_confirmation_token(confirmation_token)
   end
 
 private
