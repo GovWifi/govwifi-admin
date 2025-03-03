@@ -16,6 +16,7 @@ class MembershipsController < ApplicationController
   end
 
   def index
+    @resend_email = params["resend_email"]
     all_members = current_organisation.memberships.includes(:user)
 
     @member_groups = [

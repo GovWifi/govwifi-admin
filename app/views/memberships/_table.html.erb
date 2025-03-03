@@ -1,4 +1,3 @@
-
 <% @member_groups.each do |group| %>
   <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
     <%= group[:heading] %>
@@ -41,11 +40,7 @@
               <% end %>
               <% if member.pending_membership_for?(organisation: current_organisation) %>
                 <li class="govuk-summary-list__actions-list-item">
-                  <%= button_to("Resend invite",
-                                resend_users_invitation_path(email: member.email),
-                                "aria-label" => "Resend invite to #{member.email}",
-                                method: :post,
-                                class: "button-as-link govuk-body") %>
+                  <%= link_to memberships_path(params: { resend_email: member.email}), class: "govuk-link govuk-link--no-visited-state" do %>Resend invite<% end %>
                 </li>
               <% end %>
             <% end %>
