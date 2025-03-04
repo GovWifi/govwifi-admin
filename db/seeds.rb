@@ -31,6 +31,8 @@ Location.create!(
   organisation_id: organisation.id,
 )
 
+FactoryBot.create_list(:location, 100, postcode: "AA11AA", organisation: organisation)
+
 location_one = Location.create!(
   address: "Momentum Centre, London",
   postcode: "SE1 0SX",
