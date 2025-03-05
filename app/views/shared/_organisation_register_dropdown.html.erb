@@ -1,6 +1,4 @@
-<%= javascript_include_tag "accessible-autocomplete.min.js" %>
-<%= stylesheet_link_tag "accessible-autocomplete.min.css" %>
-
+<script type="text/javascript" src="<%= asset_path("accessible-autocomplete.min.js") %>"></script>
 <script>
   accessibleAutocomplete.enhanceSelectElement({
     selectElement: document.querySelector('.govuk-select'),
