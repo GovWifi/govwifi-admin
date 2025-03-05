@@ -62,6 +62,10 @@
   version "2.4.1"
   resolved "https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz"
 
+accessible-autocomplete@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/accessible-autocomplete/-/accessible-autocomplete-3.0.1.tgz#8ddf4934d0b4ba6acb28de486dd505e062cdc86e"
+
 ajv@^8.0.1:
   version "8.10.0"
   resolved "https://registry.npmjs.org/ajv/-/ajv-8.10.0.tgz"
@@ -351,9 +355,9 @@ globjoin@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/globjoin/-/globjoin-0.1.4.tgz"
 
-govuk-frontend@^5.7.1:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.7.1.tgz#d4c561ebf8c0b76130f31df8c2e4d70d340cd63f"
+govuk-frontend@^5.9.0:
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.9.0.tgz#4064ac692019e60f030d6311c49330a6454a5689"
 
 "govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz":
   version "0.6.10"
