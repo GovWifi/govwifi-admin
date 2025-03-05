@@ -37,13 +37,13 @@ describe "View and search locations", type: :feature do
       expect(page).to have_content(/1\s*2\s*3\s*4\s*5\s*Next/).twice
     end
     it "shows 5 pages, a 'Next' link and a 'Previous' link" do
-      within(".pager__controls", match: :first) { click_on "3" }
-      expect(page).to have_content(/Previous\s*1\s*2\s*3\s*4\s*5\s*Next/).twice
+      within(".govuk-pagination", match: :first) { click_on "3" }
+      expect(page).to have_content(/Previous page\s*1\s*2\s*3\s*4\s*5\s*Next page/).twice
     end
     it "shows 5 pages, a 'Previous' link but not a 'Next' link" do
-      within(".pager__controls", match: :first) { click_on "5" }
+      within(".govuk-pagination", match: :first) { click_on "5" }
       expect(page).to_not have_content "Next"
-      expect(page).to have_content(/Previous\s*1\s*2\s*3\s*4\s*5/).twice
+      expect(page).to have_content(/Previous page\s*1\s*2\s*3\s*4\s*5/).twice
     end
   end
 

@@ -6,7 +6,7 @@ describe "View details of an organisation", type: :feature do
       100.times { organisation.locations << create(:location, organisation:) }
       sign_in_user create(:user, :super_admin)
       visit super_admin_organisation_path(organisation)
-      expect(page.body).to include(Pagy::I18n.translate(nil, "pagy.gap"))
+      expect(page.body).to include("⋯")
     end
   end
 

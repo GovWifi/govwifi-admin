@@ -40,7 +40,7 @@
 
     <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
 
-    <%== pagy_nav_govuk(@pagy) %>
+    <%= govuk_pagination(pagy: @pagy) %>
 
     <% if current_organisation.locations.empty? %>
       <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-9">
@@ -56,6 +56,6 @@
       </div>
     <% end %>
 
-    <%== pagy_nav_govuk(@pagy) %>
+    <%= govuk_pagination(pagy: @pagy) %>
   </div>
 </div>
