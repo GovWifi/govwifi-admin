@@ -33,7 +33,7 @@
     <% end %>
 
     <%= render "section", heading: "Locations" do %>
-      <%== pagy_nav_govuk(@pagy) %>
+      <%= govuk_pagination(pagy: @pagy) %>
       <%= render "locations", locations: @locations %>
     <% end %>
 
@@ -42,7 +42,7 @@
         <%= render partial: "shared/manage_ips", locals: { location:, show_ip_controls: false } %>
       <% end %>
     <% end %>
-    <%== pagy_nav_govuk(@pagy) %>
+    <%= govuk_pagination(pagy: @pagy) %>
     <%= link_to "Delete organisation", super_admin_organisation_path(@organisation, remove_organisation: true), class: "govuk-button red-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
   </div>
 </div>
