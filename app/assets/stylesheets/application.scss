@@ -2,6 +2,7 @@ $govuk-image-url-function: "image-url";
 $govuk-font-url-function: "font-url";
 
 @import "../../../node_modules/govuk-frontend/dist/govuk/all";
+@import "../../../node_modules/accessible-autocomplete/dist/accessible-autocomplete.min";
 
 .govuk-header__content,
 .govuk-header__logo {
