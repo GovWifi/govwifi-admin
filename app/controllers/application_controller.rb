@@ -96,4 +96,9 @@ protected
   def authorise_manage_locations
     redirect_to(root_path) unless current_user.can_manage_locations?(current_organisation)
   end
+
+  def extend_session
+    session[:expires_at] = 2.minutes.from_now  # Reset the session expiry
+    render json: { status: "ok" } # Respond with success
+  end
 end
