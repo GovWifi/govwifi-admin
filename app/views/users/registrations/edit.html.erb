@@ -4,7 +4,7 @@
               url: user_registration_path,
               method: :put do |f| %>
   <%= f.govuk_error_summary %>
-  <%= f.govuk_fieldset legend: { text: "Change your password", size: "xl" } do %>
+  <%= f.govuk_fieldset legend: { text: "Change your password", size: "xl", tag: "h1" } do %>
     <%= f.govuk_password_field :current_password, label: { text: "Current password" }, autocomplete: "new-password" %>
     <%= f.govuk_password_field :password, label: { text: "Password" }, autocomplete: "new-password" %>
     <%= render "users/registrations/password_details" %>
