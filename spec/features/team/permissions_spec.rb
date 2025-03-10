@@ -24,7 +24,7 @@ describe "Invite a team member", type: :feature do
       another_user.organisations << user.organisations.first
       visit memberships_path
 
-      expect(page).to have_button("Resend invite")
+      expect(page).to have_link("Resend invite")
     end
 
     it "shows alert to remind admins there must be minimum of two administrators for each organisation" do
