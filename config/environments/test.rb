@@ -53,8 +53,8 @@ Rails.application.configure do
 
   fake_s3 = {}
   config.s3_aws_config = {
-    stub_responses: {
-      get_object: lambda { |context|
+     stub_responses: {
+     get_object: lambda { |context|
         bucket = context.params[:bucket]
         key = context.params[:key]
         { body: fake_s3.dig(bucket, key) }
