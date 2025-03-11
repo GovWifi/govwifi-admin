@@ -23,15 +23,15 @@ class MembershipsController < ApplicationController
     viewers =  all_members.filter_map { |membership| membership.user if membership.view_only? }
     @member_groups = [
       {
-        heading: "Administrators #{length(administrators.count)}".html_safe,
+        heading: "Administrators #{display_length(administrators.count)}".html_safe,
         rows: rows(administrators)
       },
       {
-        heading: "Manage locations #{length(location_managers.count)}".html_safe,
+        heading: "Manage locations #{display_length(location_managers.count)}".html_safe,
         rows: rows(location_managers)
       },
       {
-        heading: "View only #{length(viewers.count)}".html_safe,
+        heading: "View only #{display_length(viewers.count)}".html_safe,
         rows: rows(viewers)
       },
     ]
@@ -52,14 +52,12 @@ class MembershipsController < ApplicationController
 
 private
 
-  def length(length)
+  def display_length(length)
     "<span class=\"govuk-hint govuk-!-margin-bottom-0 govuk-!-display-inline-block\">(#{length})</span>"
   end
 
   def rows(users)
-    sorted_users = users.sort do |a, b|
-      [a.name || "", a.email || ""] <=> [b.name || "", b.email || ""]
-    end
+    sorted_users = users.sort_by { |user| [user.name.to_s, user.email.to_s] }
     sorted_users.map do |user|
       {
         key: { text: text(user) },
@@ -79,23 +77,19 @@ private
   end
 
   def actions(user)
-    [].tap do |actions|
-      if current_user.can_manage_team?(current_organisation) && user.id != current_user.id
-        actions << { href: edit_membership_path(user.membership_for(current_organisation)),
-                     text:"Edit",
-                     visually_hidden_text: "for #{user.email}" }
-        if user.totp_enabled?
-          actions << { href: { controller: "users/two_factor_authentication", action: "edit", id: user },
-                       text: "Reset 2FA",
-                       visually_hidden_text: "for #{user.email}" }
-        end
-        if user.pending_membership_for?(organisation: current_organisation)
-          actions << { href: memberships_path(params: { resend_email: user.email}),
-                       text: "Resend invite",
-                       visually_hidden_text: "for #{user.email}" }
-        end
-      end
-    end
+    return [] unless current_user.can_manage_team?(current_organisation) && user.id != current_user.id
+
+    actions = [{ href: edit_membership_path(user.membership_for(current_organisation)),
+                 text:"Edit",
+                 visually_hidden_text: "for #{user.email}" }]
+
+    actions << { href: { controller: "users/two_factor_authentication", action: "edit", id: user },
+                 text: "Reset 2FA",
+                 visually_hidden_text: "for #{user.email}" } if user.totp_enabled?
+
+    actions << { href: memberships_path(params: { resend_email: user.email}),
+                 text: "Resend invite",
+                 visually_hidden_text: "for #{user.email}" } if user.pending_membership_for?(organisation: current_organisation)
   end
 
   def set_membership
