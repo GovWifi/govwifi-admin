@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem "aws-sdk-route53", "~> 1.107.0"
-gem "aws-sdk-s3", "~> 1.144.0"
+gem "aws-sdk-s3", "~> 1.182.0"
 gem "cancancan"
 gem "devise", "~> 4.9.3"
 gem "devise_zxcvbn", "~> 6.0.0"
@@ -23,7 +23,7 @@ gem "net-smtp", require: false
 gem "notifications-ruby-client", "~> 5.4.0"
 gem "opensearch-ruby"
 gem "pagy", "~> 7.0.10"
-gem "puma", "~> 6.4"
+gem "puma", "~> 6.6"
 gem "rails", "~> 7.1.3"
 gem "rqrcode"
 gem "rubyzip"
