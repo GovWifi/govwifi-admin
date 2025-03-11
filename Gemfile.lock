@@ -181,12 +181,12 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.3)
       i18n (>= 1.8.11, < 2)
-    faraday (2.12.1)
+    faraday (2.12.2)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-multipart (1.0.4)
-      multipart-post (~> 2)
+    faraday-multipart (1.1.0)
+      multipart-post (~> 2.0)
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
     ffi (1.15.5)
@@ -263,10 +263,10 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
-    multipart-post (2.3.0)
+    multipart-post (2.4.1)
     mutex_m (0.3.0)
     mysql2 (0.5.6)
-    net-http (0.5.0)
+    net-http (0.6.0)
       uri
     net-imap (0.5.6)
       date
@@ -533,7 +533,7 @@ GEM
       nokogiri (~> 1.8)
     yard (0.9.37)
     zeitwerk (2.7.1)
-    zendesk_api (3.0.5)
+    zendesk_api (3.1.1)
       faraday (> 2.0.0)
       faraday-multipart
       hashie (>= 3.5.2, < 6.0.0)
