@@ -10,7 +10,7 @@ class InitialiseSentFirstIpSurvey < ActiveRecord::Migration[6.1]
 
     result_list = ActiveRecord::Base.connection.exec_query(sql)
     result_list.each do |result|
-      sent_first_ip_survey = (result["count"]).zero? ? 0 : 1
+      sent_first_ip_survey = result["count"].zero? ? 0 : 1
       sql = "update users set sent_first_ip_survey = #{sent_first_ip_survey} where id=#{result['id']}"
       ActiveRecord::Base.connection.exec_query(sql)
     end
