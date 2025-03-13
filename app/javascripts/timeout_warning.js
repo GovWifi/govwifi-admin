@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function continueSession() {
-    // Call API to extend the session (if needed)
-    fetch('/extend_session') //Adjust based on your backend route
+
+    fetch('/extend_session')
       .then(response => {
         if (response.ok) {
           console.log("Session extended");
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
           resetTimeout(); // Restart the timer
         } else {
           console.error("Failed to extend session");
-          // Handle error (e.g., display an error message)
+          // Handle error
         }
       })
       .catch(error => {

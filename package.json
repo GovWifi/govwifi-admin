@@ -2,6 +2,9 @@
   "name": "govwifi-admin",
   "private": true,
   "dependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "dom": "^0.0.3",
     "govuk-frontend": "^5.7.1",
     "govwifi-shared-frontend": "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz",
     "html5shiv": "^3.7.3",
@@ -9,6 +12,7 @@
     "prettier": "^3.3.3"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "stylelint": "^15.11.0",
     "stylelint-config-gds": "^1.1.1"
   },

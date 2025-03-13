@@ -43,6 +43,17 @@ autocorrect-erb: build
 
 test: stop build prebuilt-test
 
+
+# js-test: stop build
+# 	$(DOCKER_COMPOSE) run --rm app node_modules/.bin/jest
+
+# js-test: stop build
+# 	$(DOCKER_COMPOSE) run --rm app test
+.PHONY: js-test
+
+# js-test:
+# 	npm test -- spec/timeout_warning_spec.js
+
 prebuilt-test:
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec

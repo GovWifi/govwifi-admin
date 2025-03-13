@@ -303,6 +303,7 @@ GEM
     parser (3.3.5.0)
       ast (~> 2.4.1)
       racc
+    power_assert (2.0.3)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -497,6 +498,8 @@ GEM
     stringio (3.1.2)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
+    test-unit (3.5.7)
+      power_assert
     thor (1.3.2)
     tilt (2.4.0)
     timecop (0.9.8)
@@ -595,6 +598,7 @@ DEPENDENCIES
   simplecov-console
   solargraph
   sprockets
+  test-unit
   timecop
   two_factor_authentication
   tzinfo-data

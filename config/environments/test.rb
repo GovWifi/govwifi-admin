@@ -33,7 +33,8 @@ Rails.application.configure do
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
-
+  # Add session store configuration for test environment
+  config.session_store :cookie_store, key: "_test_session"
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 

@@ -8,6 +8,12 @@ require "rspec/rails"
 require "capybara/rspec"
 require "support/factory_bot"
 require "webmock/rspec"
+# spec/rails_helper.rb
+require "rails-controller-testing"
+
+ENV["RAILS_ENV"] ||= "test"
+
+abort("The Rails environment is running in production mode!") if Rails.env.production?
 #
 # The following line is provided for convenience purposes. It has the downside
 # of increasing the boot-up time by auto-requiring all files in the support
@@ -29,7 +35,10 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 end
-
+RSpec.configure do |config|
+  config.include Rails.application.routes.url_helpers
+  # config.include SessionTimeoutHelper, type: :helper
+end
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec

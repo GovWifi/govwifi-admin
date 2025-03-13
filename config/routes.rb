@@ -104,7 +104,7 @@ Rails.application.routes.draw do
   end
   # ... other routes
   post "/extend_session", to: "application#extend_session"
-
+  post '/extend_session', to: 'sessions#extend'
   %w[404 422 500].each do |code|
     get code, to: "application#error", code:
   end
