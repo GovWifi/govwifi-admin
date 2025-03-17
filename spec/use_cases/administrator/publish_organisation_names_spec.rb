@@ -1,5 +1,5 @@
 describe UseCases::Administrator::PublishOrganisationNames do
-  subject(:result) { Gateways::S3.new(**Gateways::S3::ORGANISATION_ALLOW_LIST).read }
+  subject(:result) { Gateways::S3.new(**Gateways::S3::ORGANISATION_NAME_LIST).read }
 
   context "when no organisation names" do
     it "creates no allowlist" do

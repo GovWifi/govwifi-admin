@@ -252,16 +252,4 @@ describe "Sign up for a GovWifi administrator account", type: :feature do
       end
     end
   end
-
-  context "when creating a new organisation" do
-    before do
-      sign_up_for_account
-      update_user_details(organisation_name: "Org 1")
-      skip_two_factor_authentication
-    end
-
-    it "publishes the updated list of organisation names to S3" do
-      expect(Gateways::S3.new(**Gateways::S3::ORGANISATION_ALLOW_LIST).read).to include("Org 1")
-    end
-  end
 end

@@ -3,7 +3,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # in order to set user passwords after they have confirmed their email. This is
   # based largely on recommendations here: 'https://github.com/plataformatec/devise/wiki/How-To:-Override-confirmations-so-users-can-pick-their-own-passwords-as-part-of-confirmation-activation'
   before_action :fetch_organisations_from_register, only: %i[update show]
-  after_action :publish_organisation_names, only: :update
 
   rescue_from UserMembershipForm::InvalidTokenError, with: :error_handler
   rescue_from UserMembershipForm::AlreadyConfirmedError, with: :error_handler
@@ -54,9 +53,5 @@ private
 
   def fetch_organisations_from_register
     @register_organisations = Organisation.fetch_organisations_from_register
-  end
-
-  def publish_organisation_names
-    UseCases::Administrator::PublishOrganisationNames.new.publish
   end
 end
