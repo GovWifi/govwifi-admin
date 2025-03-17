@@ -20,19 +20,19 @@ class MembershipsController < ApplicationController
     all_members = current_organisation.memberships.includes(:user)
     administrators = all_members.filter_map { |membership| membership.user if membership.administrator? }
     location_managers = all_members.filter_map { |membership| membership.user if membership.manage_locations? }
-    viewers =  all_members.filter_map { |membership| membership.user if membership.view_only? }
+    viewers = all_members.filter_map { |membership| membership.user if membership.view_only? }
     @member_groups = [
       {
         heading: "Administrators #{display_length(administrators.count)}".html_safe,
-        rows: rows(administrators)
+        rows: rows(administrators),
       },
       {
         heading: "Manage locations #{display_length(location_managers.count)}".html_safe,
-        rows: rows(location_managers)
+        rows: rows(location_managers),
       },
       {
         heading: "View only #{display_length(viewers.count)}".html_safe,
-        rows: rows(viewers)
+        rows: rows(viewers),
       },
     ]
   end
@@ -80,16 +80,20 @@ private
     return [] if !current_user.can_manage_team?(current_organisation) || user.id == current_user.id
 
     actions = [{ href: edit_membership_path(user.membership_for(current_organisation)),
-                 text:"Edit",
+                 text: "Edit",
                  visually_hidden_text: "for #{user.email}" }]
 
-    actions << { href: { controller: "users/two_factor_authentication", action: "edit", id: user },
-                 text: "Reset 2FA",
-                 visually_hidden_text: "for #{user.email}" } if user.totp_enabled?
+    if user.totp_enabled?
+      actions << { href: { controller: "users/two_factor_authentication", action: "edit", id: user },
+                   text: "Reset 2FA",
+                   visually_hidden_text: "for #{user.email}" }
+    end
 
-    actions << { href: memberships_path(params: { resend_email: user.email}),
-                 text: "Resend invite",
-                 visually_hidden_text: "for #{user.email}" } if user.pending_membership_for?(organisation: current_organisation)
+    if user.pending_membership_for?(organisation: current_organisation)
+      actions << { href: memberships_path(params: { resend_email: user.email }),
+                   text: "Resend invite",
+                   visually_hidden_text: "for #{user.email}" }
+    end
     actions
   end
 

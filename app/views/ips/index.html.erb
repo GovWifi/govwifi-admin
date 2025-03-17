@@ -12,7 +12,7 @@
     </div>
     <% unless current_organisation&.meets_invited_admin_user_minimum? %>
       <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-9">
-        There must be a minimum of 2 administrators to add IPs<br />or multiple locations. <%= link_to "Invite a team member.", new_users_invitation_path, class: "govuk-link govuk-link--no-underline" %>
+        There must be a minimum of 2 administrators to add IPs<br>or multiple locations. <%= link_to "Invite a team member.", new_users_invitation_path, class: "govuk-link govuk-link--no-underline" %>
       </div>
     <% end %>
   </div>
@@ -38,7 +38,7 @@
     <% end %>
   <% end %>
 
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
     <%= govuk_pagination(pagy: @pagy) %>
 
