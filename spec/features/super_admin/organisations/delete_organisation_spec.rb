@@ -2,10 +2,6 @@ describe "Deleting an organisation", type: :feature do
   let!(:admin_user) { create(:user, :super_admin) }
   let!(:organisation) { create(:organisation, name: "Gov Org 2") }
 
-  before :each do
-    Gateways::S3.new(**Gateways::S3::ORGANISATION_ALLOW_LIST).write("old value")
-  end
-
   context "when visiting the organisations page" do
     before do
       sign_in_user admin_user
@@ -33,16 +29,6 @@ describe "Deleting an organisation", type: :feature do
     it "removes the organisation from the index list of orgs" do
       click_on "Yes, remove this organisation"
       expect(page).not_to have_content("Gov Org 2")
-    end
-
-    context "when deleting an organisation" do
-      it "publishes the updated list of organisation names to S3" do
-        expect {
-          click_on "Yes, remove this organisation"
-        }.to change {
-          Gateways::S3.new(**Gateways::S3::ORGANISATION_ALLOW_LIST).read
-        }.from("old value").to([].to_yaml)
-      end
     end
   end
 end

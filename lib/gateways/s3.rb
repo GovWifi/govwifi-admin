@@ -8,7 +8,7 @@ module Gateways
       bucket: ENV.fetch("S3_SIGNUP_ALLOWLIST_BUCKET"),
       key: ENV.fetch("S3_SIGNUP_ALLOWLIST_OBJECT_KEY"),
     }.freeze
-    ORGANISATION_ALLOW_LIST = {
+    ORGANISATION_NAME_LIST = {
       bucket: ENV.fetch("S3_PRODUCT_PAGE_DATA_BUCKET"),
       key: ENV.fetch("S3_ORGANISATION_NAMES_OBJECT_KEY"),
     }.freeze

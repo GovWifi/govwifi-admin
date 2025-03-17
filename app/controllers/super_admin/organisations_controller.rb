@@ -24,7 +24,6 @@ class SuperAdmin::OrganisationsController < SuperAdminController
 
   def destroy
     @organisation.destroy!
-    UseCases::Administrator::PublishOrganisationNames.new.publish
     redirect_to super_admin_organisations_path, notice: "Organisation has been removed"
   end
 
