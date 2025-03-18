@@ -1,4 +1,4 @@
-FROM ruby:3.2.2-alpine
+FROM ruby:3.4.2-alpine
 ARG BUNDLE_INSTALL_CMD
 
 # required for certain linting tools that read files, such as erb-lint
@@ -38,7 +38,7 @@ ENV \
 
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache --virtual .build-deps build-base && \
+RUN apk add --no-cache --virtual .build-deps build-base yaml-dev libffi-dev && \
   apk add --no-cache nodejs yarn mysql-dev bash && \
   apk add --no-cache shared-mime-info
 
