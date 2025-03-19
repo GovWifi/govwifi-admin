@@ -38,7 +38,7 @@ class Location < ApplicationRecord
 private
 
   def validate_postcode_format
-    unless UKPostcode.parse(postcode.to_s).valid?
+    unless UKPostcode.parse(postcode.to_s).valid? || postcode.to_s.downcase == "unknown"
       errors.add(:postcode, "Postcode must be valid")
     end
   end
