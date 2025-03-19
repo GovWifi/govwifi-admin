@@ -89,4 +89,15 @@ describe "Add location", type: :feature do
 
     it_behaves_like "not signed in"
   end
+  context "when the postcode is 'unknown'" do
+    before do
+      fill_in "Address", with: "30 Square"
+      fill_in "Postcode", with: "unknown"
+      click_on "Add location"
+    end
+
+    it "adds the location successfully" do
+      expect(Location.last.postcode).to eq("unknown")
+    end
+  end
 end
