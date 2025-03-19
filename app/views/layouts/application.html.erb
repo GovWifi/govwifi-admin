@@ -7,10 +7,10 @@
 
     <title><%= infer_page_title %></title>
 
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#0b0c0c" />
-    <meta name="description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : SITE_CONFIG["default_meta_description"] %>" />
+    <meta name="theme-color" content="#0b0c0c">
+    <meta name="description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : SITE_CONFIG["default_meta_description"] %>">
 
     <%= favicon_link_tag asset_path("favicon.ico") %>
     <link rel="mask-icon" href="/assets/images/govuk-mask-icon.svg" color="#0b0c0c">
@@ -137,7 +137,7 @@
         </div>
       </div>
     </footer>
-    <script type="module">
+    <script type="module"> <%# erb_lint:disable AllowedScriptType %>
       import { initAll } from '<%= asset_path("govuk-frontend.min.js") %>'
       initAll()
     </script>

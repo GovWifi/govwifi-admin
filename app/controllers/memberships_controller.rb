@@ -16,28 +16,25 @@ class MembershipsController < ApplicationController
   end
 
   def index
+    @resend_email = params["resend_email"]
     all_members = current_organisation.memberships.includes(:user)
-
+    administrators = all_members.filter_map { |membership| membership.user if membership.administrator? }
+    location_managers = all_members.filter_map { |membership| membership.user if membership.manage_locations? }
+    viewers = all_members.filter_map { |membership| membership.user if membership.view_only? }
     @member_groups = [
       {
-        heading: "Administrators",
-        users: all_members.filter_map { |membership| membership.user if membership.administrator? },
+        heading: "Administrators #{display_length(administrators.count)}".html_safe,
+        rows: rows(administrators),
       },
       {
-        heading: "Manage locations",
-        users: all_members.filter_map { |membership| membership.user if membership.manage_locations? },
+        heading: "Manage locations #{display_length(location_managers.count)}".html_safe,
+        rows: rows(location_managers),
       },
       {
-        heading: "View only",
-        users: all_members.filter_map { |membership| membership.user if membership.view_only? },
+        heading: "View only #{display_length(viewers.count)}".html_safe,
+        rows: rows(viewers),
       },
     ]
-
-    @member_groups.each do |entry|
-      entry[:users].sort! do |a, b|
-        [a.name || "", a.email || ""] <=> [b.name || "", b.email || ""]
-      end
-    end
   end
 
   def destroy
@@ -54,6 +51,51 @@ class MembershipsController < ApplicationController
   end
 
 private
+
+  def display_length(length)
+    "<span class=\"govuk-hint govuk-!-margin-bottom-0 govuk-!-display-inline-block\">(#{length})</span>"
+  end
+
+  def rows(users)
+    sorted_users = users.sort_by { |user| [user.name.to_s, user.email.to_s] }
+    sorted_users.map do |user|
+      {
+        key: { text: text(user) },
+        value: { text: user.email },
+        actions: actions(user),
+      }
+    end
+  end
+
+  def text(user)
+    if user.pending_membership_for?(organisation: current_organisation)
+      invited = "<span class=\"govuk-hint govuk-!-margin-bottom-0 govuk-!-display-inline-block\">(invited) </span>"
+      "#{ERB::Util.html_escape user.name} #{invited}".html_safe
+    else
+      user.name
+    end
+  end
+
+  def actions(user)
+    return [] if !current_user.can_manage_team?(current_organisation) || user.id == current_user.id
+
+    actions = [{ href: edit_membership_path(user.membership_for(current_organisation)),
+                 text: "Edit",
+                 visually_hidden_text: "for #{user.email}" }]
+
+    if user.totp_enabled?
+      actions << { href: { controller: "users/two_factor_authentication", action: "edit", id: user },
+                   text: "Reset 2FA",
+                   visually_hidden_text: "for #{user.email}" }
+    end
+
+    if user.pending_membership_for?(organisation: current_organisation)
+      actions << { href: memberships_path(params: { resend_email: user.email }),
+                   text: "Resend invite",
+                   visually_hidden_text: "for #{user.email}" }
+    end
+    actions
+  end
 
   def set_membership
     scope = current_user.is_super_admin? ? Membership : current_organisation.memberships

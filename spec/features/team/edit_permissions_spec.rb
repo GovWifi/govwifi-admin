@@ -17,7 +17,7 @@ describe "Edit user permissions", type: :feature do
 
     it "does not show the edit team member link" do
       visit memberships_path
-      expect(page).not_to have_link("Edit permissions")
+      expect(page).not_to have_link("Edit")
     end
 
     it "prevents visiting the edit permissions page directly" do

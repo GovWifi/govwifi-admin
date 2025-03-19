@@ -33,7 +33,7 @@ describe "Inviting a user to their first organisation", type: :feature do
     context "the invitee has the correct permissions" do
       before do
         visit memberships_path
-        click_on "Edit permissions"
+        click_on "Edit"
       end
       describe "Administrator" do
         let(:permission) { "Administrator" }
