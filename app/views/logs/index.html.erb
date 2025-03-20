@@ -53,6 +53,7 @@
       </tr>
     </thead>
     <tbody class="govuk-table__body">
+      <% is_current_organisation_cba_enabled = current_organisation&.cba_enabled? %>
       <% logs.each do |log| %>
         <tr class="govuk-table__row">
           <% unless log_search_form.username %>
@@ -62,7 +63,7 @@
               <% end %>
             </td>
           <% end %>
-          <% if log_search_form.ip && current_organisation&.cba_enabled? %>
+          <% if log_search_form.ip && is_current_organisation_cba_enabled %>
             <td class="govuk-table__cell"><%= log.eap_tls? ? "EAP-TLS" : "MSCHAP" %></td>
           <% end %>
           <td class="govuk-table__cell"><%= log.ap %></td>
