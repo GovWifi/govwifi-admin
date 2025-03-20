@@ -5,12 +5,12 @@ class NominationsController < ApplicationController
 
   def create
     mou_params = params.require(:nomination).permit(:name, :email)
+    old_nomination = current_organisation.nomination
 
     @nomination = Nomination.new(mou_params.merge(nominated_by: current_user.name,
                                                   token: generate_token,
                                                   organisation: current_organisation))
     if @nomination.valid?
-      old_nomination = current_organisation.nomination
       old_nomination&.destroy!
       @nomination.save!
       send_nomination_email(@nomination.name,

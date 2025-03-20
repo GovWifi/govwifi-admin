@@ -35,13 +35,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organisation
-    if session[:organisation_id] && (current_user.confirmed_member_of?(session[:organisation_id].to_i) || super_admin?)
-      Organisation.find(session[:organisation_id])
-    elsif user_signed_in?
-      current_user.confirmed_organisations.first
-    end
+    @current_organisation ||= if session[:organisation_id] && (current_user.confirmed_member_of?(session[:organisation_id].to_i) || super_admin?)
+                                Organisation.find(session[:organisation_id])
+                              elsif user_signed_in?
+                                current_user.confirmed_organisations.first
+                              end
   rescue ActiveRecord::RecordNotFound
-    current_user.confirmed_organisations.first
+    @current_organisation ||= current_user.confirmed_organisations.first
   end
 
   def super_admin?
