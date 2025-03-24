@@ -4,9 +4,15 @@ require_relative "../../lib/gateways/development_notify_gateway"
 Rails.application.configure do
   config.notify_gateway = Gateways::DevelopmentNotifyGateway
   config.hosts.clear
-  Bullet.enable = true
+  Bullet.enable                      = true
+  Bullet.alert                       = true
+  Bullet.bullet_logger               = true
+  Bullet.console                     = true
+  Bullet.rails_logger                = true
+  Bullet.add_footer                  = true
   Bullet.unused_eager_loading_enable = true
   Bullet.n_plus_one_query_enable     = true
+  Bullet.counter_cache_enable = true
 
   config.web_console.permissions = %w[172.0.0.0/8 192.168.0.0/16 10.0.0.0/8]
 
