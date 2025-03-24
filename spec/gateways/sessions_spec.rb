@@ -13,8 +13,8 @@ describe Gateways::Sessions do
     let!(:session_list) do
       [
         create(:session, start: two_days_ago, username:, ap: "ap3"),
-        create(:session, start: today_date, username:, ap: "ap1"),
         create(:session, start: yesterday, username:, ap: "ap2"),
+        create(:session, start: today_date, username:, ap: "ap1"),
       ]
     end
 
