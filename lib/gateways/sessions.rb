@@ -1,6 +1,7 @@
 module Gateways
   class Sessions
     MAXIMUM_RESULTS_COUNT = 500
+    SESSION_SELECT_ATTRIBUTES = %i[id start username siteIP success ap mac task_id].freeze
 
     def self.search(username: nil, ips: nil, success: nil, authentication_method: nil)
       new.search(username:, ips:, success:, authentication_method:)
@@ -8,8 +9,9 @@ module Gateways
 
     def search(username: nil, ips: nil, success: nil, authentication_method: nil)
       results = Session
+      .select(SESSION_SELECT_ATTRIBUTES)
       .where("start >= ?", 2.weeks.ago)
-      .order(start: :desc)
+      .order(id: :desc)
       .limit(MAXIMUM_RESULTS_COUNT)
 
       results = results.where(username:) unless username.nil?
