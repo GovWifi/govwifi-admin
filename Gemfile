@@ -21,7 +21,7 @@ gem "mysql2", "~> 0.5.6"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
-gem "notifications-ruby-client", "~> 5.4.0"
+gem "notifications-ruby-client", "~> 6.2.0"
 gem "opensearch-ruby"
 gem "puma", "~> 6.6"
 gem "rails", "~> 7.1.3"
