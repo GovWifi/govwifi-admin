@@ -16,7 +16,7 @@ gem "elasticsearch", "~> 8.17.1"
 gem "google-apis-drive_v3"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
-gem "httparty", "~> 0.22.0"
+gem "httparty", "~> 0.23.0"
 gem "mysql2", "~> 0.5.6"
 gem "net-imap", require: false
 gem "net-pop", require: false
