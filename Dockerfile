@@ -39,7 +39,7 @@ ENV \
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache --virtual .build-deps build-base yaml-dev libffi-dev && \
-  apk add --no-cache nodejs yarn mysql-dev bash && \
+  apk add --no-cache nodejs yarn mysql-dev bash git && \
   apk add --no-cache shared-mime-info
 
 COPY Gemfile Gemfile.lock .ruby-version ./

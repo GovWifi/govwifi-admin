@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/GovWifi/govwifi_two_factor_auth.git
+  revision: 367a6803c7a3a3e4fa911b983b8797dd1ba5c7fe
+  specs:
+    govwifi_two_factor_auth (1.0.0)
+      devise
+      encryptor
+      rails (>= 7.0.2)
+      randexp
+      rotp (>= 4.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -189,7 +200,7 @@ GEM
       multipart-post (~> 2.0)
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    ffi (1.17.1)
+    ffi (1.17.1-aarch64-linux-musl)
     ffi (1.17.1-arm-linux-gnu)
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86-linux-gnu)
@@ -293,6 +304,8 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.6)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.18.6-aarch64-linux-musl)
       racc (~> 1.4)
     nokogiri (1.18.6-arm-linux-gnu)
       racc (~> 1.4)
@@ -519,12 +532,6 @@ GEM
     timecop (0.9.10)
     timeout (0.4.3)
     trailblazer-option (0.1.2)
-    two_factor_authentication (2.2.0)
-      devise
-      encryptor
-      rails (>= 3.1.1)
-      randexp
-      rotp (>= 4.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2025.2)
@@ -568,8 +575,9 @@ GEM
     zxcvbn (0.1.9)
 
 PLATFORMS
+  aarch64-linux-musl
+  arm64-darwin-24
   armv7-linux
-  ruby
   universal-darwin-8
   x86-linux
 
@@ -590,6 +598,7 @@ DEPENDENCIES
   google-apis-drive_v3
   govuk-components
   govuk_design_system_formbuilder
+  govwifi_two_factor_auth!
   httparty (~> 0.22.0)
   listen
   mysql2 (~> 0.5.6)
@@ -618,7 +627,6 @@ DEPENDENCIES
   solargraph
   sprockets
   timecop
-  two_factor_authentication
   tzinfo-data
   uk_postcode (~> 2.1)
   web-console
@@ -626,7 +634,7 @@ DEPENDENCIES
   zendesk_api
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.4.2p28
 
 BUNDLED WITH
    2.4.10
