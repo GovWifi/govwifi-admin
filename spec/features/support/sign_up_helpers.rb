@@ -23,7 +23,7 @@ end
 
 def skip_two_factor_authentication
   Warden.on_next_request do |proxy|
-    proxy.session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
+    proxy.session(:user)[GovwifiTwoFactorAuth::NEED_AUTHENTICATION] = false
   end
 end
 

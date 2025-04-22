@@ -53,7 +53,7 @@ private
   end
 
   def disable_2fa_checks_for_session
-    request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
+    request.env["warden"].session(:user)[GovwifiTwoFactorAuth::NEED_AUTHENTICATION] = false
   end
 
   def sidebar
