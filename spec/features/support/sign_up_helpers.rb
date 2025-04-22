@@ -50,15 +50,16 @@ def user_is_a_member_of(organisation)
 end
 
 def sign_in(email:, password:)
-  totp_double = instance_double(ROTP::TOTP, provisioning_uri: "")
-  allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
-  allow(totp_double).to receive(:verify).and_return(true)
+  otp_secret_key = "BAJZWZA3GTSJLCMSMUFZKI3F6PBDWOEC"
+  code = ROTP::TOTP.new(otp_secret_key).now
+
+  allow(ROTP::Base32).to receive(:random_base32).and_return(otp_secret_key)
 
   fill_in "Email", with: email
   fill_in "Password", with: password
   click_on "Continue"
 
-  fill_in :code, with: "999999"
+  fill_in :code, with: code
   click_on "Complete setup"
 
   visit root_path
