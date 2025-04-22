@@ -60,7 +60,7 @@ describe User do
     let(:organisation) { create(:organisation) }
 
     before do
-      allow(warden).to receive(:session).with(:user) { Hash[TwoFactorAuthentication::NEED_AUTHENTICATION => nil] }
+      allow(warden).to receive(:session).with(:user) { Hash[GovwifiTwoFactorAuth::NEED_AUTHENTICATION => nil] }
     end
 
     context "with a normal admin user" do
