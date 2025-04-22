@@ -16,7 +16,7 @@ class User < ApplicationRecord
          :two_factor_authenticatable,
          :zxcvbnable
 
-  has_one_time_password(encrypted: true)
+  has_one_time_password
 
   validates :name, presence: true, if: :confirmed?
 
