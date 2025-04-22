@@ -1,7 +1,10 @@
 describe "Set up two factor authentication", type: :feature do
   let(:user) { create(:user, :with_organisation) }
+  let(:code) { ROTP::TOTP.new(otp_secret_key).now }
+  let(:otp_secret_key) { "BAJZWZA3GTSJLCMSMUFZKI3F6PBDWOEC" }
 
   before do
+    allow(ROTP::Base32).to receive(:random_base32).and_return(otp_secret_key)
     sign_in_user(user, pass_through_two_factor: false)
     visit root_path
   end
@@ -46,15 +49,9 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_current_path(users_two_factor_authentication_setup_path)
     end
   end
-
   context "when submitting a valid code" do
-    let(:totp_double) { instance_double(ROTP::TOTP) }
-
     before do
-      allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
-      allow(totp_double).to receive(:verify).and_return(true)
-
-      fill_in :code, with: "999999"
+      fill_in :code, with: code
       click_on "Complete setup"
     end
 

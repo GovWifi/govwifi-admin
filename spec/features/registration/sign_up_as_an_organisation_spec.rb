@@ -45,20 +45,21 @@ describe "Sign up for a GovWifi administrator account", type: :feature do
   end
 
   context "with correct data" do
+    let(:otp_secret_key) { "BAJZWZA3GTSJLCMSMUFZKI3F6PBDWOEC" }
+    let(:code) { ROTP::TOTP.new(otp_secret_key).now }
+
     before do
+      allow(ROTP::Base32).to receive(:random_base32).and_return(otp_secret_key)
+
       sign_up_for_account(email:)
       update_user_details(name:)
     end
 
     context "with a gov.uk email" do
       let(:email) { "someone@gov.uk" }
-      let(:totp_double) { instance_double(ROTP::TOTP) }
 
       before do
-        allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
-        allow(totp_double).to receive(:verify).and_return(true)
-
-        fill_in :code, with: "999999"
+        fill_in :code, with: code
         click_on "Complete setup"
       end
 
