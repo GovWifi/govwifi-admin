@@ -106,6 +106,23 @@ describe "View a list of signed up organisations", type: :feature do
           expect(page).to have_content(org.name)
         end
       end
+
+      it "allows sorting organisations by name" do
+        org1 = create(:organisation, created_at: 3.days.ago)
+        org2 = create(:organisation, created_at: 1.day.ago)
+
+        visit super_admin_organisations_path
+
+        within("table tbody") do
+          expect(page.text).to match(/#{org1.name}.*#{org2.name}/)
+        end
+
+        click_link "Name"
+
+        within("table tbody") do
+          expect(page.text).to match(/#{org2.name}.*#{org1.name}/)
+        end
+      end
     end
   end
 end

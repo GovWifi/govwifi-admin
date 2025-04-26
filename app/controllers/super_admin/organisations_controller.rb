@@ -39,7 +39,7 @@ private
   end
 
   def sortable_columns
-    %w[name created_at locations_count ips_count mous.created_at last_sign_in_at email sign_in_count certificates_count]
+    %w[name created_at locations_count ips_count latest_mou_created_at last_sign_in_at email sign_in_count certificates_count]
   end
 
   def sort_column
