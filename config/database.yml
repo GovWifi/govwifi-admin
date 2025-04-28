@@ -10,6 +10,7 @@ test:
   !!merge <<: *mysql
   database: govwifi_admin_test
 
+
 development:
   !!merge <<: *mysql
   database: <%= ENV.fetch('DB_NAME') %>
