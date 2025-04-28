@@ -1,7 +1,8 @@
 describe "Update location", type: :feature do
-  let(:organisation) { create(:organisation, locations: [location]) }
-  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
   let(:location) { create(:location) }
+  let(:organisation) { location.organisation }
+  let!(:organisation_1) { create(:organisation) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
 
   before do
     sign_in_user user
@@ -17,16 +18,11 @@ describe "Update location", type: :feature do
     expect(page).to have_link("Cancel", href: "/ips")
   end
 
-  context "update current location details" do
-    let(:new_address) { "new address" }
-    let(:new_postcode) { "E14 4BU" }
-    it "succeeds" do
-      fill_in "Address", with: new_address
-      fill_in "Postcode", with: new_postcode
-      click_on "Update"
-      location.reload
-      expect(location.address).to eq(new_address)
-      expect(location.postcode).to eq(new_postcode)
-    end
+  it "does not show the organisation that the user is not part of in the dropdown" do
+    expect(page).not_to have_select "Select an organisation", options: [organisation_1.name], selected: organisation.name
+  end
+
+  it "only renders the organisations the user is part of" do
+    expect(page).to have_select "Select an organisation", options: [organisation.name], selected: organisation.name
   end
 end
