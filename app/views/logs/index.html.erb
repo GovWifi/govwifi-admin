@@ -36,6 +36,7 @@
         <% end %>
         <% if log_search_form.ip && current_organisation&.cba_enabled? %>
           <th class="govuk-table__header" scope="col">Authentication Method</th>
+          <th class="govuk-table__header" scope="col">Certificate Serial Number</th>
         <% end %>
         <th class="govuk-table__header" scope="col">Access Point</th>
         <th class="govuk-table__header" scope="col">MAC Address</th>
@@ -65,6 +66,7 @@
           <% end %>
           <% if log_search_form.ip && is_current_organisation_cba_enabled %>
             <td class="govuk-table__cell"><%= log.eap_tls? ? "EAP-TLS" : "MSCHAP" %></td>
+            <td class="govuk-table__cell"><%= log.cert_serial %></td>
           <% end %>
           <td class="govuk-table__cell"><%= log.ap %></td>
           <td class="govuk-table__cell"><%= log.mac %></td>

@@ -1,7 +1,7 @@
 module Gateways
   class Sessions
     MAXIMUM_RESULTS_COUNT = 500
-    SESSION_SELECT_ATTRIBUTES = %i[id start username siteIP success ap mac task_id].freeze
+    SESSION_SELECT_ATTRIBUTES = %i[id start username siteIP success ap mac task_id cert_serial].freeze
 
     def self.search(username: nil, ips: nil, success: nil, authentication_method: nil)
       new.search(username:, ips:, success:, authentication_method:)
