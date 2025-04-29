@@ -52,7 +52,7 @@ class Users::InvitationsController < ApplicationController
   end
 
   def invite_second_admin
-    @form = InvitationForm.new(inviter: current_user, organisation: current_organisation)
+    @invitation_form = InvitationForm.new(inviter: current_user, organisation: current_organisation)
   end
 
 private

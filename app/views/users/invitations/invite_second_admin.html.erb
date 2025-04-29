@@ -1,6 +1,6 @@
 <% content_for :page_title, "Invite a team member to be an administrator" %>
 
-<%= form_with model: @form, url: users_invitation_path do |f| %>
+<%= form_with model: @invitation_form, url: users_invitation_path do |f| %>
 
   <%= f.govuk_error_summary %>
 
