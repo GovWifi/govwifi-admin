@@ -205,6 +205,7 @@ GEM
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86-linux-gnu)
     ffi (1.17.1-x86_64-darwin)
+    ffi (1.17.1-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-apis-core (0.16.0)
@@ -292,7 +293,7 @@ GEM
     mysql2 (0.5.6)
     net-http (0.6.0)
       uri
-    net-imap (0.5.6)
+    net-imap (0.5.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -580,6 +581,7 @@ PLATFORMS
   armv7-linux
   universal-darwin-8
   x86-linux
+  x86_64-linux
 
 DEPENDENCIES
   aws-sdk-route53 (~> 1.107.0)
