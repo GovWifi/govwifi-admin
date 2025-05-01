@@ -25,7 +25,7 @@ gem "net-smtp", require: false
 gem "notifications-ruby-client", "~> 6.2.0"
 gem "opensearch-ruby"
 gem "puma", "~> 6.6"
-gem "rails", "~> 7.1.3"
+gem "rails", "~> 8.0"
 gem "rqrcode"
 gem "rubyzip"
 gem "sassc-rails"
