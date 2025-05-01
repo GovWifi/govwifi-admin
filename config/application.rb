@@ -22,6 +22,7 @@ module GovwifiAdmin
     config.load_defaults 7.0
     config.action_view.form_with_generates_remote_forms = false
     config.autoloader = :zeitwerk
+    config.active_support.to_time_preserves_timezone = :zone
 
     # Force HTTPS for all requests except healthcheck endpoint
     config.force_ssl = true
