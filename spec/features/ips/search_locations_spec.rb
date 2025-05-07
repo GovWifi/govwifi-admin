@@ -8,7 +8,8 @@ describe "Search Locations", type: :feature do
         location.address = "Aardvark Place #{i}"
         location.ips.new(address: "89.1.1.#{i}")
       end
-      create(:location, address: "Zebra Place 0", postcode: "ZZ99ZZ", organisation:, ips: [Ip.new(address: "89.1.1.30")])
+      create(:location, address: "Zebra Place 0", postcode: "ZZ99ZZ", organisation:, ips: [Ip.new(address: "89.1.1.30"),
+                                                                                           Ip.new(address: "89.1.1.31")])
       sign_in_user user
       visit ips_path
     end
@@ -39,9 +40,11 @@ describe "Search Locations", type: :feature do
     end
 
     it "It shows location address when searching by IP" do
-      fill_in "search", with: "89.1.1.30"
+      fill_in "search", with: "Zebr"
       click_button("Search")
       expect(page).to have_content("Zebra Place 0")
+      expect(page).to have_content("89.1.1.30 Available at 6am tomorrow", count: 1)
+      expect(page).to have_content("89.1.1.31 Available at 6am tomorrow", count: 1)
     end
   end
 end
