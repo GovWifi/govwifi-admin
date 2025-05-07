@@ -15,7 +15,7 @@ class IpsController < ApplicationController
         locations_scope.where(
           "ips.address like ?", "%#{params[:search]}%"
         ),
-      ).left_outer_joins(:ips)
+      ).references(:ips)
     end
     @pagy, @locations = pagy(locations_scope.order(:address))
   end
