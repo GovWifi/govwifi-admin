@@ -13,97 +13,47 @@
 </div>
 <div class="govuk-grid-row">
   <div aria-live="polite">
-    <table class="govuk-table govuk-!-margin-bottom-9">
-      <caption class="govuk-visually-hidden">Settings</caption>
-      <thead class="govuk-table__head govuk-visually-hidden">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header govuk-!-width-one-third">Setting</th>
-        <th scope="col" class="govuk-table__header">Value</th>
-        <th scope="col" class="govuk-table__header">Action</th>
-      </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-      <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-          Name
-        </th>
-        <td class="govuk-table__cell">
-          <%= @certificate.name %>
-        </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric">
-          <% if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil? %>
-            <%= link_to edit_certificate_path(@certificate), class: "govuk-link red-link govuk-link--no-visited-state" do %>
-              Rename <span class='govuk-visually-hidden'><%= @certificate.name %></span>
-            <% end %>
-          <% end %>
-        </td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-          Fingerprint
-        </th>
-        <td class="govuk-table__cell">
-          <%= @certificate.fingerprint %>
-        </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric">
-        </td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-          Serial
-        </th>
-        <td class="govuk-table__cell">
-          <%= @certificate.serial %>
-        </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric">
-        </td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-          Valid From
-        </th>
-        <td class="govuk-table__cell">
-          <%= @certificate.not_before %>
-        </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric">
-        </td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-          Expires
-        </th>
-        <td class="govuk-table__cell">
-          <%= @certificate.not_after %>
-        </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric">
-        </td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-          Issuer
-        </th>
-        <td class="govuk-table__cell">
-          <%= @certificate.issuer %>
-        </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric">
-        </td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-          Subject
-        </th>
-        <td class="govuk-table__cell">
-          <%= @certificate.subject %>
-        </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric">
-        </td>
-      </tr>
+    <%= govuk_summary_list do |summary_list|
+      summary_list.with_row do |row|
+        row.with_key { "Name" }
+        row.with_value { @certificate.name }
+        if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil?
+          row.with_action(text: "Rename", href: edit_certificate_path(@certificate), visually_hidden_text: @certificate.name)
+        end
+      end
+      summary_list.with_row do |row|
+        row.with_key(text: "Fingerprint")
+        row.with_value(text: @certificate.fingerprint)
+      end
+      summary_list.with_row do |row|
+        row.with_key(text: "Serial")
+        row.with_value(text: @certificate.serial)
+      end
+      summary_list.with_row do |row|
+        row.with_key(text: "Fingerprint")
+        row.with_value(text: @certificate.fingerprint)
+      end
+      summary_list.with_row do |row|
+        row.with_key(text: "Valid From")
+        row.with_value(text: @certificate.not_before)
+      end
+      summary_list.with_row do |row|
+        row.with_key(text: "Expires")
+        row.with_value(text: @certificate.not_after)
+      end
+      summary_list.with_row do |row|
+        row.with_key(text: "Issuer")
+        row.with_value(text:  @certificate.issuer)
+      end
+      summary_list.with_row do |row|
+        row.with_key(text: "Subject")
+        row.with_value(text: @certificate.subject)
+      end
+    end %>
 
-      </tbody>
-    </table>
     <% if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil? %>
       <%= button_to certificate_path(@certificate), params: { confirm_remove: true }, method: :get, class: "govuk-button red-button" do %>
-        Remove <span class='govuk-visually-hidden'><%= @certificate.name %></span>
+        Remove <span class="govuk-visually-hidden"><%= @certificate.name %></span>
       <% end %>
     <% end %>
   </div>
