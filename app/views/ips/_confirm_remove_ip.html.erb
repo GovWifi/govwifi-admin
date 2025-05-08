@@ -14,7 +14,7 @@
         <tr class="govuk-table__row">
           <th scope="row" class="govuk-table__cell govuk-body govuk-!-width-one-third">IP address</th>
           <td class="govuk-table__cell govuk-!-width-one-third">
-            <%= render partial: "shared/ip_address", locals: { ip: @ip_to_delete.address } %>
+            <%= format_ip(@ip_to_delete.address) %>
           </td>
         </tr>
         <tr class="govuk-table__row">
