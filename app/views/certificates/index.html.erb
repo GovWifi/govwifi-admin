@@ -23,46 +23,24 @@
   <div class="govuk-grid-row">
     <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
     <div aria-live="polite">
-      <table class="govuk-table govuk-!-margin-bottom-9">
-        <thead>
-          <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header">Name</th>
-            <th scope="col" class="govuk-table__header govuk-!-text-align-left">Type</th>
-            <th scope="col" class="govuk-table__header govuk-!-text-align-left">Expires</th>
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          <% @certificates.each do |certificate| %>
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell govuk-!-width-one-quarter">
-                <%= link_to certificate.name, certificate_path(certificate), class: "govuk-link govuk-link--no-visited-state" %>
-              </td>
-              <td class="govuk-table__cell govuk-!-width-one-quarter govuk-!-text-align-left">
-                <ul class="govuk-list">
-                  <% if certificate.root_cert? %>
-                    <li>Root</li>
-                  <% else %>
-                    <li>Intermediate</li>
-                  <% end %>
-                  <% if certificate.created_at.today? %>
-                    <li>Available from 6am tomorrow</li>
-                  <% end %>
-                </ul>
-              </td>
-              <td class="govuk-table__cell govuk-!-width-one-quarter govuk-!-text-align-left">
-                <%= certificate.not_after.strftime("%d %b %y") %>
-                <% if certificate.expired? %>
-                  <strong class="govuk-tag govuk-tag--red">Expired</strong>
-                <% elsif certificate.nearly_expired?(14) %>
-                  <strong class="govuk-tag govuk-tag--orange">Expiring soon</strong>
-                <% elsif certificate.not_yet_valid? %>
-                  <strong class="govuk-tag govuk-tag--yellow">Not yet valid</strong>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= govuk_table do |table|
+        table.with_head do |head|
+          head.with_row do |row|
+            row.with_cell(text: "Name")
+            row.with_cell(text: "Type")
+            row.with_cell(text: "Expires")
+          end
+        end
+        table.with_body do |body|
+          @certificates.each do |certificate|
+            body.with_row do |row|
+              row.with_cell(text: govuk_link_to(certificate.name, certificate_path(certificate)))
+              row.with_cell(text: govuk_list([certificate_type_label(certificate), available_label(certificate)].compact))
+              row.with_cell(text: certificate_expiry_label(certificate))
+            end
+          end
+        end
+      end %>
     </div>
   </div>
 </div>
