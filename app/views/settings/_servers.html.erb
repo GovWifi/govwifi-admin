@@ -25,7 +25,7 @@
       <td class="govuk-table__cell">
         <ul class="ip-address-list govuk-!-margin-top-0 govuk-!-margin-bottom-0" id="london-radius-ips">
           <% @london_radius_ips.each do |ip| %>
-            <li><%= render partial: "shared/ip_address", locals: { ip: } %></li>
+            <li><%= format_ip(ip) %></li>
           <% end %>
         </ul>
       </td>
@@ -39,7 +39,7 @@
       <td class="govuk-table__cell">
         <ul class="ip-address-list govuk-!-margin-top-0 govuk-!-margin-bottom-0" id="dublin-radius-ips">
           <% @dublin_radius_ips.each do |ip| %>
-            <li><%= render partial: "shared/ip_address", locals: { ip: } %></li>
+            <li><%= format_ip(ip) %></li>
           <% end %>
         </ul>
       </td>
