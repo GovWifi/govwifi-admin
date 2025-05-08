@@ -18,4 +18,10 @@ module ApplicationHelper
   def infer_page_title
     safe_join([content_for(:page_title), SITE_CONFIG["default_page_title"]].reject(&:nil?), " - ")
   end
+
+  def format_ip(ip)
+    content_tag(:span, class: "ip-address") do
+      ip.scan(/\d{1,3}/).join(content_tag(:span, ".", class: "ip-address-separator")).html_safe
+    end
+  end
 end
