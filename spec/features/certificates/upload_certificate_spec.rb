@@ -208,13 +208,13 @@ describe "Upload Certificate", type: :feature do
         click_link "MyCert1"
       end
       it "shows the properties of the certificate" do
-        expect(page).to have_content("Name MyCert1")
-        expect(page).to have_content("Fingerprint ")
-        expect(page).to have_content("Serial #{serial}")
-        expect(page).to have_content("Valid From #{not_before}")
-        expect(page).to have_content("Expires #{not_after}")
-        expect(page).to have_content("Issuer #{root_subject}")
-        expect(page).to have_content("Subject #{root_subject}")
+        expect(page).to have_content("NameMyCert1")
+        expect(page).to have_content("Fingerprint")
+        expect(page).to have_content("Serial#{serial}")
+        expect(page).to have_content("Valid From#{not_before}")
+        expect(page).to have_content("Expires#{not_after}")
+        expect(page).to have_content("Issuer#{root_subject}")
+        expect(page).to have_content("Subject#{root_subject}")
       end
       context "remove the certificate" do
         before :each do
