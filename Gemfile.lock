@@ -199,6 +199,7 @@ GEM
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86-linux-gnu)
     ffi (1.17.1-x86_64-darwin)
+    ffi (1.17.1-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-apis-core (0.16.0)
@@ -226,7 +227,7 @@ GEM
       html-attributes-utils (~> 1.0.0, >= 1.0.0)
       pagy (>= 6, < 10)
       view_component (>= 3.18, < 3.22)
-    govuk_design_system_formbuilder (5.7.0)
+    govuk_design_system_formbuilder (5.10.0)
       actionview (>= 6.1)
       activemodel (>= 6.1)
       activesupport (>= 6.1)
@@ -576,6 +577,7 @@ PLATFORMS
   armv7-linux
   universal-darwin-8
   x86-linux
+  x86_64-linux
 
 DEPENDENCIES
   aws-sdk-route53 (~> 1.107.0)
