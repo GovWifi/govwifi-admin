@@ -42,6 +42,7 @@ group :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "nokogiri"
+  gem "ostruct"
   gem "rack_session_access"
   gem "rails-controller-testing"
   gem "rspec-rails"
