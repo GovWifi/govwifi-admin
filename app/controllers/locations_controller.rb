@@ -36,7 +36,7 @@ class LocationsController < ApplicationController
     if @location.update(
       address: params.dig(:location, :address),
       postcode: params.dig(:location, :postcode),
-      organisation_id: current_organisation.id,
+      organisation_id: params.dig(:location, :organisation_id),
     )
       redirect_to(ips_path, notice: "Location updated")
     else
