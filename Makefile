@@ -31,7 +31,7 @@ lint: lint-ruby lint-erb lint-scss lint-prettier
 lint-ruby: build
 	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec rubocop
 lint-erb: build
-	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec erblint --lint-all
+	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec erb_lint --lint-all
 lint-scss: build
 	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/stylelint/bin/stylelint.mjs "**/*.scss"
 lint-prettier: build
@@ -39,7 +39,7 @@ lint-prettier: build
 
 autocorrect: autocorrect-erb
 autocorrect-erb: build
-	$(DOCKER_COMPOSE) run --rm --no-deps app bundle exec erblint --lint-all --autocorrect
+	$(DOCKER_COMPOSE) run --rm --no-deps app bundle exec erb_lint --lint-all --autocorrect
 
 test: stop build prebuilt-test
 
