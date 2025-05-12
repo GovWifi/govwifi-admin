@@ -27,63 +27,8 @@
 
   <%= render "logs/filter_logs_select", log_search_form: %>
 
-  <table class="govuk-table">
-    <caption class="govuk-table__caption"></caption>
-    <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <% unless log_search_form.username %>
-          <th class="govuk-table__header" scope="col">Username or ID</th>
-        <% end %>
-        <% if log_search_form.ip && current_organisation&.cba_enabled? %>
-          <th class="govuk-table__header" scope="col">Authentication Method</th>
-          <th class="govuk-table__header" scope="col">Certificate Serial Number</th>
-        <% end %>
-        <th class="govuk-table__header" scope="col">Access Point</th>
-        <th class="govuk-table__header" scope="col">MAC Address</th>
-        <% unless log_search_form.ip %>
-          <th class="govuk-table__header" scope="col">IP</th>
-        <% end %>
-        <th class="govuk-table__header" scope="col">Time (UTC)</th>
-        <th class="govuk-table__header" scope="col">Status</th>
-        <% if super_admin? %>
-          <th class="govuk-table__header" scope="col">
-            <span style="white-space: nowrap;">Radius Server task id</span>
-            <span>(super admin only)</span>
-          </th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-      <% is_current_organisation_cba_enabled = current_organisation&.cba_enabled? %>
-      <% logs.each do |log| %>
-        <tr class="govuk-table__row">
-          <% unless log_search_form.username %>
-            <td class="govuk-table__cell">
-              <% if log.username.present? %>
-                <%= link_to log.username, logs_path(log_search_form: { username: log.username, filter_option: LogSearchForm::USERNAME_FILTER_OPTION }), class: "govuk-link" %>
-              <% end %>
-            </td>
-          <% end %>
-          <% if log_search_form.ip && is_current_organisation_cba_enabled %>
-            <td class="govuk-table__cell"><%= log.eap_tls? ? "EAP-TLS" : "MSCHAP" %></td>
-            <td class="govuk-table__cell"><%= log.cert_serial %></td>
-          <% end %>
-          <td class="govuk-table__cell"><%= log.ap %></td>
-          <td class="govuk-table__cell"><%= log.mac %></td>
-          <% unless log_search_form.ip %>
-            <td class="govuk-table__cell">
-            <%= link_to log.siteIP, logs_path(log_search_form: { ip: log.siteIP, filter_option: LogSearchForm::IP_FILTER_OPTION }), class: "govuk-link" %>
-            </td>
-          <% end %>
-          <td class="govuk-table__cell"><%= log.start.to_fs(:no_timezone) %></td>
-          <td class="govuk-table__cell"><%= log.success ? "successful" : "failed" %></td>
-          <% if super_admin? %>
-            <td class="govuk-table__cell"><%= log.task_id %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= govuk_table(head: table_data[:head], rows: table_data[:rows]) %>
+
 <% else %>
   <div class="govuk-grid-row">
     <h1 class="govuk-heading-l govuk-grid-column-three-quarters">
