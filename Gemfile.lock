@@ -165,10 +165,10 @@ GEM
     elastic-transport (8.4.0)
       faraday (< 3)
       multi_json
-    elasticsearch (8.17.2)
+    elasticsearch (9.0.2)
       elastic-transport (~> 8.3)
-      elasticsearch-api (= 8.17.2)
-    elasticsearch-api (8.17.2)
+      elasticsearch-api (= 9.0.2)
+    elasticsearch-api (9.0.2)
       multi_json
     encryptor (3.0.0)
     erb_lint (0.9.0)
@@ -254,7 +254,7 @@ GEM
       reline (>= 0.4.2)
     jaro_winkler (1.6.0)
     jmespath (1.6.2)
-    json (2.11.3)
+    json (2.12.0)
     jwt (2.10.1)
       base64
     kramdown (2.5.1)
@@ -605,7 +605,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9.4)
   devise_zxcvbn (~> 6.0.0)
-  elasticsearch (~> 8.17.2)
+  elasticsearch (~> 9.0.2)
   erb_lint
   factory_bot_rails
   faker
