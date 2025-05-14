@@ -1,50 +1,15 @@
-<h2 class="govuk-heading-m">GovWifi servers</h2>
-
-<p class="govuk-hint govuk-!-margin-top-0 govuk-!-margin-bottom-0">
-  The
-  <%= link_to "offer GovWifi documentation",
-              "https://docs.wifi.service.gov.uk/set_up/#step-3-create-a-new-wifi-installation",
-              class: "govuk-link govuk-link--no-visited-state" %>
-  explains how to connect your authenticators to these servers
-</p>
-
-<table class="govuk-table govuk-!-margin-bottom-9">
-  <caption class="govuk-visually-hidden">Settings</caption>
-  <thead class="govuk-table__head govuk-visually-hidden">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-!-width-one-third">GovWifi servers</th>
-      <th scope="col" class="govuk-table__header">Value</th>
-      <th scope="col" class="govuk-table__header">Action</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-        London
-      </th>
-      <td class="govuk-table__cell">
-        <ul class="ip-address-list govuk-!-margin-top-0 govuk-!-margin-bottom-0" id="london-radius-ips">
-          <% @london_radius_ips.each do |ip| %>
-            <li><%= format_ip(ip) %></li>
-          <% end %>
-        </ul>
-      </td>
-      <td class="govuk-table__cell">
-      </td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-        Dublin
-      </th>
-      <td class="govuk-table__cell">
-        <ul class="ip-address-list govuk-!-margin-top-0 govuk-!-margin-bottom-0" id="dublin-radius-ips">
-          <% @dublin_radius_ips.each do |ip| %>
-            <li><%= format_ip(ip) %></li>
-          <% end %>
-        </ul>
-      </td>
-      <td class="govuk-table__cell">
-      </td>
-    </tr>
-  </tbody>
-</table>
+<%= govuk_summary_list(card: {
+  title: "GovWifi servers",
+  actions: [
+    govuk_link_to("How to connect to these servers",
+                  "https://docs.wifi.service.gov.uk/set_up/#step-3-create-a-new-wifi-installation")
+  ] }) do |summary_list|
+  summary_list.with_row do |row|
+    row.with_key { "London" }
+    row.with_value { radius_ip_list(@london_radius_ips) }
+  end
+  summary_list.with_row do |row|
+    row.with_key(text: "Dublin")
+    row.with_value { radius_ip_list(@dublin_radius_ips) }
+  end
+end %>
