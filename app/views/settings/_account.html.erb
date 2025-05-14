@@ -1,34 +1,11 @@
-<h2 class="govuk-heading-m">Your account</h2>
+<%= govuk_summary_list(card: {title: "Your Account"}) do |summary_list|
+  summary_list.with_row do |row|
+    row.with_key { 'Email address' }
+    row.with_value { current_user.email }
 
-<table class="govuk-table govuk-!-margin-bottom-9">
-  <caption class="govuk-visually-hidden">Settings</caption>
-  <thead class="govuk-table__head govuk-visually-hidden">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-!-width-one-third">Your account</th>
-      <th scope="col" class="govuk-table__header">Value</th>
-      <th scope="col" class="govuk-table__header">Action</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-        Email Address
-      </th>
-      <td class="govuk-table__cell">
-        <%= current_user.email %>
-      </td>
-      <td class="govuk-table__cell govuk-table__cell--numeric"></td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
-        Password
-      </th>
-      <td class="govuk-table__cell"></td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">
-        <%= link_to edit_user_registration_path, class: "govuk-link govuk-link--no-visited-state" do %>
-          Change <span class='govuk-visually-hidden'>your password</span>
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  end
+  summary_list.with_row do |row|
+    row.with_key(text: 'Password')
+    row.with_action(text: "Change", href: edit_user_registration_path, visually_hidden_text: 'your password')
+  end
+end %>
