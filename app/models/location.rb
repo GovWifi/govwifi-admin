@@ -14,6 +14,7 @@ class Location < ApplicationRecord
   validate :unpersisted_addresses_are_unique
   validates :radius_secret_key, length: { minimum: 10 }, on: :update
 
+  before_validation :strip_whitespace
   before_create :set_radius_secret_key
 
   def unpersisted_addresses_are_unique
@@ -36,6 +37,11 @@ class Location < ApplicationRecord
   end
 
 private
+
+  def strip_whitespace
+    self.address = address.strip if address.present?
+    self.postcode = postcode.strip if postcode.present?
+  end
 
   def validate_postcode_format
     unless UKPostcode.parse(postcode.to_s).valid? || postcode.to_s.downcase == "unknown"

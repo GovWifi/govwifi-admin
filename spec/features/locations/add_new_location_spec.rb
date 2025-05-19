@@ -18,8 +18,8 @@ describe "Add location", type: :feature do
   context "when adding the first location" do
     context "with valid IP data" do
       before do
-        fill_in "Address", with: "30 Square"
-        fill_in "Postcode", with: "W1A 2AB"
+        fill_in "Address", with: "30 Square  "
+        fill_in "Postcode", with: "W1A 2AB  "
       end
 
       it "adds the location" do
@@ -29,6 +29,13 @@ describe "Add location", type: :feature do
       it "displays the success message to the user" do
         click_on "Add location"
         expect(page).to have_content("Added 30 Square, W1A 2AB")
+      end
+
+      it "trims the whitespace before saving" do
+        click_on "Add location"
+        location = Location.last
+        expect(location.address).to eq("30 Square")
+        expect(location.postcode).to eq("W1A 2AB")
       end
 
       it 'redirects to "After location created" path' do
