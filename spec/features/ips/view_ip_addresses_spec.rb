@@ -2,7 +2,7 @@ describe "Viewing IP addresses", type: :feature do
   let(:user) { create(:user, :with_organisation) }
 
   def xpath_row_containing_ip(ip)
-    "//tr[th[normalize-space(text())=\"#{ip.address}\"]]"
+    "//tr[@class=\"govuk-table__row\"][.//th[text()=\"#{ip.address}\"]]"
   end
 
   context "with no IPs" do
