@@ -43,8 +43,8 @@ describe "Search Locations", type: :feature do
       fill_in "search", with: "Zebr"
       click_button("Search")
       expect(page).to have_content("Zebra Place 0")
-      expect(page).to have_content("89.1.1.30 Available at 6am tomorrow", count: 1)
-      expect(page).to have_content("89.1.1.31 Available at 6am tomorrow", count: 1)
+      expect(page).to have_content("89.1.1.30Available at 6am tomorrow", count: 1)
+      expect(page).to have_content("89.1.1.31Available at 6am tomorrow", count: 1)
     end
   end
 end

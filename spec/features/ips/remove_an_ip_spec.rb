@@ -56,7 +56,7 @@ describe "Removing an IP", type: :feature do
 
     it "does not show the remove button" do
       visit ips_path
-      within(:xpath, "//tr[th[normalize-space(text())=\"#{ip.address}\"]]") do
+      within(:xpath, "//dt[normalize-space(text())=\"#{ip.address}\"]") do
         expect(page).not_to have_content("Remove")
       end
     end

@@ -56,7 +56,7 @@ describe "Remove a location", type: :feature do
 
     it "does not show the remove button" do
       visit ips_path
-      within("table") do
+      within("dl") do
         expect(page).not_to have_content("Remove location")
       end
     end
