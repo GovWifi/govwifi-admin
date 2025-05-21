@@ -3,6 +3,7 @@ class SuperAdmin::Allowlists::EmailDomainsController < SuperAdminController
 
   def index
     @authorised_email_domains = ordered_email_domains
+    @domain_to_remove = AuthorisedEmailDomain.find(params[:id]) if params.key?(:id)
   end
 
   def new
