@@ -13,59 +13,42 @@
 </p>
 
 <div class="govuk-!-margin-top-1">
-  <%= link_to "Download all organisations in CSV format",
-              super_admin_organisations_path(format: "csv"),
-              class: "govuk-link" %>
+  <%= govuk_link_to "Download all organisations in CSV format",
+                    super_admin_organisations_path(format: "csv") %>
   <br>
-  <%= link_to "Download all service emails in CSV format",
-              service_emails_super_admin_organisations_path(format: "csv"),
-              class: "govuk-link" %>
+  <%= govuk_link_to "Download all service emails in CSV format",
+                    service_emails_super_admin_organisations_path(format: "csv") %>
 </div>
 <p>
   <label class="govuk-label" for="filter-input">Search by organisation name</label>
   <input type="search" id="filter-input" class="govuk-input" autocomplete="off">
 </p>
 
-<table class="govuk-table">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th class="govuk-table__header govuk-!-width-one-half" scope="col"><%= sort_link "name" %></th>
-      <th class="govuk-table__header" scope="col"><%= sort_link "created_at", "Created on" %></th>
-      <th class="govuk-table__header govuk-table__header" scope="col"><%= sort_link "latest_mou_created_at", "MOU Signed" %></th>
-      <th class="govuk-table__header govuk-table__header--numeric" scope="col"><%= sort_link "locations_count", "Locations" %></th>
-      <th class="govuk-table__header govuk-table__header--numeric" scope="col"><%= sort_link "ips_count", "IPs" %></th>
-      <th class="govuk-table__header" scope="col"><%= sort_link "certificates_count", "Uses EAP-TLS" %></th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body" aria-live="polite">
-    <% @organisations.each do |organisation| %>
-    <tr class="govuk-table__row result-row">
-      <th class="govuk-table__cell govuk-!-width-one-half" scope="row">
-        <%= link_to organisation.name, super_admin_organisation_path(organisation), class: "govuk-link filter-by" %>
-      </th>
-      <td class="govuk-table__cell">
-        <%= organisation.created_at.strftime("%e %b %Y") %>
-      </td>
-      <td class="govuk-table__cell govuk-table__cell">
-        <% if organisation.latest_mou_created_at.present? %>
-        <%= organisation.latest_mou_created_at.strftime("%e %b %Y") %>
-        <% else %>
-        -
-        <% end %>
-      </td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">
-        <%= organisation.locations_count %>
-      </td>
-      <td class="govuk-table__cell govuk-table__cell--numeric">
-        <%= organisation.ips_count %>
-      </td>
-      <td class="govuk-table__cell govuk-table__cell">
-        <%= organisation.certificates.empty? ? "no" : "yes" %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= govuk_table do |table|
+  table.with_head do |head|
+    head.with_row do |row|
+      row.with_cell(text: sort_link("name"))
+      row.with_cell(text: sort_link("created_at", "Created on"))
+      row.with_cell(text: sort_link("latest_mou_created_at", "MOU Signed"))
+      row.with_cell(text: sort_link("locations_count", "Locations"))
+      row.with_cell(text: sort_link("ips_count", "IPs"))
+      row.with_cell(text: sort_link("certificates_count", "Uses EAP-TLS"))
+    end
+  end
+  table.with_body do |body|
+    @organisations.each do |organisation|
+      body.with_row do |row|
+        row.with_cell(header: true, text: govuk_link_to(organisation.name, super_admin_organisation_path(organisation)))
+        row.with_cell(text: organisation.created_at.strftime("%e %b %Y"))
+        row.with_cell(text: mou_created_at_label(organisation))
+        row.with_cell(text: organisation.locations_count)
+        row.with_cell(text: organisation.ips_count)
+        row.with_cell(text: organisation.certificates.empty? ? "no" : "yes")
+      end
+    end
+  end
+end %>
+
 <div role="status">
   <p class="govuk-body" id="no-results" style="display: none">
     <strong>No results found</strong>
