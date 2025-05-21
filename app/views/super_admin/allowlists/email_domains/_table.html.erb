@@ -1,20 +1,20 @@
-<table class="govuk-table govuk-!-margin-bottom-8">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th class="govuk-table__header" scope="col">Email Domain</th>
-      <th class="govuk-table__header" scope="col">Date Added</th>
-      <th class="govuk-table__header" scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body" id="domains-table">
-    <% domains.each do |domain| %>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__cell govuk-!-width-one-third" scope="row"><%= domain.name %></th>
-        <td class="govuk-table__cell"><%= domain.created_at.strftime("%e %b %Y") %></td>
-        <td class="govuk-table__cell text-right">
-          <%= link_to "Remove", super_admin_allowlist_email_domains_path(id: domain.id, domain_to_remove: domain.name), class: "govuk-link", aria: { label: "Remove #{domain.name} from the allow list" } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= govuk_table do |table|
+  table.with_head do |head|
+    head.with_row do |row|
+      row.with_cell(text: 'Email Domain')
+      row.with_cell(text: 'Date Added')
+      row.with_cell(text: 'Action')
+    end
+  end
+  table.with_body do |body|
+    domains.each do |domain|
+      body.with_row do |row|
+        row.with_cell(text: domain.name)
+        row.with_cell(text: domain.created_at.strftime("%e %b %Y"))
+        row.with_cell(text: govuk_link_to("Remove",
+                                          super_admin_allowlist_email_domains_path(id: domain.id, domain_to_remove: domain.name),
+                                          visually_hidden_suffix: "#{domain.name} from the allow list"))
+      end
+    end
+  end
+end %>
