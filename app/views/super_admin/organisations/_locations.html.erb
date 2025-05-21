@@ -1,17 +1,17 @@
 <% if locations.any? %>
-  <table class="govuk-table">
-    <thead class="govuk-table__head" scope="col">
-    </thead>
-    <tbody class="govuk-table__body">
-    <% locations.each do |location| %>
-      <tr class="govuk-table__row">
-        <td class="govuk-table__cell"><%= location.address %></td>
-        <td class="govuk-table__cell text-right"><%= location.postcode %></td>
-        <td class="govuk-table__cell"><%= link_to "Set secret key", edit_super_admin_location_path(location.id), class: "govuk-link" %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+  <%= govuk_table do |table|
+    table.with_body do |body|
+      locations.each do |location|
+        body.with_row do |row|
+          row.with_cell(text: location.address)
+          row.with_cell(text: location.postcode)
+          row.with_cell(text: govuk_link_to("Set secret key", edit_super_admin_location_path(location.id)),
+                        classes: %w[text-right],
+                        numeric: true)
+        end
+      end
+    end
+  end %>
 <% else %>
   <p class="govuk-body">This organisation has no locations.</p>
 <% end %>
