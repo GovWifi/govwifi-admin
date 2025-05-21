@@ -42,7 +42,11 @@
         <%= render partial: "shared/manage_ips", locals: { location:, show_ip_controls: false } %>
       <% end %>
     <% end %>
+
     <%= govuk_pagination(pagy: @pagy) %>
-    <%= link_to "Delete organisation", super_admin_organisation_path(@organisation, remove_organisation: true), class: "govuk-button red-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
+
+    <%= govuk_button_link_to "Delete organisation",
+                             super_admin_organisation_path(@organisation, remove_organisation: true),
+                             warning: true %>
   </div>
 </div>
