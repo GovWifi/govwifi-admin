@@ -65,7 +65,7 @@ describe "Sign MOU", type: :feature do
         end
 
         it "displays a notification after MOU creation" do
-          expect(page).to have_content("Memorandum of understanding (MOU) Signed by #{user.name} on #{created_at}")
+          expect(page).to have_content("Memorandum of understanding (MOU)Signed by #{user.name} on #{created_at}")
         end
       end
 
