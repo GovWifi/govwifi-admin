@@ -40,14 +40,14 @@ describe Gateways::Sessions do
     end
   end
 
-  describe "Many ip addresses" do
+  describe "many ip addresses" do
     it "only uses the IP address that was created first" do
       create_data([5, 2, 6, 9, 3])
       expect(session.organisation_usage_stats).to eq(2)
     end
   end
 
-  describe "Many organisations and many IP addresses" do
+  describe "many organisations and many IP addresses" do
     it "calculates the median value of of the difference between the organisation creation date and the first IP address" do
       create_data([5, 1, 6, 9, 3])
       create_data([3, 2, 7, 2])
