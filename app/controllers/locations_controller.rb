@@ -2,6 +2,7 @@ class LocationsController < ApplicationController
   before_action :authorise_manage_locations
   before_action :authorise_manage_current_location, only: %i[add_ips update_ips update edit]
   before_action :authorise_ip_actions, only: %i[bulk_upload add_ips]
+  before_action :check_user_organisations, only: :update_location
 
   def new
     @location = Location.new
@@ -36,7 +37,7 @@ class LocationsController < ApplicationController
     if @location.update(
       address: params.dig(:location, :address),
       postcode: params.dig(:location, :postcode),
-      organisation_id: current_organisation.id,
+      organisation_id: params.dig(:location, :organisation_id),
     )
       redirect_to(ips_path, notice: "Location updated")
     else
@@ -153,6 +154,16 @@ private
     unless current_organisation.meets_invited_admin_user_minimum?
       flash[:alert] = "You must add another administrator before you can add IPs or multiple locations."
       redirect_to ips_path
+    end
+  end
+
+  def check_user_organisations
+    unless current_user.is_super_admin?
+      organisation = Organisation.find(params.dig(:location, :organisation_id))
+      unless current_user.organisations.include? organisation
+        flash[:alert] = "You can't update the location to an organisation you're not a member of"
+        render :edit
+      end
     end
   end
 end
