@@ -1,0 +1,21 @@
+<span class="govuk-caption-m govuk-!-margin-bottom-4">
+  RADIUS secret key: <%= location.radius_secret_key %>
+</span><div class="govuk-button-group">
+  <%= govuk_button_link_to "Add IP addresses",
+                           location_add_ips_path(location_id: location.id),
+                           visually_hidden_suffix: "for #{location.full_address}", secondary: true %>
+  <%= govuk_button_link_to "Rotate secret key",
+                           ips_path(location_id: location.id, confirm_rotate: true),
+                           visually_hidden_suffix: "for #{location.full_address}", secondary: true %>
+  <%= govuk_button_link_to "Update this location",
+                           edit_location_path(location),
+                           visually_hidden_suffix: "for #{location.full_address}", secondary: true %>
+  <% if location.ips.empty? %>
+    <%= govuk_button_link_to "Remove this location",
+                             ips_path(location_id: location.id, confirm_remove: true),
+                             visually_hidden_suffix: "for #{location.full_address}", warning: true %>
+    <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-9">
+      Add the IP addresses of your authenticators to offer GovWifi at this location
+    </div>
+  <% end %>
+</div>
