@@ -2,7 +2,7 @@
   <% content_for :page_title, "Page not found" %>
   <h1 class="govuk-heading-xl">Page not found</h1>
   <p class="govuk-body">If you entered a web address please check it was correct.</p>
-  <p class="govuk-body">You can browse from the <%= link_to "homepage", root_path, class: "govuk-link" %> to find the information you need.</p>
+  <p class="govuk-body">You can browse from the <%= govuk_link_to "homepage", root_path %> to find the information you need.</p>
 <% else %>
   <% content_for :page_title, "An error occurred" %>
   <h1 class="govuk-heading-xl">Sorry an error occurred</h1>

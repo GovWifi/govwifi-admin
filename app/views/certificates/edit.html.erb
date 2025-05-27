@@ -1,18 +1,14 @@
 <% content_for :page_title, "Edit Certificate" %>
 
-<%= link_to "Back", :back, class: "govuk-back-link" %>
+<%= govuk_back_link href: :back %>
 
 <%= form_with model: @certificate, method: "patch"  do |f| %>
   <%= f.govuk_error_summary %>
-  <div class='govuk-grid-row'>
-    <div class='govuk-grid-column-full'>
-      <h1 class='govuk-heading-l'>What would you like to rename this certificate?</h1>
-    </div>
-
-    <div class='govuk-grid-column-full'>
-      <%= f.govuk_text_field :name, hint: { text: "e.g. IntermediateCA 1" } %>
-      <%= f.govuk_submit "Update" %>
-      <p><%= link_to "Cancel", certificates_path, class: "govuk-link--no-visited-state govuk-body" %></p>
-    </div>
-  </div>
+  <h1 class='govuk-heading-l'>What would you like to rename this certificate?</h1>
+  <%= f.govuk_text_field :name, hint: { text: "e.g. IntermediateCA 1" } %>
+  <%= f.govuk_submit "Update" %>
 <% end %>
+
+<p class="govuk-body">
+  <%= govuk_link_to "Cancel", certificates_path, no_visited_state: true %>
+</p>
