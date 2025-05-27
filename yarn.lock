@@ -355,13 +355,14 @@ globjoin@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/globjoin/-/globjoin-0.1.4.tgz"
 
-govuk-frontend@^5.10.0:
-  version "5.10.0"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.10.0.tgz#812a5a14e4466130603b60b9da3d43a6b06b7069"
+govuk-frontend@^5.10.1:
+  version "5.10.1"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.10.1.tgz#5534357267919e26e72cdc028bbad1906b4c9ba1"
 
-"govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz":
-  version "0.6.10"
-  resolved "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz#b4fe700112c34d258a9fa045ad585e972fca2c70"
+"govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.11/govwifi-shared-frontend-0.6.11.tgz":
+  version "0.6.11"
+  uid aacef432f24993464e029b410317a08d91cdfc32
+  resolved "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.11/govwifi-shared-frontend-0.6.11.tgz#aacef432f24993464e029b410317a08d91cdfc32"
   dependencies:
     js-cookie "^3.0.5"
 
