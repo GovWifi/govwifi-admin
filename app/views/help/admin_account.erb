@@ -1,16 +1,17 @@
 <% content_for :page_title, "Manage GovWifi in your organisation support" %>
 <% content_for :meta_description, "Contact us for technical help and support with managing an existing GovWifi installation in your organisation" %>
 
-<%= form_with model: @support_form, url: { action: "create" } do |f| %>
-  <%= f.govuk_error_summary %>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <%= link_to "Back", new_help_path, class: "govuk-back-link" %>
+<%= govuk_back_link(href: new_help_path) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @support_form, url: { action: "create" } do |f| %>
+      <%= f.govuk_error_summary %>
       <h1 class="govuk-heading-l">Manage GovWifi in your organisation support</h1>
-      <div class="govuk-inset-text">
+      <%= govuk_inset_text do %>
         If you are experiencing difficulty setting up GovWifi in your organisation for the first time, please use our
-        <%= link_to 'set up GovWifi support form.', technical_support_new_help_path, class: "govuk-link" %> contact form.
-      </div>
+        <%= govuk_link_to 'set up GovWifi support form.', technical_support_new_help_path %> contact form.
+      <% end %>
       <%= f.govuk_text_field :name, label: { text: "Your name" } %>
       <%= f.govuk_text_field :email, label: { text: "Your email address" } %>
       <%= f.govuk_text_field :organisation, label: { text: "Name of the organisation affected" } %>
@@ -18,11 +19,10 @@
                             label: { text: "Tell us a bit more about your issue managing GovWifi in your organisation." },
                             rows: 10 %>
       <%= f.hidden_field :choice %>
-      <div class="govuk-inset-text">
+      <%= govuk_inset_text do %>
         Support tickets are checked daily. You will receive a reply within one working day.
-      </div>
+      <% end %>
       <%= f.govuk_submit 'Submit' %>
-    </div>
+    <% end %>
   </div>
-<% end %>
-
+</div>

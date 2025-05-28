@@ -4,26 +4,24 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">GovWifi administrator support</h1>
-    <div class="govuk-details">
-    <p>
+    <p class="govuk-body">
       We provide guidance on how to set up and manage GovWifi in your organisation in our
-      <%= link_to "technical documentation", SITE_CONFIG["organisation_docs_link"], class: "govuk-link" %>.
+      <%= govuk_link_to "technical documentation", SITE_CONFIG["organisation_docs_link"] %>.
     </p>
-    <p>
+    <p class="govuk-body">
       If users in your organisation are having trouble connecting devices to GovWifi, please refer them to our <%= link_to "user support guidance", "https://www.wifi.service.gov.uk/get-help-connecting/", class: "govuk-link" %> on common issues.
     </p>
 
-      <% radio_options = [OpenStruct.new(value: :technical_support, label: "Setting up GovWifi in your organisation support"),
-                          OpenStruct.new(value: :admin_account, label: "Managing GovWifi in your organisation support"),
-                          OpenStruct.new(value: :user_support, label: "Request GovWifi user information")] %>
-      <%= form_with url: new_help_path, method: "get" do |f| %>
-        <%= f.govuk_collection_radio_buttons :choice,
-                                             radio_options,
-                                             :value,
-                                             :label,
-                                             legend: { text: "How can we help?" } %>
-        <%= f.govuk_submit("Continue") %>
+    <% radio_options = [OpenStruct.new(value: :technical_support, label: "Setting up GovWifi in your organisation support"),
+                        OpenStruct.new(value: :admin_account, label: "Managing GovWifi in your organisation support"),
+                        OpenStruct.new(value: :user_support, label: "Request GovWifi user information")] %>
+    <%= form_with url: new_help_path, method: "get" do |f| %>
+      <%= f.govuk_collection_radio_buttons :choice,
+                                           radio_options,
+                                           :value,
+                                           :label,
+                                           legend: { text: "How can we help?" } %>
+      <%= f.govuk_submit("Continue") %>
     <% end %>
-    </div>
   </div>
 </div>
