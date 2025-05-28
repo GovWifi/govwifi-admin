@@ -7,44 +7,13 @@
   <p class="govuk-body">
     If an individual user is having trouble connecting to GovWifi:
   </p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>
-      direct them to <%= link_to "our guidance on common issues", SITE_CONFIG["end_user_troubleshooting_link"], class: "govuk-link" %>
-    </li>
-    <% unless current_organisation&.locations&.empty? %>
-      <li>
-        <%= link_to "search our logs", new_logs_search_path, class: "govuk-link" %> to confirm they are reaching our service
-      </li>
-    <% end %>
-    <li>
-      <p class="govuk-body">
-        check the <%= link_to "GovWifi service status", SITE_CONFIG["service_status_link"], class: "govuk-link" %>.
-      </p>
-    </li>
-  </ul>
+  <%= govuk_list individual_troubleshoot_list(current_organisation), type: :bullet %>
 
   <h2 class="govuk-heading-m">Organisation problems</h2>
   <p class="govuk-body">
     If your entire organisation is having trouble connecting to GovWifi:
   </p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>
-      check your <%= link_to "IP addresses and RADIUS secret keys", ips_path, class: "govuk-link" %> match your local configuration
-    </li>
-    <% unless current_organisation&.locations&.empty? %>
-      <li>
-        <%= link_to "search our logs", new_logs_search_path, class: "govuk-link" %> to confirm traffic from you is reaching our service
-      </li>
-    <% end %>
-    <li>
-      search <%= link_to "our technical documentation", SITE_CONFIG["organisation_docs_link"], class: "govuk-link" %>
-    </li>
-    <li>
-      <p class="govuk-body">
-        check the <%= link_to "GovWifi service status", SITE_CONFIG["service_status_link"], class: "govuk-link" %>
-      </p>
-    </li>
-  </ul>
+  <%= govuk_list organisation_troubleshoot_list(current_organisation), type: :bullet %>
 
   <h2 class="govuk-heading-m">Request support</h2>
   <p class="govuk-body">
@@ -55,8 +24,6 @@
                         label: { text: "Tell us about your issue" },
                         rows: 10 %>
   <%= f.hidden_field :choice %>
-  <div class="govuk-inset-text">
-    Support tickets are checked daily. You will receive a reply within one working day.
-  </div>
+  <%= govuk_inset_text text:  "Support tickets are checked daily. You will receive a reply within one working day." %>
   <%= f.govuk_submit "Send support request" %>
 <% end %>
