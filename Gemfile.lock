@@ -88,22 +88,22 @@ GEM
     ansi (1.5.0)
     ast (2.4.3)
     aws-eventstream (1.3.2)
-    aws-partitions (1.1101.0)
-    aws-sdk-core (3.223.0)
+    aws-partitions (1.1108.0)
+    aws-sdk-core (3.224.1)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
       base64
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.100.0)
+    aws-sdk-kms (1.101.0)
       aws-sdk-core (~> 3, >= 3.216.0)
       aws-sigv4 (~> 1.5)
     aws-sdk-route53 (1.107.0)
       aws-sdk-core (~> 3, >= 3.210.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.182.0)
-      aws-sdk-core (~> 3, >= 3.216.0)
+    aws-sdk-s3 (1.187.0)
+      aws-sdk-core (~> 3, >= 3.224.1)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.11.0)
@@ -597,7 +597,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-route53 (~> 1.107.0)
-  aws-sdk-s3 (~> 1.182.0)
+  aws-sdk-s3 (~> 1.187.0)
   bullet
   byebug
   cancancan
