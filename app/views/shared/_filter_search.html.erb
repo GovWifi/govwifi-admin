@@ -5,12 +5,13 @@
 
   function filterResults() {
     var filterValue = filterInput.value.toUpperCase();
-    var rows = document.querySelectorAll('.result-row');
+    var rows = document.querySelectorAll('tbody tr');
 
-    for(var i = 0; i < rows.length; i++) {
-      var text = rows[i].querySelectorAll('.filter-by')[0].innerHTML.toUpperCase();
-      rows[i].style.display = text.indexOf(filterValue) > -1 ? '' : 'none';
-    }
+    rows.forEach(function(row) {
+      var cell = row.querySelector('th, td');
+      var text = cell ? cell.textContent.toUpperCase() : '';
+      row.style.display = text.includes(filterValue) ? '' : 'none';
+    });
 
     displayResultsMessage(rows);
   }
