@@ -1,10 +1,5 @@
-<div class="govuk-error-summary" role="alert">
-  <h2 class="govuk-error-summary__title">
-    Are you sure you want to remove this email domain?
-  </h2>
-  <div class="govuk-error-summary__body">
-    <%= govuk_button_to "Yes, remove #{@domain_to_remove.name} from the allow list",
-                        super_admin_allowlist_email_domain_path(@domain_to_remove),
-                        method: :delete, warning: true %>
-  </div>
-</div>
+<%= error_summary(title: "Are you sure you want to remove this email domain?") do %>
+  <%= govuk_button_to "Yes, remove #{@domain_to_remove.name} from the allow list",
+                      super_admin_allowlist_email_domain_path(@domain_to_remove),
+                      method: :delete, warning: true %>
+<% end %>

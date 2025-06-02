@@ -19,7 +19,7 @@ describe "Delete Certificate", type: :feature do
         click_button "Remove"
       end
       it "shows a confirmation message" do
-        expect(page).to have_content("Remove this Certificate?")
+        expect(page).to have_content("Are you sure you want to remove certificate 'root_cert'")
       end
       it "cannot remove a certificate with a child" do
         click_button "Remove"
