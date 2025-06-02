@@ -24,4 +24,8 @@ module ApplicationHelper
       ip.scan(/\d{1,3}/).join(content_tag(:span, ".", class: "ip-address-separator")).html_safe
     end
   end
+
+  def error_summary(title: "There is a problem", list: [], &block)
+    render(ErrorSummaryComponent.new(title: title, list: list), &block)
+  end
 end
