@@ -16,7 +16,9 @@ describe "Resending an invitation", type: :feature do
     end
     it "sends a invitation to confirm the users account" do
       click_on "Resend invite"
-      click_on "Resend invite"
+      within(".govuk-error-summary") do
+        click_on "Resend invite"
+      end
       it_sent_a_cross_organisational_invitation_email
     end
   end

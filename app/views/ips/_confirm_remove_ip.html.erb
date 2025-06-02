@@ -1,29 +1,13 @@
 <% content_for :page_title, "Remove IP address -  #{yield :page_title}", flush: true %>
 
-<div class="govuk-error-summary" role="alert">
-  <h2 class="govuk-error-summary__title">
-    Remove this IP address?
-    <p class="govuk-body">
-      Any device trying to connect to GovWifi at this IP address will no longer be authenticated
-    </p>
-  </h2>
+<% title = capture do %>
+  Remove this IP address?
+  <%= govuk_inset_text do %>
+    Any device trying to connect to GovWifi at this IP address will no longer be authenticated
+  <% end %>
+<% end %>
 
-  <div class="govuk-error-summary__body">
-    <table class="govuk-table">
-      <tbody class="govuk-table__body">
-        <tr class="govuk-table__row">
-          <th scope="row" class="govuk-table__cell govuk-body govuk-!-width-one-third">IP address</th>
-          <td class="govuk-table__cell govuk-!-width-one-third">
-            <%= format_ip(@ip_to_delete.address) %>
-          </td>
-        </tr>
-        <tr class="govuk-table__row">
-          <th scope="row" class="govuk-table__cell govuk-body govuk-!-width-one-third">Location</th>
-          <td class="govuk-table__cell govuk-!-width-one-third"><%= @ip_to_delete.location.address %></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <%= button_to "Remove", ip_path(@ip_to_delete), method: :delete, class: "govuk-button red-button" %>
-  </div>
-</div>
+<%= error_summary(title:, list: ["IP address: #{format_ip(@ip_to_delete.address)}".html_safe,
+                         "Location #{@ip_to_delete.location.address}"]) do %>
+  <%= govuk_button_to "Remove", ip_path(@ip_to_delete), method: :delete, warning: true %>
+<% end %>

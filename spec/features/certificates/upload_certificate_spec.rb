@@ -221,7 +221,7 @@ describe "Upload Certificate", type: :feature do
           click_button("Remove MyCert1")
         end
         it "Asks for confirmation" do
-          expect(page).to have_content("Remove this Certificate?")
+          expect(page).to have_content("Are you sure you want to remove certificate 'MyCert1'")
         end
         context "confirm" do
           before :each do

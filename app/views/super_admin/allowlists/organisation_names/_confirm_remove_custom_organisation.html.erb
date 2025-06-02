@@ -1,8 +1,3 @@
-<div class="govuk-error-summary" role="alert">
-  <h2 class="govuk-error-summary__title">
-    Are you sure you want to remove this organisation?
-  </h2>
-  <div class="govuk-error-summary__body">
-    <%= button_to "Yes, remove #{params[:organisation_to_remove]} from the allow list", super_admin_allowlist_organisation_name_path(params[:id]), method: :delete, class: "govuk-button red-button" %>
-  </div>
-</div>
+<%= error_summary(title: "Are you sure you want to remove this organisation?") do %>
+  <%= govuk_button_to "Yes, remove #{params[:organisation_to_remove]} from the allow list", super_admin_allowlist_organisation_name_path(params[:id]), method: :delete, warning: true %>
+<% end %>

@@ -1,15 +1,10 @@
 <% content_for :page_title, "Change permissions - #{yield :page_title}", flush: true %>
 
 <% if @membership.preserve_admin_permissions? %>
-  <%= render "memberships/cannot_change_permissions" %>
+  <%= error_summary(list: [govuk_link_to("You must add another administrator before you can change permissions for #{@membership.user.name}.", new_users_invitation_path)]) %>
 <% else %>
-  <div class="govuk-error-summary" role="alert">
-    <h2 class="govuk-error-summary__title">
-      Are you sure you want to change permissions for <%= @membership.user.name %>?
-    </h2>
-    <div class="govuk-error-summary__body">
-      <%= button_to "Yes, change permissions", membership_path(@membership, permission_level: params[:membership][:permission_level]), method: :patch, class: "govuk-button" %>
-      <%= link_to "Cancel", memberships_path, class: "govuk-link--no-visited-state" %>
-    </div>
-  </div>
+  <%= error_summary(title: "Are you sure you want to change permissions for #{@membership.user.name}?") do %>
+    <%= govuk_button_to "Yes, change permissions", membership_path(@membership, permission_level: params[:membership][:permission_level]), method: :patch %>
+    <%= govuk_link_to "Cancel", memberships_path, no_visited_state: true %>
+  <% end %>
 <% end %>

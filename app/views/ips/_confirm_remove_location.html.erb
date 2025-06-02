@@ -1,25 +1,7 @@
 <% content_for :page_title, "Remove location -  #{yield :page_title}", flush: true %>
 
-<div class="govuk-error-summary" role="alert">
-  <h2 class="govuk-error-summary__title">
-    Are you sure you want to remove this location?
-  </h2>
-
-  <div class="govuk-error-summary__body">
-    <table class="govuk-table">
-      <tbody class="govuk-table__body">
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell govuk-!-width-one-third">
-            <%= @location_to_delete.address %>
-          </td>
-          <td class="govuk-table__cell govuk-!-width-one-third">
-            <%= @location_to_delete.postcode %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <%= button_to "Yes, remove this location", location_path(@location_to_delete),
-                  method: :delete, class: "govuk-button red-button" %>
-  </div>
-</div>
+<%= error_summary(title: "Are you sure you want to remove this location?",
+                  list: [@location_to_delete.address,
+                         @location_to_delete.postcode]) do %>
+  <%= govuk_button_to "Yes, remove this location", location_path(@location_to_delete), method: :delete, warning: true %>
+<% end %>
