@@ -34,6 +34,7 @@ gem "sentry-ruby"
 gem "sprockets"
 gem "tzinfo-data"
 gem "uk_postcode", "~> 2.1"
+gem "view_component"
 gem "zendesk_api"
 
 group :test do

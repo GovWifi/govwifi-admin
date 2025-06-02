@@ -644,6 +644,7 @@ DEPENDENCIES
   timecop
   tzinfo-data
   uk_postcode (~> 2.1)
+  view_component
   web-console
   webmock
   zendesk_api
