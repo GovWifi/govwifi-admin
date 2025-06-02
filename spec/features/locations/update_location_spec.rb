@@ -19,7 +19,7 @@ describe "Update location", type: :feature do
   end
 
   it "renders organisation select with all organisations" do
-    expect(page).to have_select "Select organisation", options: [organisation.name, organisation_1.name], selected: organisation.name
+    expect(page).to have_select "Select an organisation", options: [organisation.name, organisation_1.name], selected: organisation.name
   end
 
   context "update current location details" do
@@ -30,7 +30,7 @@ describe "Update location", type: :feature do
     it "succeeds" do
       fill_in "Address", with: new_address
       fill_in "Postcode", with: new_postcode
-      select(new_organisation, from: "Select organisation")
+      select(new_organisation, from: "Select an organisation")
       expect(location.organisation.name).to eq(organisation.name)
       click_on "Update"
       location.reload
