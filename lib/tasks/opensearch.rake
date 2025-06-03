@@ -15,6 +15,9 @@ namespace :opensearch do
     logger.info("Fetching data on new locations being added")
     Gateways::Opensearch.new("govwifi-metrics").write("new_locations-#{Time.zone.today}", UseCases::NewLocations.fetch_stats)
 
+    logger.info("Fetching data on new cba organisations being added")
+    Gateways::Opensearch.new("govwifi-metrics").write("new_cba_organisations-#{Time.zone.today}", UseCases::NewCbaOrganisations.fetch_stats)
+
     logger.info("Done.")
   end
 end
