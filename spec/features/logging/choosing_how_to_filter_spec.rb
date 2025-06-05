@@ -49,6 +49,12 @@ describe "Choosing how to filter", type: :feature do
         expect(page).to_not have_content("Location")
       end
     end
+
+    it "does show the option to filter MAC address" do
+      within(".govuk-radios") do
+        expect(page).to have_content("MAC address")
+      end
+    end
   end
 
   context "A user with a current organisation" do

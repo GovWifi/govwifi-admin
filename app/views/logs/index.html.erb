@@ -11,10 +11,12 @@
       username:
     <% elsif log_search_form.ip %>
       IP:
+    <% elsif log_search_form.mac %>
+      MAC address:
     <% else %>
       location:
     <% end %>
-    "<%= log_search_form.username || log_search_form.ip || location_address %>"
+    "<%= log_search_form.username || log_search_form.ip || log_search_form.mac || location_address %>"
   </h1>
 
   <p class="govuk-body govuk-!-font-size-24">
@@ -38,6 +40,8 @@
         There are no failed authentication results within the last 2 weeks
       <% elsif log_search_form.filter_option==LogSearchForm::USERNAME_FILTER_OPTION %>
         We have no record of username "<%= log_search_form.username %>" <strong> reaching the GovWifi service from your organisation in the last 2 weeks</strong>
+      <% elsif log_search_form.filter_option==LogSearchForm::MAC_FILTER_OPTION %>
+        We have no record of MAC address "<%= log_search_form.mac %>" <strong> reaching the GovWifi service from your organisation in the last 2 weeks</strong>
       <% elsif log_search_form.filter_option==LogSearchForm::LOCATION_FILTER_OPTION %>
         Traffic from <%= location_address %> <strong>is not reaching the GovWifi service</strong>
       <% elsif log_search_form.filter_option==LogSearchForm::IP_FILTER_OPTION %>
