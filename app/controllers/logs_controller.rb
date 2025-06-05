@@ -27,6 +27,11 @@ class LogsController < ApplicationController
 
       @current_location = Ip.find_by(address: ips).location if logs.present?
       render locals: { log_search_form:, logs:, table_data: build_table_data(log_search_form, logs) }
+    when LogSearchForm::MAC_FILTER_OPTION
+      ips = super_admin? ? nil : current_organisation.ip_addresses
+      logs = Gateways::Sessions.search(ips:, mac: log_search_form.mac, success:)
+      render locals: { log_search_form:, logs:, table_data: build_table_data(log_search_form, logs) }
+
     when LogSearchForm::USERNAME_FILTER_OPTION
       ips = super_admin? ? nil : current_organisation.ip_addresses
       logs = Gateways::Sessions.search(ips:, username: log_search_form.username, success:)
@@ -38,7 +43,7 @@ private
 
   def form_params
     params.require(:log_search_form)
-      .permit(:filter_option, :ip, :username, :location_id, :success, :authentication_method)
+      .permit(:filter_option, :ip, :username, :location_id, :success, :authentication_method, :mac)
       .transform_values(&:strip)
   rescue StandardError
     {}
@@ -69,8 +74,16 @@ private
     columns << logs.map { |log| log.ap || "" }
 
     headers << "MAC Address"
-    columns << logs.map { |log| log.mac || "" }
-
+    columns << logs.map do |log|
+      if log.mac.blank?
+        ""
+      else
+        helpers.govuk_link_to(
+          log.mac,
+          logs_path(log_search_form: { mac: log.mac, filter_option: LogSearchForm::MAC_FILTER_OPTION }),
+        )
+      end
+    end
     if log_search_form.ip.nil?
       headers << "IP"
       columns << logs.map do |log|
