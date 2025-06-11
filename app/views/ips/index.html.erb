@@ -10,7 +10,7 @@
     <div class="govuk-grid-column-two-thirds govuk-!-padding-0">
       <h1 class="govuk-heading-l">Locations</h1>
       <p class="govuk-!-font-size-16">
-        <%= link_to "Check the GovWifi status page", "https://status.wifi.service.gov.uk", class: "govuk-link" %>
+        <%= govuk_link_to "Check the GovWifi status page", "https://status.wifi.service.gov.uk" %>
       </p>
     </div>
     <% unless current_organisation&.meets_invited_admin_user_minimum? %>
