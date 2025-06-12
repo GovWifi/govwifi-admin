@@ -3,11 +3,11 @@ module Gateways
     MAXIMUM_RESULTS_COUNT = 500
     SESSION_SELECT_ATTRIBUTES = %i[id start username siteIP success ap mac task_id cert_serial].freeze
 
-    def self.search(username: nil, ips: nil, success: nil, authentication_method: nil)
-      new.search(username:, ips:, success:, authentication_method:)
+    def self.search(username: nil, ips: nil, success: nil, authentication_method: nil, mac: nil)
+      new.search(username:, ips:, success:, authentication_method:, mac:)
     end
 
-    def search(username: nil, ips: nil, success: nil, authentication_method: nil)
+    def search(username: nil, ips: nil, success: nil, authentication_method: nil, mac: nil)
       results = Session
       .select(SESSION_SELECT_ATTRIBUTES)
       .where("start >= ?", 2.weeks.ago)
@@ -16,6 +16,7 @@ module Gateways
 
       results = results.where(username:) unless username.nil?
       results = results.where(siteIP: ips) unless ips.nil?
+      results = results.where(mac: mac) if mac.present?
       results = results.where(success:) if success.present?
       if authentication_method.present?
         results = if authentication_method == "true"

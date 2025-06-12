@@ -25,6 +25,10 @@
           <%= form.govuk_text_field :ip, width: 10,
                                          label: { text: "Enter an IP address associated within your organisation" } %>
         <% end %>
+        <%= form.govuk_radio_button :filter_option, LogSearchForm::MAC_FILTER_OPTION, label: { text: "MAC address" }  do %>
+          <%= form.govuk_text_field :mac, width: 10,
+                                         label: { text: "Enter a MAC address" } %>
+        <% end %>
       <% end %>
       <%= form.govuk_submit "Show logs" %>
     <% end %>
