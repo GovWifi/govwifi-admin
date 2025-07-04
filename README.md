@@ -11,6 +11,7 @@ N.B. The GovWifi [terraform repository][terraform-repo] contains information on 
 ## Table of Contents
 
 - [GovWifi admin application](#govwifi-admin-application)
+- [TEST](#test)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Developing](#developing)
@@ -118,5 +119,5 @@ This codebase is released under [the MIT License][mit].
 [dev-docs]: https://govwifi-dev-docs.cloudapps.digital
 [notify]: https://www.notifications.service.gov.uk
 [zendesk]: https://govuk.zendesk.com/hc/en-us
-[terraform-repo]: https://github.com/alphagov/govwifi-terraform
+[terraform-repo]: https://github.com/GovWifi/govwifi-terraform
 [prod-deploy-pipeline]: https://cd.gds-reliability.engineering/teams/govwifi/pipelines/admin-deploy?groups=Production
