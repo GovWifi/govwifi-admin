@@ -1,0 +1,17 @@
+<% if current_organisation&.resign_mou? %>
+  <div class="govuk-!-margin-top-6">
+    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Important
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">
+          Your organisation hasn’t signed the MOU yet.
+          <a class="govuk-notification-banner__link" href="<%= show_options_mous_path %>">Sign the memorandum of understanding</a> to continue using GovWifi.
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>
