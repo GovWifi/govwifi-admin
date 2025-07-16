@@ -16,7 +16,7 @@ describe "View authentication requests for an IP", type: :feature do
     describe "when using a link" do
       before do
         visit ips_path
-        within(:xpath, "//tr[th[normalize-space(text())=\"#{ip_address}\"]]") do
+        within(:xpath, "//tr[@class=\"govuk-table__row\"][.//th[text()=\"#{ip.address}\"]]") do
           click_on "View logs"
         end
       end

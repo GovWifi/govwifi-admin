@@ -1,60 +1,54 @@
-
 <% if @confirm_remove %>
   <%= render "confirm_remove_certificate" %>
 <% else %>
   <% content_for :page_title, "Certificate" %>
-  <%= link_to "Back", :back, class: "govuk-back-link" %>
+  <%= govuk_back_link href: :back %>
 <% end %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds govuk-!-padding-0">
-    <h1 class="govuk-heading-l">Certificate - <%= @certificate.name %></h1>
-  </div>
-</div>
-<div class="govuk-grid-row">
-  <div aria-live="polite">
-    <%= govuk_summary_list do |summary_list|
-      summary_list.with_row do |row|
-        row.with_key { "Name" }
-        row.with_value { @certificate.name }
-        if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil?
-          row.with_action(text: "Rename", href: edit_certificate_path(@certificate), visually_hidden_text: @certificate.name)
-        end
-      end
-      summary_list.with_row do |row|
-        row.with_key(text: "Fingerprint")
-        row.with_value(text: @certificate.fingerprint)
-      end
-      summary_list.with_row do |row|
-        row.with_key(text: "Serial")
-        row.with_value(text: @certificate.serial)
-      end
-      summary_list.with_row do |row|
-        row.with_key(text: "Fingerprint")
-        row.with_value(text: @certificate.fingerprint)
-      end
-      summary_list.with_row do |row|
-        row.with_key(text: "Valid From")
-        row.with_value(text: @certificate.not_before)
-      end
-      summary_list.with_row do |row|
-        row.with_key(text: "Expires")
-        row.with_value(text: @certificate.not_after)
-      end
-      summary_list.with_row do |row|
-        row.with_key(text: "Issuer")
-        row.with_value(text:  @certificate.issuer)
-      end
-      summary_list.with_row do |row|
-        row.with_key(text: "Subject")
-        row.with_value(text: @certificate.subject)
-      end
-    end %>
+<h1 class="govuk-heading-l">Certificate - <%= @certificate.name %></h1>
 
-    <% if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil? %>
-      <%= button_to certificate_path(@certificate), params: { confirm_remove: true }, method: :get, class: "govuk-button red-button" do %>
-        Remove <span class="govuk-visually-hidden"><%= @certificate.name %></span>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<%= govuk_summary_list do |summary_list|
+  summary_list.with_row do |row|
+    row.with_key { "Name" }
+    row.with_value { @certificate.name }
+    if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil?
+      row.with_action(text: "Rename", href: edit_certificate_path(@certificate), visually_hidden_text: @certificate.name)
+    end
+  end
+  summary_list.with_row do |row|
+    row.with_key(text: "Fingerprint")
+    row.with_value(text: @certificate.fingerprint)
+  end
+  summary_list.with_row do |row|
+    row.with_key(text: "Serial")
+    row.with_value(text: @certificate.serial)
+  end
+  summary_list.with_row do |row|
+    row.with_key(text: "Fingerprint")
+    row.with_value(text: @certificate.fingerprint)
+  end
+  summary_list.with_row do |row|
+    row.with_key(text: "Valid From")
+    row.with_value(text: @certificate.not_before)
+  end
+  summary_list.with_row do |row|
+    row.with_key(text: "Expires")
+    row.with_value(text: @certificate.not_after)
+  end
+  summary_list.with_row do |row|
+    row.with_key(text: "Issuer")
+    row.with_value(text:  @certificate.issuer)
+  end
+  summary_list.with_row do |row|
+    row.with_key(text: "Subject")
+    row.with_value(text: @certificate.subject)
+  end
+end %>
+
+<% if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil? %>
+  <%= govuk_button_to "Remove",
+                      certificate_path(@certificate), params: { confirm_remove: true },
+                      method: :get,
+                      warning: true,
+                      visually_hidden_suffix: @certificate.name %>
+<% end %>

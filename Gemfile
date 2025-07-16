@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem "aws-sdk-route53", "~> 1.107.0"
-gem "aws-sdk-s3", "~> 1.182.0"
+gem "aws-sdk-s3", "~> 1.193.0"
 gem "cancancan"
 gem "devise", "~> 4.9.4"
 gem "devise_zxcvbn", "~> 6.0.0"
@@ -34,6 +34,7 @@ gem "sentry-ruby"
 gem "sprockets"
 gem "tzinfo-data"
 gem "uk_postcode", "~> 2.1"
+gem "view_component"
 gem "zendesk_api"
 
 group :test do

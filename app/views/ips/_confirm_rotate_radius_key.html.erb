@@ -1,24 +1,7 @@
 <% content_for :page_title, "Rotate secret key -  #{yield :page_title}", flush: true %>
 
-<div class="govuk-error-summary" role="alert">
-  <h2 class="govuk-error-summary__title">
-    Are you sure you want to rotate the RADIUS secret key for <%= @key_to_rotate.address %>?
-  </h2>
-  <div class="govuk-error-summary__body">
-    <table class="govuk-table">
-      <tbody class="govuk-table__body">
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell govuk-!-width-one-third">
-            This rotation will take effect tomorrow morning and cannot be reverted once confirmed.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <%= button_to "Yes, rotate this RADIUS key", location_path(@key_to_rotate),
-                  method: :patch, class: "govuk-button red-button" %>
-                  <span class="govuk-visually-hidden">
-                    for <%= @key_to_rotate.address %>
-                  </span>
-  </div>
-</div>
+<%= error_summary(title: "Are you sure you want to rotate the RADIUS secret key for #{@key_to_rotate.address}?",
+                  list: ["This rotation will take effect tomorrow morning and cannot be reverted once confirmed."]) do %>
+  <% govuk_button_to "Yes, rotate this RADIUS key", location_path(@key_to_rotate),
+                     method: :patch, warning: true, visually_hidden_suffix: "for #{@key_to_rotate.address}" %>
+<% end %>

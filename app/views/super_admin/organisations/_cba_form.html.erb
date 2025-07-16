@@ -1,21 +1,11 @@
-<% cba_enabled = organisation.cba_enabled %>
+<p class="govuk-body">
+  Show both EAP/TLS and MS-CHAPv2 authentication attempts in the logs. This is for organisations using Certificate Based Authentication (CBA)
+</p>
+<p class="govuk-body">
+  This organisation <%= organisation.cba_enabled? ? "can" : "cannot" %> see the CBA logs.
+</p>
 
-  <p class="govuk-body">
-    Show both EAP/TLS and MS-CHAPv2 authentication attempts in the logs. This is for organisations using Certificate Based Authentication (CBA)
-  </p>
-  <% if cba_enabled %>
-    <p class="govuk-body">
-      This organisation can see the CBA logs.
-    </p>
-  <% else %>
-    <p class="govuk-body">
-      This organisation cannot see the CBA logs.
-    </p>
-  <% end %>
-
-<div id="cba-form">
-  <%= form_with(model: @organisation, url: toggle_cba_feature_super_admin_organisation_path(@organisation), method: :patch) do |form| %>
-    <%= form.hidden_field :cba_enabled, value: !@organisation.cba_enabled %>
-    <%= form.submit(@organisation.cba_enabled ? "Disable CBA" : "Enable CBA", class: @organisation.cba_enabled ? "govuk-button govuk-button--secondary" : "govuk-button") %>
-  <% end %>
-</div>
+<%= form_with(model: organisation, url: toggle_cba_feature_super_admin_organisation_path(organisation), method: :patch) do |form| %>
+  <%= form.hidden_field :cba_enabled, value: !organisation.cba_enabled %>
+  <%= form.govuk_submit(organisation.cba_enabled ? "Disable CBA" : "Enable CBA", secondary: organisation.cba_enabled?) %>
+<% end %>

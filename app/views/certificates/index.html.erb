@@ -1,46 +1,35 @@
 <% content_for :page_title, "Certificates" %>
-<div id='wrapper'>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-0">
-      <h1 class="govuk-heading-l">Certificates</h1>
-    </div>
-      <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-9">
-        You need to upload at least one Certificate to enable GovWifi Certificate Based Authentication. This will allow devices you issue (with a corresponding client certificate) to seamlessly authenticate with GovWifi.
-        <p class="govuk-!-margin-top-4 govuk-!-margin-bottom-0 govuk-body">
-            The Certificate must be in <span class="govuk-!-font-weight-bold">.PEM</span> format.
-        </p>
-      </div>
-  </div>
 
-  <div class="govuk-grid-row">
-    <div class="govuk-button-group govuk-!-padding-0">
-      <% if current_user.can_manage_locations?(current_organisation) %>
-        <%= link_to "Add Certificate", new_certificate_path, class: "govuk-button govuk-!-margin-bottom-5", role: "button", draggable: "false", "data-module" => "govuk-button" %>
-      <% end %>
-    </div>
-  </div>
+<h1 class="govuk-heading-l">Certificates</h1>
 
-  <div class="govuk-grid-row">
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-    <div aria-live="polite">
-      <%= govuk_table do |table|
-        table.with_head do |head|
-          head.with_row do |row|
-            row.with_cell(text: "Name")
-            row.with_cell(text: "Type")
-            row.with_cell(text: "Expires")
-          end
-        end
-        table.with_body do |body|
-          @certificates.each do |certificate|
-            body.with_row do |row|
-              row.with_cell(text: govuk_link_to(certificate.name, certificate_path(certificate)))
-              row.with_cell(text: govuk_list([certificate_type_label(certificate), available_label(certificate)].compact))
-              row.with_cell(text: certificate_expiry_label(certificate))
-            end
-          end
-        end
-      end %>
-    </div>
+<%= govuk_inset_text do %>
+  You need to upload at least one Certificate to enable GovWifi Certificate Based Authentication. This will allow devices you issue (with a corresponding client certificate) to seamlessly authenticate with GovWifi.
+  <p class="govuk-!-margin-top-4 govuk-!-margin-bottom-0 govuk-body">
+      The Certificate must be in <span class="govuk-!-font-weight-bold">.PEM</span> format.
+  </p>
+<% end %>
+
+<% if current_user.can_manage_locations?(current_organisation) %>
+  <div class="govuk-button-group govuk-!-padding-0">
+    <%= govuk_button_link_to "Add Certificate", new_certificate_path %>
   </div>
-</div>
+<% end %>
+
+<%= govuk_table do |table|
+  table.with_head do |head|
+    head.with_row do |row|
+      row.with_cell(text: "Name")
+      row.with_cell(text: "Type")
+      row.with_cell(text: "Expires")
+    end
+  end
+  table.with_body do |body|
+    @certificates.each do |certificate|
+      body.with_row do |row|
+        row.with_cell(text: govuk_link_to(certificate.name, certificate_path(certificate)))
+        row.with_cell(text: govuk_list([certificate_type_label(certificate), available_label(certificate)].compact))
+        row.with_cell(text: certificate_expiry_label(certificate))
+      end
+    end
+  end
+end %>
