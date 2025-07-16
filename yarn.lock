@@ -359,9 +359,10 @@ govuk-frontend@^5.10.0:
   version "5.10.0"
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.10.0.tgz#812a5a14e4466130603b60b9da3d43a6b06b7069"
 
-"govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz":
-  version "0.6.10"
-  resolved "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz#b4fe700112c34d258a9fa045ad585e972fca2c70"
+"govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.13/govwifi-shared-frontend-0.6.13.tgz":
+  version "0.6.13"
+  uid "8d82d9836a71fb3608ce59d9e790291ffa63a06e"
+  resolved "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.13/govwifi-shared-frontend-0.6.13.tgz#8d82d9836a71fb3608ce59d9e790291ffa63a06e"
   dependencies:
     js-cookie "^3.0.5"
 
@@ -706,9 +707,9 @@ postcss@^8.4.28, postcss@^8.5.3:
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
 
-prettier@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.3.tgz#4fc2ce0d657e7a02e602549f053b239cb7dfe1b5"
+prettier@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.6.2.tgz#ccda02a1003ebbb2bfda6f83a074978f608b9393"
 
 punycode@^2.1.0:
   version "2.1.1"
