@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "accessible-autocomplete": "^3.0.1",
-    "govuk-frontend": "^5.11.0",
+    "govuk-frontend": "^5.10.0",
     "govwifi-shared-frontend": "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.13/govwifi-shared-frontend-0.6.13.tgz",
     "html5shiv": "^3.7.3",
     "postcss": "^8.5.3",
