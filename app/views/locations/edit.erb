@@ -10,6 +10,9 @@
       <%= f.govuk_text_field :address,
                              hint: { text: "For example, 10 High Street, London" } %>
       <%= f.govuk_text_field :postcode %>
+      <%= f.govuk_collection_select :organisation_id, organisations_list, :id, :name,
+                                       label: { text: "Select an organisation" } %>
+
       <%= f.govuk_submit "Update" %>
       <p><%= link_to "Cancel", ips_path, class: "govuk-link--no-visited-state govuk-body" %></p>
     </div>
