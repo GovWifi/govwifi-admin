@@ -119,7 +119,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.9)
+    bigdecimal (3.2.2)
     bindex (0.8.1)
     builder (3.3.0)
     bullet (8.0.6)
@@ -144,7 +144,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    csv (3.3.4)
+    csv (3.3.5)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -238,7 +238,7 @@ GEM
     hashie (5.0.0)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
-    httparty (0.22.0)
+    httparty (0.23.1)
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -613,7 +613,7 @@ DEPENDENCIES
   govuk-components
   govuk_design_system_formbuilder
   govwifi_two_factor_auth!
-  httparty (~> 0.22.0)
+  httparty (~> 0.23.1)
   listen
   mysql2 (~> 0.5.6)
   net-imap
