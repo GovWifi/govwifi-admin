@@ -63,7 +63,7 @@ jobs:
   labeler:
     ## Auto add labels to the PR
     runs-on: ubuntu-latest
-    needs: [check-ruby-setup]
+    needs: [check-ruby-setup, upgrade-ruby]
     steps:
       - name: add labels
         env:
