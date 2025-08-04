@@ -165,10 +165,10 @@ GEM
     elastic-transport (8.4.0)
       faraday (< 3)
       multi_json
-    elasticsearch (8.17.2)
+    elasticsearch (9.1.0)
       elastic-transport (~> 8.3)
-      elasticsearch-api (= 8.17.2)
-    elasticsearch-api (8.17.2)
+      elasticsearch-api (= 9.1.0)
+    elasticsearch-api (9.1.0)
       multi_json
     encryptor (3.0.0)
     erb_lint (0.9.0)
@@ -186,13 +186,13 @@ GEM
       railties (>= 5.0.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
-    faraday (2.13.1)
+    faraday (2.13.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
     faraday-multipart (1.1.0)
       multipart-post (~> 2.0)
-    faraday-net_http (3.4.0)
+    faraday-net_http (3.4.1)
       net-http (>= 0.5.0)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -254,7 +254,7 @@ GEM
       reline (>= 0.4.2)
     jaro_winkler (1.6.0)
     jmespath (1.6.2)
-    json (2.11.3)
+    json (2.13.2)
     jwt (2.10.1)
       base64
     kramdown (2.5.1)
@@ -281,7 +281,7 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.25.5)
-    multi_json (1.15.0)
+    multi_json (1.17.0)
     multi_xml (0.7.2)
       bigdecimal (~> 3.1)
     multipart-post (2.4.1)
@@ -605,7 +605,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9.4)
   devise_zxcvbn (~> 6.0.0)
-  elasticsearch (~> 8.17.2)
+  elasticsearch (~> 9.1.0)
   erb_lint
   factory_bot_rails
   faker
