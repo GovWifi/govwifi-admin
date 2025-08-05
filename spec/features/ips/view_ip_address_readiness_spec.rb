@@ -3,6 +3,7 @@ describe "View whether IPs are ready", type: :feature do
     let(:user) { create(:user, :with_organisation) }
     let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
     let!(:location) { create(:location, organisation: user.organisations.first) }
+    let!(:mou) { create(:mou, organisation: user.organisations.first, version: Mou.latest_known_version) }
 
     before do
       sign_in_user user
