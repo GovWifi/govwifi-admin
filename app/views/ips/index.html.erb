@@ -23,8 +23,8 @@
     <div class="govuk-button-group govuk-!-padding-0">
       <% if current_user.can_manage_locations?(current_organisation) %>
         <%= link_to "Add a location", new_location_path, class: "govuk-button govuk-!-margin-bottom-5", role: "button", draggable: "false", "data-module" => "govuk-button" %>
-        <%= link_to "Upload Locations", bulk_upload_path, class: "govuk-button govuk-!-margin-bottom-5", role: "button", draggable: "false", "data-module" => "govuk-button" %>
-        <%= link_to "Download Keys", download_keys_path, class: "govuk-button govuk-!-margin-bottom-5", role: "button", draggable: "false", "data-module" => "govuk-button" %>
+        <%= link_to "Upload multiple locations", bulk_upload_path, class: "govuk-button govuk-!-margin-bottom-5", role: "button", draggable: "false", "data-module" => "govuk-button" %>
+        <%= link_to "Download keys", download_keys_path, class: "govuk-button govuk-!-margin-bottom-5", role: "button", draggable: "false", "data-module" => "govuk-button" %>
       <% end %>
     </div>
   </div>
