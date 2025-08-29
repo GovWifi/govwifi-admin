@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/GovWifi/govwifi_two_factor_auth.git
-  revision: 8103a97537f2929d7b121cf0c52d1458203256f1
+  revision: 367a6803c7a3a3e4fa911b983b8797dd1ba5c7fe
   specs:
-    govwifi_two_factor_auth (1.0.1)
+    govwifi_two_factor_auth (1.0.0)
       devise
       encryptor
       rails (>= 7.0.2)
@@ -289,7 +289,7 @@ GEM
     mysql2 (0.5.6)
     net-http (0.6.0)
       uri
-    net-imap (0.5.9)
+    net-imap (0.5.8)
       date
       net-protocol
     net-pop (0.1.2)
@@ -568,7 +568,7 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    websocket-driver (0.8.0)
+    websocket-driver (0.7.7)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
