@@ -150,7 +150,7 @@ private
   end
 
   def authorise_ip_actions
-    if current_organisation.resign_mou?
+    unless current_organisation.mous.any?
       flash[:alert] = "Your organisation must sign the Memorandum of Understanding (MoU) before you can add IPs or multiple locations."
       redirect_to ips_path and return
     end
