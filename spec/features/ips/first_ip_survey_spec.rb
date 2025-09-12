@@ -4,7 +4,6 @@ describe "Sending a survey when adding the first IP to an organisation", type: :
   let(:organisation) { user.organisations.first }
   let(:location) { create(:location, organisation:) }
   let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) } # a minimium of two administrators are now required to add IP addresses
-  let!(:mou) { create(:mou, organisation: user.organisations.first, version: Mou.latest_known_version) } # Signed MoU required to add IP addresses
   let(:notify_gateway) { Services.notify_gateway }
   before do
     sign_in_user user

@@ -1,7 +1,6 @@
 describe "Bulk upload locations and IPs", type: :feature do
   let(:user) { create(:user, :with_organisation) }
   let(:organisation) { user.organisations.first }
-  let!(:mou) { create(:mou, organisation: user.organisations.first, version: Mou.latest_known_version) }
 
   context "when there is only one administrator for the organisation" do
     before do
