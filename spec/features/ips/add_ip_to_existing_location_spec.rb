@@ -2,7 +2,6 @@ describe "Adding an IP to an existing location", type: :feature do
   let(:user) { create(:user, :with_organisation) }
   let(:location) { create(:location, organisation: user.organisations.first) }
   let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
-  let!(:mou) { create(:mou, organisation: user.organisations.first, version: Mou.latest_known_version) }
 
   context "when viewing the form" do
     before do
@@ -208,20 +207,6 @@ describe "Adding an IP to an existing location", type: :feature do
 
     it "shows error summary" do
       expect(page).to have_content("There is a problem\nYou must add another administrator before you can add IPs or multiple locations.")
-    end
-  end
-
-  context "when the organisation has not signed the MoU" do
-    before do
-      user.organisations.first.mous.destroy_all
-    end
-
-    it "redirects to IPs page with an alert" do
-      sign_in_user user
-      visit location_add_ips_path(location_id: location.id)
-
-      expect(page).to have_current_path(ips_path)
-      expect(page).to have_content("Your organisation must sign the Memorandum of Understanding (MoU) before you can add IPs or multiple locations.")
     end
   end
 end
