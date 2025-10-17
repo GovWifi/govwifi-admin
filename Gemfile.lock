@@ -412,7 +412,7 @@ GEM
     retriable (3.1.2)
     reverse_markdown (3.0.0)
       nokogiri
-    rexml (3.4.1)
+    rexml (3.4.2)
     rotp (6.3.0)
     rqrcode (3.1.0)
       chunky_png (~> 1.0)
