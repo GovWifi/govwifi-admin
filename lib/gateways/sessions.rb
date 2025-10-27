@@ -16,7 +16,12 @@ module Gateways
 
       results = results.where(username:) unless username.nil?
       results = results.where(siteIP: ips) unless ips.nil?
-      results = results.where(mac: mac) if mac.present?
+      if mac.present?
+        normalised = mac.gsub(/[^0-9A-Fa-f]/, "").upcase
+        results = results.where(
+          "UPPER(REPLACE(REPLACE(mac, ':', ''), '-', '')) = ?", normalised
+        )
+      end
       results = results.where(success:) if success.present?
       if authentication_method.present?
         results = if authentication_method == "true"
