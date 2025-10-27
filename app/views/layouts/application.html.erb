@@ -3,8 +3,6 @@
   <head>
     <!-- test post please ignore -->
 
-    <%= render "layouts/google_analytics" %>
-
     <title><%= infer_page_title %></title>
 
     <meta charset="utf-8">
@@ -29,7 +27,6 @@
   </head>
 
   <body class="govuk-template__body app-body-class">
-    <%= render "layouts/google_tag_manager_no_script" %>
     <script>
       document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
     </script>
@@ -40,6 +37,7 @@
 
     <div class="govuk-width-container">
       <% if show_navigation_bars %>
+        <%= render "shared/mou_notification" %>
         <%= render "shared/subnav/#{subnav}" %>
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-one-quarter">

@@ -5,7 +5,7 @@
               method: :put do |f| %>
   <%= f.govuk_error_summary %>
   <%= f.hidden_field :invitation_token, readonly: true %>
-  <% if @form.user.confirmed? %>
+  <% if @form.user&.confirmed? %>
     <h1 class="govuk-heading-l">Join <%= @form.organisation_name %></h1>
     <%= f.govuk_submit "Update" %>
   <% else %>
