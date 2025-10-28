@@ -7,7 +7,6 @@ describe "View authentication requests for a mac address", type: :feature do
   let(:other_ip) { "6.6.6.6" }
   let!(:sessions) do
     create(:session, mac: "b9:e0:ba:aa:08:7e", username: "AAAAAA", siteIP: ip_organisation_one, success: true)
-    create(:session, mac: "b9-e0-ba-aa-08-7e", username: "AAAAAA", siteIP: ip_organisation_one, success: true)
     create(:session, mac: "b9:e0:ba:aa:08:7d", username: "AAAAAA", siteIP: ip_organisation_one, success: true)
     create(:session, mac: "b9:e0:ba:aa:08:7e", username: "AAAAAA", siteIP: ip_organisation_one, success: false)
     create(:session, mac: "a9:e0:cc:bb:08:3e", username: "AAAAAA", siteIP: ip_organisation_two, success: true)
@@ -77,11 +76,18 @@ describe "View authentication requests for a mac address", type: :feature do
       end
     end
 
-    describe "Searching mac addresses separated by hyphens" do
-      let(:search_string) { "b9-e0-ba-aa-08-7e" }
+    describe "searching MAC addresses regardless of separator and case" do
+      [
+        "b9-e0-ba-aa-08-7e", # lowercase and hyphens
+        "B9:E0:BA:AA:08:7E", # uppercase and colons
+      ].each do |mac|
+        context "when searching for '#{mac}'" do
+          let(:search_string) { mac }
 
-      it "displays the search results of the mac address" do
-        expect(page).to have_content(ip_organisation_one)
+          it "displays the search results of the MAC address" do
+            expect(page).to have_content(ip_organisation_one)
+          end
+        end
       end
     end
 
