@@ -3,8 +3,6 @@
   <head>
     <!-- test post please ignore -->
 
-    <%= render "layouts/google_analytics" %>
-
     <title><%= infer_page_title %></title>
 
     <meta charset="utf-8">
@@ -29,7 +27,6 @@
   </head>
 
   <body class="govuk-template__body app-body-class">
-    <%= render "layouts/google_tag_manager_no_script" %>
     <script>
       document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
     </script>

@@ -20,10 +20,7 @@ alpaca:
   !!merge <<: *default
 
 staging:
-  google_analytics_script_id: "UA-127779891-2"
-
   !!merge <<: *default
 
 production:
-  google_analytics_script_id: "UA-127779891-1"
   !!merge <<: *default
