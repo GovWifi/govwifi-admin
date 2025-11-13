@@ -298,7 +298,7 @@ GEM
       timeout
     net-smtp (0.5.1)
       net-protocol
-    nio4r (2.7.4)
+    nio4r (2.7.5)
     nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -339,7 +339,7 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (6.6.0)
+    puma (7.1.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.3)
@@ -625,7 +625,7 @@ DEPENDENCIES
   opensearch-ruby
   ostruct
   pry
-  puma (~> 6.6)
+  puma (~> 7.1)
   rack-mini-profiler
   rack_session_access
   rails (~> 8.0)
