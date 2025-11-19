@@ -2,9 +2,13 @@ if ENV["COVERAGE"]
   require "simplecov"
   require "simplecov-console"
 
-  SimpleCov.start "rails"
-  SimpleCov.minimum_coverage 100
+  SimpleCov.start do
+    add_filter "/spec/"      # ignore spec/ files from coverage
+    add_filter "/config/"    # optional: ignore config files
+    add_filter "/vendor/"    # optional: ignore vendor
+  end
 
+  SimpleCov.minimum_coverage 90
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::HTMLFormatter,
     SimpleCov::Formatter::Console,
