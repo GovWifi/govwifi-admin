@@ -34,7 +34,7 @@ describe UseCases::ResetSmokeTestUsers do
         )
       end
     end
-
+    ##### for user password reset tests #####
     context "when all users exist" do
       it "resets passwords successfully" do
         create_user(email: existing_user_email, password: old_password)
@@ -68,7 +68,19 @@ describe UseCases::ResetSmokeTestUsers do
         )
       end
     end
+    context "when a database error occurs during user reset" do
+      it "returns error status with the exception message" do
+        create_user(email: existing_user_email, password: old_password)
 
+        allow_any_instance_of(User).to receive(:update!).and_raise(StandardError.new("Connection lost"))
+
+        result = reset_service.reset_user
+
+        expect(result[0]).to eq({ email: existing_user_email, status: :error, message: "Connection lost" })
+      end
+    end
+
+    #### for session IP removal tests ####
     context "When site ids exist for the govwifi smoke test user" do
       it "Remove  only govwifi test site id's for the govwifi smoke test users" do
         create_sessions(site_ips + session_ips)
@@ -99,6 +111,30 @@ describe UseCases::ResetSmokeTestUsers do
         result = UseCases::ResetSmokeTestUsers.new(users, []).clear_session_ips
 
         expect(result).to eq({ status: :error, message: "No site Ips provided" })
+      end
+    end
+    context "when a database error occurs during session deletion" do
+      it "returns error status for that site IP" do
+        create_sessions(site_ips)
+
+        call_count = 0
+        allow(Session).to receive(:where).and_wrap_original do |method, *args|
+          call_count += 1
+          relation = method.call(*args)
+
+          if call_count == 2 # Second call (second site IP)
+            allow(relation).to receive(:delete_all).and_raise(StandardError.new("DB locked"))
+          end
+
+          relation
+        end
+        result = reset_service.clear_session_ips
+
+        expect(result).to contain_exactly(
+          { status: :success, rows_deleted: 1 },
+          { status: :error, message: "DB locked" },
+          { status: :success, rows_deleted: 1 },
+        )
       end
     end
   end
