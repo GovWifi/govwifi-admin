@@ -24,6 +24,7 @@ module UseCases
             @logger.info("Finished, #{total} row(s) delated")
             { status: :success, rows_deleted: total }
           rescue StandardError => e
+            @logger.error("Error deleting sessions for site IP #{site_ip}: #{e.message}")
             { status: :error, message: e.message }
           end
         end
@@ -49,6 +50,7 @@ module UseCases
             @logger.info("user failed attempts after reset: #{user.failed_attempts}, 2FA attempts: #{user.second_factor_attempts_count}")
             { email: email, status: :success }
           rescue StandardError => e
+            @logger.error("Error resetting smoke test user #{email}: #{e.message}")
             { email: email, status: :error, message: e.message }
           end
         end
