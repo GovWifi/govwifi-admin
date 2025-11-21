@@ -7,7 +7,7 @@ describe "Bulk upload locations and IPs", type: :feature do
     before do
       sign_in_user user
       visit ips_path
-      click_on "Upload Locations"
+      click_on "Upload multiple locations"
     end
 
     it "shows error summary" do
@@ -21,7 +21,7 @@ describe "Bulk upload locations and IPs", type: :feature do
     before do
       sign_in_user user
       visit ips_path
-      click_on "Upload Locations"
+      click_on "Upload multiple locations"
     end
 
     it "displays the bulk upload page" do
