@@ -2,8 +2,11 @@ require "rails_helper"
 
 RSpec.describe LocationsController, type: :controller do
   let(:user) { create(:user, :with_organisation, :with_2fa) }
+  let(:admin) { create(:user, :with_organisation, :with_2fa) }
+  let(:super_admin) { create(:user, :super_admin, :with_organisation, :with_2fa) }
   let(:location) { create(:location, organisation: user.organisations.first) }
   let(:other_location) { create(:location, organisation: create(:organisation)) }
+  let(:other_organisation) { admin.organisations.last }
 
   before do
     sign_in user
@@ -75,6 +78,48 @@ RSpec.describe LocationsController, type: :controller do
         put :update, params: { id: location.id }
 
         expect(response).to redirect_to(ips_path)
+      end
+    end
+  end
+
+  describe "POST /update_location" do
+    context "when sign_in user is super_admin" do
+      before do
+        sign_in super_admin
+      end
+
+      context "when location's organisation belongs to signed_in user organisation" do
+        it "update location and redirect to ips_path " do
+          put :update_location, params: { location_id: location.id, location: { organisation_id: user.organisations.first.id, address: location.address, postcode: location.postcode } }
+          expect(response).to redirect_to(ips_path)
+        end
+      end
+
+      context "when location's organisation doesn't belong to signed_in user organisation" do
+        it "render exit page with flash alert" do
+          put :update_location, params: { location_id: location.id, location: { organisation_id: other_organisation.id, address: location.address, postcode: location.postcode } }
+          expect(response).to redirect_to(ips_path)
+        end
+      end
+    end
+
+    context "when sign_in user is not a super_admin" do
+      before do
+        sign_in user
+      end
+      context "when location's organisation belongs to signed_in user organisation" do
+        it "update location and redirect to ips_path " do
+          put :update_location, params: { location_id: location.id, location: { organisation_id: user.organisations.first.id, address: location.address, postcode: location.postcode } }
+          expect(response).to redirect_to(ips_path)
+        end
+      end
+
+      context "when location's organisation doesn't belong to signed_in user organisation" do
+        it "render exit page with flash alert" do
+          put :update_location, params: { location_id: location.id, location: { organisation_id: other_organisation.id, address: location.address, postcode: location.postcode } }
+          expect(flash[:alert]).to match(/You can't update the location to an organisation you're not a member of/)
+          expect(response).to redirect_to(ips_path)
+        end
       end
     end
   end
