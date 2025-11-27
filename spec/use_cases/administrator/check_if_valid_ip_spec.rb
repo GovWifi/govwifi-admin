@@ -33,12 +33,13 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { "192.168.1.10" }
 
       around do |my_test_case|
-        ENV['ALLOW_LOCATION_PRIVATE_ADDRESS_USE'] = 'true'
+        # value doesn't matter, just the presence of the variable:
+        ENV["ALLOW_LOCATION_PRIVATE_ADDRESS_USE"] = "true"
 
         my_test_case.run
 
         # Clean up the environment variable after the test runs
-        ENV.delete('ALLOW_LOCATION_PRIVATE_ADDRESS_USE')
+        ENV.delete("ALLOW_LOCATION_PRIVATE_ADDRESS_USE")
       end
 
       it "returns true (allows the private IP)" do
@@ -48,7 +49,6 @@ describe UseCases::Administrator::CheckIfValidIp do
       it "does not return an error message" do
         expect(error_message).to be_nil
       end
-
     end
 
     context "with an empty string" do
