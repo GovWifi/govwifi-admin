@@ -77,7 +77,7 @@ module UseCases
         # If the environment variable ALLOW_LOCATION_PRIVATE_ADDRESS_USE is set, we will
         # allow the use of private IP addresses. This is used in the local
         # testing environment.
-        if ENV['ALLOW_LOCATION_PRIVATE_ADDRESS_USE']
+        if ENV["ALLOW_LOCATION_PRIVATE_ADDRESS_USE"]
           puts "ALLOW_LOCATION_PRIVATE_ADDRESS_USE is set, allowing private IP address #{address}"
           true
         else
