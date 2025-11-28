@@ -126,8 +126,6 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
-
-
 end
 
 ActionMailer::Base.perform_deliveries = false
