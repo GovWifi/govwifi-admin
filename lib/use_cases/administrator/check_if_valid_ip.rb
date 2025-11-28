@@ -74,11 +74,9 @@ module UseCases
       end
 
       def address_is_not_private?
-        # If the environment variable ALLOW_LOCATION_PRIVATE_ADDRESS_USE is set, we will
-        # allow the use of private IP addresses. This is used in the local
-        # testing environment.
-        if ENV["ALLOW_LOCATION_PRIVATE_ADDRESS_USE"]
-          puts "ALLOW_LOCATION_PRIVATE_ADDRESS_USE is set, allowing private IP address #{address}"
+        if ENV["ALLOW_PRIVATE_IP_FOR_LOCATION"] && ENV["DEPLOY_ENV"] == "development"
+          Rails.logger.info("1: ALLOW_PRIVATE_IP_FOR_LOCATION is set, allowing private IP #{address}")
+          puts "2: ALLOW_PRIVATE_IP_FOR_LOCATION is set, allowing private IP #{address}"
           true
         else
           !IPAddr.new(address).private?
