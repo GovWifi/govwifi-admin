@@ -29,6 +29,51 @@ describe UseCases::Administrator::CheckIfValidIp do
       end
     end
 
+    context "when ALLOW_PRIVATE_IP_FOR_LOCATION is set in the development environment" do
+      let(:address) { "192.168.1.10" }
+
+      around do |my_test_case|
+        ENV["DEPLOY_ENV"] = "development"
+        # Value doesn't matter, just the presence of the variable:
+        ENV["ALLOW_PRIVATE_IP_FOR_LOCATION"] = "true"
+
+        my_test_case.run
+
+        ENV.delete("DEPLOY_ENV")
+        ENV.delete("ALLOW_PRIVATE_IP_FOR_LOCATION")
+      end
+
+      it "returns true (allows the private IP)" do
+        expect(success_result).to eq(true)
+      end
+
+      it "does not return an error message" do
+        expect(error_message).to be_nil
+      end
+    end
+
+    context "when ALLOW_PRIVATE_IP_FOR_LOCATION is set in a non development environment" do
+      let(:address) { "192.168.1.10" }
+
+      around do |my_test_case|
+        ENV["DEPLOY_ENV"] = "production"
+        ENV["ALLOW_PRIVATE_IP_FOR_LOCATION"] = "true"
+
+        my_test_case.run
+
+        ENV.delete("DEPLOY_ENV")
+        ENV.delete("ALLOW_PRIVATE_IP_FOR_LOCATION")
+      end
+
+      it "returns false and does not allow private IP addresses" do
+        expect(success_result).to eq(false)
+      end
+
+      it "does return an error message" do
+        expect(error_message).to eq("'#{address}' is a private IP address. Only public IPv4 addresses can be added.")
+      end
+    end
+
     context "with an empty string" do
       let(:address) { "" }
 

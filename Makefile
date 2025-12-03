@@ -45,13 +45,14 @@ test: stop build prebuilt-test
 
 prebuilt-test:
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
-	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
+	$(DOCKER_COMPOSE) run -e RACK_ENV=test -e COVERAGE=true --rm app bundle exec rspec
 
 shell: serve
 	$(DOCKER_COMPOSE) exec app bash
 
 stop:
 	$(DOCKER_COMPOSE) down -v
+	$(DOCKER_COMPOSE) rm -fsv
 
 .PHONY: build lint serve shell stop test
 

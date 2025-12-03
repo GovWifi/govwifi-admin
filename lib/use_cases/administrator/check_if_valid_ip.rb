@@ -74,7 +74,12 @@ module UseCases
       end
 
       def address_is_not_private?
-        !IPAddr.new(address).private?
+        if ENV["ALLOW_PRIVATE_IP_FOR_LOCATION"] && ENV["DEPLOY_ENV"] == "development"
+          Rails.logger.info("ALLOW_PRIVATE_IP_FOR_LOCATION is set, allowing private IP #{address}")
+          true
+        else
+          !IPAddr.new(address).private?
+        end
       end
     end
   end
