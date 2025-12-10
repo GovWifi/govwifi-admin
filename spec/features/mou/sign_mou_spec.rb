@@ -14,6 +14,20 @@ describe "Sign MOU", type: :feature do
       expect(page).to have_content("Sign the MOU")
     end
 
+    context "when the user does not choose an option" do
+      before do
+        click_button "Continue"
+      end
+
+      it "displays an alert asking the user to choose an option" do
+        expect(page).to have_content("Please choose an option to proceed")
+      end
+
+      it "re-renders the options page" do
+        expect(page).to have_current_path("/mous/choose_option")
+      end
+    end
+
     context "when the user chooses to sign the MOU themselves" do
       before do
         choose "sign_mou"
