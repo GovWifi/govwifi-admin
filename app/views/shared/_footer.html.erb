@@ -1,0 +1,66 @@
+    <%= govuk_footer do |footer|
+      footer.with_meta_html do %>
+      <ul class="govuk-footer__inline-list">
+        <li class="govuk-footer__inline-list-item">
+          Built by the <%= govuk_footer_link_to "Government Digital Service", "https://www.gov.uk/government/organisations/government-digital-service" %>
+        </li>
+        <li class="govuk-footer__inline-list-item">
+          <%= govuk_footer_link_to "Privacy notice", "https://www.wifi.service.gov.uk/privacy-notice/" %>
+        </li>
+        <li class="govuk-footer__inline-list-item">
+          <%= govuk_footer_link_to "Cookies", "https://www.wifi.service.gov.uk/cookies/" %>
+        </li>
+        <li class="govuk-footer__inline-list-item">
+          <%= govuk_footer_link_to "Accessibility statement", "https://www.wifi.service.gov.uk/accessibility-statement" %>
+        </li>
+      </ul>
+    <% end %>
+
+    <%= footer.with_navigation do %>
+      <div class="govuk-footer__section govuk-grid-column-one-third">
+        <h2 class="govuk-footer__heading govuk-heading-m">About</h2>
+        <ul class="govuk-footer__list govuk-footer__list--columns-1">
+          <li class="govuk-footer__list-item">
+            <%= govuk_footer_link_to "Our service", "https://docs.wifi.service.gov.uk/index.html" %>
+          </li>
+          <li class="govuk-footer__list-item">
+            <%= govuk_footer_link_to "Terms and conditions", "https://www.wifi.service.gov.uk/terms-and-conditions/" %>
+          </li>
+          <li class="govuk-footer__list-item">
+            <%= govuk_footer_link_to "Performance", "https://www.data.gov.uk/search?q=GovWifi" %>
+          </li>
+        </ul>
+      </div>
+      <div class="govuk-footer__section govuk-grid-column-one-third">
+        <h2 class="govuk-footer__heading govuk-heading-m">Connect</h2>
+        <ul class="govuk-footer__list govuk-footer__list--columns-1">
+          <li class="govuk-footer__list-item">
+            <%= govuk_footer_link_to "Connect to GovWifi", "https://www.wifi.service.gov.uk/connect-to-govwifi/" %>
+          </li>
+          <li class="govuk-footer__list-item">
+            <%= govuk_footer_link_to "Organisations using GovWifi", "https://www.wifi.service.gov.uk/organisations-using-govwifi/" %>
+          </li>
+          <li class="govuk-footer__list-item">
+            <%= govuk_footer_link_to "Support", "https://docs.wifi.service.gov.uk/troubleshooting.html" %>
+          </li>
+        </ul>
+      </div>
+      <div class="govuk-footer__section govuk-grid-column-one-third">
+        <h2 class="govuk-footer__heading govuk-heading-m">Admin</h2>
+        <ul class="govuk-footer__list govuk-footer__list--columns-1">
+          <li class="govuk-footer__list-item">
+            <%= govuk_footer_link_to "Offer GovWifi in your organisation", "https://docs.wifi.service.gov.uk/" %>
+          </li>
+          <li class="govuk-footer__list-item">
+            <%= govuk_footer_link_to "Network Administrator login", new_user_session_path %>
+          </li>
+          <li class="govuk-footer__list-item">
+            <%= govuk_footer_link_to "Technical Documentation", "https://docs.wifi.service.gov.uk/manage.html#manage-govwifi" %>
+          </li>
+        </ul>
+      </div>
+    <% end 
+    end %>
+
+
+    
