@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "home#index"
 
+  post "/csp-violation-report", to: "content_security_policy#csp_violation_report"
+
   devise_for :users,
              controllers: {
                confirmations: "users/confirmations",
