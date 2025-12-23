@@ -2,7 +2,7 @@ mysql: &mysql
   adapter: mysql2
   encoding: utf8
   host: <%= ENV.fetch('DB_HOST') %>
-  port: 3306
+  port: <%= ENV.fetch('DB_PORT', 3306) %>
   username: <%= ENV.fetch('DB_USER') %>
   password: <%= ENV.fetch('DB_PASS') %>
 
@@ -22,7 +22,7 @@ read_replica:
   adapter: mysql2
   encoding: utf8
   host: <%= ENV.fetch('RR_DB_HOST') %>
-  port: 3306
+  port: <%= ENV.fetch('RR_DB_PORT', 3306) %>
   username: <%= ENV.fetch('RR_DB_USER') %>
   password: <%= ENV.fetch('RR_DB_PASS') %>
   database: <%= ENV.fetch('RR_DB_NAME') %>
@@ -31,7 +31,7 @@ wifi_user:
   adapter: mysql2
   encoding: utf8
   host: <%= ENV.fetch('USER_DB_HOST') %>
-  port: 3306
+  port: <%= ENV.fetch('USER_DB_PORT', 3306) %>
   username: <%= ENV.fetch('USER_DB_USER') %>
   password: <%= ENV.fetch('USER_DB_PASS') %>
   database: <%= ENV.fetch('USER_DB_NAME') %>
