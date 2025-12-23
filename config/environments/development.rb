@@ -2,6 +2,18 @@ require "action_mailer/railtie"
 require_relative "../../lib/gateways/development_notify_gateway"
 
 Rails.application.configure do
+
+  # Generate a unique nonce for each request
+  config.content_security_policy_nonce_generator = ->(request) { SecureRandom.base64(16) }
+
+  # This makes all javascript_include_tag and javascript_tag calls automatically include the nonce.
+  config.content_security_policy_nonce_directives = %w(script-src style-src)
+
+  # Report CSP violations to a specified URI
+  # For further information see the following documentation:
+  # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
+  # config.content_security_policy_report_only = true
+
   config.notify_gateway = Gateways::DevelopmentNotifyGateway
   config.hosts.clear
   Bullet.enable                      = true
