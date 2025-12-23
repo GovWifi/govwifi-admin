@@ -17,7 +17,7 @@ gem "google-apis-drive_v3"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "govwifi_two_factor_auth", git: "https://github.com/GovWifi/govwifi_two_factor_auth.git"
-gem "httparty", "~> 0.23.1"
+gem "httparty", "~> 0.23.2"
 gem "mysql2", "~> 0.5.6"
 gem "net-imap", require: false
 gem "net-pop", require: false
