@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_23_141522) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_23_164928) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -85,7 +85,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_23_141522) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["address", "organisation_id"], name: "index_locations_on_address_and_organisation_id", unique: true
+    t.index ["address"], name: "index_locations_on_address"
     t.index ["organisation_id"], name: "index_locations_on_organisation_id"
+    t.index ["postcode"], name: "index_locations_on_postcode"
   end
 
   create_table "memberships", charset: "utf8mb3", force: :cascade do |t|
