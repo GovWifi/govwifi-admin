@@ -27,7 +27,7 @@
   </head>
 
   <body class="govuk-template__body app-body-class">
-    <script>
+    <script nonce="<%= content_security_policy_nonce %>">
       document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
     </script>
 
@@ -135,7 +135,7 @@
         </div>
       </div>
     </footer>
-    <script type="module"> <%# erb_lint:disable AllowedScriptType %>
+    <script nonce="<%= content_security_policy_nonce %>" type="module"> <%# erb_lint:disable AllowedScriptType %>
       import { initAll } from '<%= asset_path("govuk-frontend.min.js") %>'
       initAll()
     </script>

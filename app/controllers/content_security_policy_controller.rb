@@ -3,7 +3,7 @@ class ContentSecurityPolicyController < ActionController::Base
 
   def csp_violation_report
     # Log the CSP violation report for further analysis
-    Rails.logger.warn("CSP Violation Report: #{request.body.read}")
+    Rails.logger.info("CSP Violation Report: #{request.body.read}")
 
     head :no_content
   end
