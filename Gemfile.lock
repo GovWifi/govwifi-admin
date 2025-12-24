@@ -146,8 +146,8 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.5)
-    date (3.5.0)
-    debug (1.10.0)
+    date (3.5.1)
+    debug (1.11.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
     declarative (0.0.20)
@@ -172,7 +172,7 @@ GEM
     elasticsearch-api (9.2.0)
       multi_json
     encryptor (3.0.0)
-    erb (5.0.2)
+    erb (6.0.1)
     erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
@@ -249,8 +249,8 @@ GEM
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     inflection (1.0.0)
-    io-console (0.8.1)
-    irb (1.15.2)
+    io-console (0.8.2)
+    irb (1.16.0)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
@@ -329,14 +329,14 @@ GEM
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
-    pp (0.6.2)
+    pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
     prism (1.4.0)
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    psych (5.2.6)
+    psych (5.3.1)
       date
       stringio
     public_suffix (7.0.0)
@@ -397,11 +397,12 @@ GEM
       ffi (~> 1.0)
     rbs (3.9.3)
       logger
-    rdoc (6.14.2)
+    rdoc (7.0.2)
       erb
       psych (>= 4.0.0)
+      tsort
     regexp_parser (2.10.0)
-    reline (0.6.2)
+    reline (0.6.3)
       io-console (~> 0.5)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -534,7 +535,7 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    stringio (3.1.7)
+    stringio (3.2.0)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     thor (1.4.0)
@@ -542,6 +543,7 @@ GEM
     timecop (0.9.10)
     timeout (0.4.4)
     trailblazer-option (0.1.2)
+    tsort (0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2025.2)
