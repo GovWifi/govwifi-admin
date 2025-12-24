@@ -1,4 +1,4 @@
-FROM ruby:3.4.7-alpine3.22
+FROM ruby:3.4.8-alpine3.22
 ARG BUNDLE_INSTALL_CMD
 
 # required for certain linting tools that read files, such as erb-lint
