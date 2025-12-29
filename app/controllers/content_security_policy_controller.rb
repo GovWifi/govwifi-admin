@@ -1,4 +1,4 @@
-class ContentSecurityPolicyController < ActionController::Base
+class ContentSecurityPolicyController < ApplicationController
   protect_from_forgery with: :null_session
 
   def csp_violation_report
