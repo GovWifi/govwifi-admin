@@ -10,6 +10,8 @@ Rails.application.configure do
   # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
   # config.content_security_policy_report_only = false
 
+  config.security_txt_url = ENV.fetch("SECURITY_TXT_URL", "https://vdp.cabinetoffice.gov.uk/.well-known/security.txt")
+
   # Settings specified here will take precedence over those in config/application.rb.
   # Code is not reloaded between requests.
   config.cache_classes = true
