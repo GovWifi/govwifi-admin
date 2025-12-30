@@ -14,5 +14,5 @@ Rails.application.config.content_security_policy do |policy|
   policy.upgrade_insecure_requests true
   policy.report_uri "/csp-violation-report"
   # Not yet supported by ruby on rails but will replace report_uri eventually:
-  #policy.report_to "/csp-violation-report"
+  # policy.report_to "/csp-violation-report"
 end
