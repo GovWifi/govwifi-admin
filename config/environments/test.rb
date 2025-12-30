@@ -1,6 +1,19 @@
 require_relative "../../spec/support/notify_gateway_spy"
 
 Rails.application.configure do
+  # Generate a unique nonce for each request
+  config.content_security_policy_nonce_generator = ->(_) { SecureRandom.base64(16) }
+
+  # This makes all javascript_include_tag and javascript_tag calls automatically include the nonce.
+  config.content_security_policy_nonce_directives = %w[script-src style-src]
+
+  # Report CSP violations to a specified URI
+  # For further information see the following documentation:
+  # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
+  # config.content_security_policy_report_only = true
+
+  config.security_txt_url = ENV.fetch("SECURITY_TXT_URL", "https://vdp.cabinetoffice.gov.uk/.well-known/security.txt")
+
   Bullet.enable = true
   Bullet.unused_eager_loading_enable = true
   Bullet.n_plus_one_query_enable     = true
