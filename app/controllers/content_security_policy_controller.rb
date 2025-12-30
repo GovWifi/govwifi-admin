@@ -1,4 +1,5 @@
 class ContentSecurityPolicyController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:csp_violation_report]
   protect_from_forgery with: :null_session
 
   def csp_violation_report
