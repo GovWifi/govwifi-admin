@@ -41,3 +41,7 @@ ci/secrets
 
 # Ignore assets
 public/assets
+
+.gems
+.envrc
+
