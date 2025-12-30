@@ -1,6 +1,8 @@
 class AddIndexesToLocationsForSearch < ActiveRecord::Migration[8.0]
   def change
-    add_index :locations, :postcode
-    add_index :locations, :address
+    change_table :locations, bulk: true do |t|
+      t.index :postcode
+      t.index :address
+    end
   end
 end
