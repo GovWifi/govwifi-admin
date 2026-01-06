@@ -75,6 +75,9 @@ make test
 
 ### Using the Linter
 
+This will highlight any Ruby code syntax issues. You could also call robucop
+in your environment as an alternative.
+
 ```shell
 make lint
 ```
@@ -120,4 +123,3 @@ This codebase is released under [the MIT License][mit].
 [notify]: https://www.notifications.service.gov.uk
 [zendesk]: https://govuk.zendesk.com/hc/en-us
 [terraform-repo]: https://github.com/GovWifi/govwifi-terraform
-[prod-deploy-pipeline]: https://cd.gds-reliability.engineering/teams/govwifi/pipelines/admin-deploy?groups=Production
