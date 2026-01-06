@@ -12,6 +12,8 @@ Rails.application.configure do
   # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
   # config.content_security_policy_report_only = true
 
+  config.security_txt_url = ENV.fetch("SECURITY_TXT_URL", "https://vdp.cabinetoffice.gov.uk/.well-known/security.txt")
+
   Bullet.enable = true
   Bullet.unused_eager_loading_enable = true
   Bullet.n_plus_one_query_enable     = true

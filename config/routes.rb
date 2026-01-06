@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root "home#index"
 
+  get "/security.txt", to: "well_known#security_txt"
+  get "/.well-known/security.txt", to: "well_known#security_txt"
+
   post "/csp-violation-report", to: "content_security_policy#csp_violation_report"
 
   devise_for :users,

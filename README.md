@@ -75,6 +75,9 @@ make test
 
 ### Using the Linter
 
+This will highlight any Ruby code syntax issues. You could also call robucop
+in your environment as an alternative.
+
 ```shell
 make lint
 ```
