@@ -27,6 +27,7 @@ module GovwifiAdmin
     # Force HTTPS for all requests except healthcheck endpoint
     config.force_ssl = true
     config.ssl_options = {
+      hsts: { preload: true, expires: 2.year, subdomains: true },
       redirect: {
         exclude: ->(request) { request.path =~ /healthcheck/ },
       },
