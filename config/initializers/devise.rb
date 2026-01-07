@@ -342,6 +342,8 @@ Devise.setup do |config|
   config.second_factor_resource_id = "id" # Field or method name used to set value for 2fA remember cookie
   config.delete_cookie_on_logout = false # Delete cookie when user signs out, to force 2fA again on login
   config.direct_otp_valid_for = 30.minutes
+
+  config.rememberable_options = { same_site: :strict, secure: true }
 end
 
 Warden::Manager.before_failure do |env, opts|
