@@ -4,7 +4,7 @@
 <h1 class="govuk-heading-l">GovWifi Map of Locations</h1>
 
   <div class="map"></div>
-  <script>
+  <script nonce="<%= content_security_policy_nonce %>">
     window.initMap = function initMap(){
         var map = new google.maps.Map(document.querySelector(".map"), {
           zoom: 5,
