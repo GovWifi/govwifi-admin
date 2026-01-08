@@ -33,6 +33,8 @@ module GovwifiAdmin
       },
     }
 
+    config.action_dispatch.cookies_same_site_protection = :strict
+
     # https://github.com/alphagov/govuk-frontend/issues/1350
     config.assets.css_compressor = nil
 
