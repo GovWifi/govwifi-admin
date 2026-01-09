@@ -26,6 +26,7 @@ read_replica:
   username: <%= ENV.fetch('RR_DB_USER') %>
   password: <%= ENV.fetch('RR_DB_PASS') %>
   database: <%= ENV.fetch('RR_DB_NAME') %>
+  pool: 20 # Increased pool size for read replica
 
 wifi_user:
   adapter: mysql2
