@@ -73,7 +73,7 @@ describe "Register an additional organisation", type: :feature do
 
     it "sets the new organisation as the current organisation" do
       click_on "Add organisation"
-      within ".subnav" do
+      within ".govuk-service-navigation" do
         expect(page).to have_content(organisation_2_name)
       end
     end

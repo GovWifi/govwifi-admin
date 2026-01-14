@@ -100,7 +100,7 @@ describe "Inviting a user to their first organisation", type: :feature do
           expect(page).to have_content("Sign out")
         end
         it "is a member of the new organisation" do
-          within(".organisation-name") do |org_name|
+          within(".govuk-service-navigation__service-name") do |org_name|
             expect(org_name).to have_content(organisation.name)
           end
         end
