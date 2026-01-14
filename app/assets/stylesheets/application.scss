@@ -4,12 +4,12 @@ $govuk-font-url-function: "font-url";
 @import "../../../node_modules/govuk-frontend/dist/govuk/all";
 @import "../../../node_modules/accessible-autocomplete/dist/accessible-autocomplete.min";
 
-.govuk-header__content,
-.govuk-header__logo {
-  @include govuk-media-query($from: desktop) {
-    width: 50%;
-  }
-}
+// .govuk-header__content,
+// .govuk-header__logo {
+//   @include govuk-media-query($from: desktop) {
+//     width: 50%;
+//   }
+// }
 
 // remove the default 5px vertical padding on the nav as it
 // pushes it down in an uncentered fashion
