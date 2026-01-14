@@ -7,7 +7,7 @@ describe "Page header", type: :feature do
     end
 
     it "contains the expected test tag" do
-      expect(page).to have_content("test")
+      expect(page).to have_content("GOV.UK GovWifi test")
     end
   end
 
