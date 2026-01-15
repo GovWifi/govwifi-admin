@@ -355,9 +355,9 @@ globjoin@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/globjoin/-/globjoin-0.1.4.tgz"
 
-govuk-frontend@^5.13.0:
-  version "5.13.0"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.13.0.tgz#11126d32a9ef0db17b19276253746da1ade4338b"
+govuk-frontend@^5.14.0:
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.14.0.tgz#d93f1ffa88b0696114509cab86e4ea474006f8e0"
 
 "govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.13/govwifi-shared-frontend-0.6.13.tgz":
   version "0.6.13"
