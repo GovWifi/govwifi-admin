@@ -52,7 +52,7 @@ describe "Switching organisations", type: :feature do
 
       it "changes the organisation the user is viewing" do
         click_on organisation_2.name
-        within ".subnav" do
+        within ".govuk-service-navigation" do
           expect(page).to have_content(organisation_2.name)
         end
       end

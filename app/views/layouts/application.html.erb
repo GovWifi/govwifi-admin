@@ -34,11 +34,11 @@
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
     <%= render "shared/header" %>
+    <%= render "shared/subnav/#{subnav}" if show_navigation_bars %>
 
     <div class="govuk-width-container">
       <% if show_navigation_bars %>
         <%= render "shared/mou_notification" %>
-        <%= render "shared/subnav/#{subnav}" %>
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-one-quarter">
             <%= render "shared/sidebar/#{sidebar}" %>
