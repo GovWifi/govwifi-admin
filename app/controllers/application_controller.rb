@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
 protected
 
   def show_navigation_bars
-    user_signed_in?
+    user_signed_in? && !current_user.need_two_factor_authentication?(request)
   end
 
   def update_active_sidebar_path
