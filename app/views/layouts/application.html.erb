@@ -20,8 +20,14 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag "application", media: "all" %>
+    <% if show_timeout_dialog? %>
+      <%= stylesheet_link_tag "hmrc-frontend-6.113.0.min", media: "all" %>
+    <% end %>
 
     <%= javascript_include_tag "html5shiv" %>
+    <% if show_timeout_dialog? %>
+      <%= render "layouts/timeout_dialog_meta" %>
+    <% end %>
 
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
   </head>
@@ -58,10 +64,14 @@
       <% end %>
     </div>
     <%= render "shared/footer" %>
-    <script nonce="<%= content_security_policy_nonce %>" type="module"> <%# erb_lint:disable AllowedScriptType %>
-      import { initAll } from '<%= asset_path("govuk-frontend.min.js") %>'
-      initAll()
-    </script>
+    <% if show_timeout_dialog? %>
+      <script nonce="<%= content_security_policy_nonce %>" src="<%= asset_path("hmrc-frontend-6.113.0.min.js") %>"></script>
+    <% else %>
+      <script nonce="<%= content_security_policy_nonce %>" type="module"> <%# erb_lint:disable AllowedScriptType %>
+        import { initAll } from '<%= asset_path("govuk-frontend.min.js") %>'
+        initAll()
+      </script>
+    <% end %>
   </body>
   <%= console if Rails.env.development? %>
 </html>

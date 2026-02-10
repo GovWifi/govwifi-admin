@@ -1,0 +1,15 @@
+<% content_for :page_title, "For your security, we signed you out" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">For your security, we signed you out</h1>
+
+    <p class="govuk-body">
+      You were signed out because you did not do anything for 30 minutes.
+    </p>
+
+    <div class="govuk-form-group">
+      <%= link_to "Sign in", new_user_session_path, class: "govuk-button govuk-!-margin-bottom-0", role: "button", data: { module: "govuk-button" } %>
+    </div>
+  </div>
+</div>

@@ -222,7 +222,8 @@ Devise.setup do |config|
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
-  # time the user will be asked for credentials again. Default is 30 minutes.
+  # time the user will be asked for credentials again. Matches HMRC service timeout
+  # pattern: warn at 28 min, sign out at 30 min (see app/views/layouts/_timeout_dialog_meta.html.erb).
   config.timeout_in = 30.minutes
 
   # ==> Configuration for :lockable

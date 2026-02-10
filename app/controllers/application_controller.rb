@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   helper_method :sidebar
   helper_method :subnav
   helper_method :show_navigation_bars
+  helper_method :show_timeout_dialog?
 
   def error
     render :error, code: params[:code]
@@ -63,6 +64,10 @@ protected
 
   def show_navigation_bars
     user_signed_in? && !current_user.need_two_factor_authentication?(request)
+  end
+
+  def show_timeout_dialog?
+    show_navigation_bars
   end
 
   def update_active_sidebar_path
