@@ -2,8 +2,10 @@
 <meta
   name="hmrc-timeout-dialog"
   content="hmrc-timeout-dialog"
-  data-timeout="1800"
-  data-countdown="1680"
+  <% timeout = Devise.timeout_in.to_i %>
+  <% countdown = timeout - 20 %>
+  data-timeout="<%= timeout %>"
+  data-countdown="<%= countdown %>"
   data-keep-alive-url="<%= timeout_keep_alive_path %>"
   data-sign-out-url="<%= destroy_user_session_path %>"
   data-timeout-url="<%= timeout_signed_out_path %>"
