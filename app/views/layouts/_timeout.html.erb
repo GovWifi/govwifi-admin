@@ -1,0 +1,15 @@
+<meta
+  name="hmrc-timeout-dialog"
+  content="hmrc-timeout-dialog"
+  <% timeout = Devise.timeout_in.to_i %>
+  <% countdown = 2.minutes.to_i %>
+  data-timeout="<%= timeout %>"
+  data-countdown="<%= countdown %>"
+  data-keep-alive-url="<%= timeout_keep_alive_path %>"
+  data-sign-out-url="<%= destroy_user_session_path %>"
+  data-title="You're about to be signed out"
+  data-message="For your security, we will sign you out in"
+  data-message-suffix=""
+  data-keep-alive-button-text="Stay signed in"
+  data-sign-out-button-text="Sign out"
+  data-synchronise-tabs="true">

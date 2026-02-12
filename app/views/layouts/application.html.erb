@@ -23,6 +23,11 @@
 
     <%= javascript_include_tag "html5shiv" %>
 
+    <% if show_timeout? %>
+      <%= stylesheet_link_tag "hmrc-frontend-6.113.0.min" %>
+      <%= render "layouts/timeout" %>
+    <% end %>
+
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
   </head>
 
@@ -62,6 +67,10 @@
       import { initAll } from '<%= asset_path("govuk-frontend.min.js") %>'
       initAll()
     </script>
+
+    <% if show_timeout? %>
+      <%= javascript_include_tag "hmrc-frontend-6.113.0.min", nonce: content_security_policy_nonce %>
+    <% end %>
   </body>
   <%= console if Rails.env.development? %>
 </html>
