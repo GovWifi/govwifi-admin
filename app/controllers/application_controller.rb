@@ -13,9 +13,14 @@ class ApplicationController < ActionController::Base
   helper_method :sidebar
   helper_method :subnav
   helper_method :show_navigation_bars
+  helper_method :show_timeout?
 
   def error
     render :error, code: params[:code]
+  end
+
+  def show_timeout?
+    show_navigation_bars
   end
 
   def signing_out?
