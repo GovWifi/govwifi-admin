@@ -9,7 +9,7 @@ class MousController < ApplicationController
       redirect_to new_nomination_path
     else
       flash[:alert] = "Please choose an option to proceed"
-      render :show_options, status: :unprocessable_entity
+      render :show_options, status: :unprocessable_content
     end
   end
 
