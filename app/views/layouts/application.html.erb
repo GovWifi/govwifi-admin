@@ -24,7 +24,7 @@
     <%= javascript_include_tag "html5shiv" %>
 
     <% if show_timeout? %>
-      <%= stylesheet_link_tag "hmrc-frontend-6.113.0.min" %>
+      <%= stylesheet_link_tag Rails.application.config.x.hmrc_frontend_basename %>
       <%= render "layouts/timeout" %>
     <% end %>
 
@@ -69,7 +69,7 @@
     </script>
 
     <% if show_timeout? %>
-      <%= javascript_include_tag "hmrc-frontend-6.113.0.min", nonce: content_security_policy_nonce %>
+      <%= javascript_include_tag Rails.application.config.x.hmrc_frontend_basename, nonce: content_security_policy_nonce %>
     <% end %>
   </body>
   <%= console if Rails.env.development? %>
