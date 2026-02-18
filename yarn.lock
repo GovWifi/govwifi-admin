@@ -23,12 +23,12 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@csstools/css-parser-algorithms@^2.3.1":
+"@csstools/css-parser-algorithms@^2.3.1", "@csstools/css-parser-algorithms@^2.6.0":
   version "2.6.0"
   resolved "https://registry.npmjs.org/@csstools/css-parser-algorithms/-/css-parser-algorithms-2.6.0.tgz"
   integrity sha512-YfEHq0eRH98ffb5/EsrrDspVWAuph6gDggAE74ZtjecsmyyWpW768hOyiONa8zwWGbIWYfa2Xp4tRTrpQQ00CQ==
 
-"@csstools/css-tokenizer@^2.2.0":
+"@csstools/css-tokenizer@^2.2.0", "@csstools/css-tokenizer@^2.2.3":
   version "2.2.3"
   resolved "https://registry.npmjs.org/@csstools/css-tokenizer/-/css-tokenizer-2.2.3.tgz"
   integrity sha512-pp//EvZ9dUmGuGtG1p+n17gTHEOqu9jO+FiCUjNN3BDmyhdA2Jq9QsVeR7K8/2QCK17HSsioPlTW9ZkzoWb3Lg==
@@ -51,7 +51,7 @@
     "@nodelib/fs.stat" "2.0.5"
     run-parallel "^1.1.9"
 
-"@nodelib/fs.stat@2.0.5", "@nodelib/fs.stat@^2.0.2":
+"@nodelib/fs.stat@^2.0.2", "@nodelib/fs.stat@2.0.5":
   version "2.0.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz"
   integrity sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==
@@ -196,14 +196,15 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
+color-name@~1.1.4:
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz"
+  integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+
 color-name@1.1.3:
   version "1.1.3"
   resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.3.tgz"
   integrity sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==
-
-color-name@~1.1.4:
-  version "1.1.4"
-  resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz"
 
 colord@^2.9.3:
   version "2.9.3"
@@ -452,9 +453,9 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-hmrc-frontend@^6.113.0:
+hmrc-frontend@6.113.0:
   version "6.113.0"
-  resolved "https://registry.yarnpkg.com/hmrc-frontend/-/hmrc-frontend-6.113.0.tgz#4dc140b851c3e6b90b54c03c169a9919ae721726"
+  resolved "https://registry.npmjs.org/hmrc-frontend/-/hmrc-frontend-6.113.0.tgz"
   integrity sha512-y5BlQcRaCYlyDW47XwtCEsvVJC9v4193JN6q+xokfYRE6YtJU9O18cSDG6d7QlzSTBGRZ7C33BTaFFtBpOVP4A==
   dependencies:
     accessible-autocomplete "^3.0.1"
@@ -838,7 +839,7 @@ postcss-value-parser@^4.2.0:
   resolved "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
-postcss@^8.4.28, postcss@^8.5.6:
+postcss@^8.3.3, postcss@^8.4.28, postcss@^8.4.29, postcss@^8.5.6:
   version "8.5.6"
   resolved "https://registry.npmjs.org/postcss/-/postcss-8.5.6.tgz"
   integrity sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==
@@ -1061,7 +1062,7 @@ stylelint-scss@^5.3.0:
     postcss-selector-parser "^6.0.13"
     postcss-value-parser "^4.2.0"
 
-stylelint@^15.11.0:
+"stylelint@^14.5.1 || ^15.0.0", stylelint@^15.10.0, stylelint@^15.11.0:
   version "15.11.0"
   resolved "https://registry.npmjs.org/stylelint/-/stylelint-15.11.0.tgz"
   integrity sha512-78O4c6IswZ9TzpcIiQJIN49K3qNoXTM8zEJzhaTE/xRTCZswaovSEVIa/uwbOltZrk16X4jAxjaOhzz/hTm1Kw==
