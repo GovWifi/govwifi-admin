@@ -5,6 +5,7 @@
     "accessible-autocomplete": "^3.0.1",
     "govuk-frontend": "^5.14.0",
     "govwifi-shared-frontend": "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.14/govwifi-shared-frontend-0.6.14.tgz",
+    "hmrc-frontend": "^6.113.0",
     "html5shiv": "^3.7.3",
     "postcss": "^8.5.6",
     "prettier": "^3.7.4"
