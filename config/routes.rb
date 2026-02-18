@@ -34,6 +34,10 @@ Rails.application.routes.draw do
   get "change_organisation", to: "current_organisation#edit"
   patch "change_organisation", to: "current_organisation#update"
 
+  namespace :timeout do
+    get "keep_alive"
+  end
+
   resources :status, only: %i[index]
   resources :ips, only: %i[index destroy]
   resources :certificates, only: %i[index show new create destroy edit update]
