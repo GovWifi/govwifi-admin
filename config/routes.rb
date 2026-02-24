@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   namespace :timeout do
     get "keep_alive"
+    get "sign_out", action: :sign_out_action
   end
 
   resources :status, only: %i[index]

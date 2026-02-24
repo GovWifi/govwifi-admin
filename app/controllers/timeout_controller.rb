@@ -6,4 +6,11 @@ class TimeoutController < ApplicationController
   def keep_alive
     head :ok
   end
+
+  # GET /timeout/sign_out - only used when HMRC countdown ends (to show session expired message)
+  def sign_out_action
+    sign_out(current_user)
+    flash[:timedout] = true
+    redirect_to new_user_session_path
+  end
 end
