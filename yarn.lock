@@ -453,10 +453,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-hmrc-frontend@6.113.0:
-  version "6.113.0"
-  resolved "https://registry.npmjs.org/hmrc-frontend/-/hmrc-frontend-6.113.0.tgz"
-  integrity sha512-y5BlQcRaCYlyDW47XwtCEsvVJC9v4193JN6q+xokfYRE6YtJU9O18cSDG6d7QlzSTBGRZ7C33BTaFFtBpOVP4A==
+hmrc-frontend@6.116.0:
+  version "6.116.0"
+  resolved "https://registry.yarnpkg.com/hmrc-frontend/-/hmrc-frontend-6.116.0.tgz#989bf1d3f4d785f1d37c00bede33d09344ed2c95"
+  integrity sha512-G6I22jeh1xPkUR4HfFkR0fTiGKoarHW3N+TGs/nGTUirKt+KpAgsT6PZMIe7qnRgb5Beyv4UZp3o3WtEHFY4LA==
   dependencies:
     accessible-autocomplete "^3.0.1"
     govuk-frontend "^5.14.0"
