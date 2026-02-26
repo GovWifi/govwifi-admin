@@ -30,6 +30,12 @@ describe "Logout users after period of inactivity", type: :feature do
 
     it_behaves_like "not signed in"
 
+    it "shows the session expired message on the sign in page" do
+      expect(page).to have_content("Your session expired. Please sign in again to continue.")
+      expect(page).to have_field("Email")
+      expect(page).to have_button("Continue")
+    end
+
     it "and they navigate to a page after signing in again" do
       sign_in_user user
       visit memberships_path
