@@ -147,7 +147,7 @@ GEM
     crass (1.0.6)
     csv (3.3.5)
     date (3.5.1)
-    debug (1.10.0)
+    debug (1.11.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
     declarative (0.0.20)
@@ -333,7 +333,7 @@ GEM
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
-    prism (1.4.0)
+    prism (1.9.0)
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
