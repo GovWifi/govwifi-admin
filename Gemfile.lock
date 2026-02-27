@@ -288,7 +288,8 @@ GEM
     multi_xml (0.8.0)
       bigdecimal (>= 3.1, < 5)
     multipart-post (2.4.1)
-    mysql2 (0.5.6)
+    mysql2 (0.5.7)
+      bigdecimal
     net-http (0.9.1)
       uri (>= 0.11.1)
     net-imap (0.5.12)
@@ -622,7 +623,7 @@ DEPENDENCIES
   govwifi_two_factor_auth!
   httparty (~> 0.24.0)
   listen
-  mysql2 (~> 0.5.6)
+  mysql2 (~> 0.5.7)
   net-imap
   net-pop
   net-smtp
