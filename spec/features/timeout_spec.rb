@@ -26,7 +26,7 @@ describe "Session timeout", type: :feature do
     it "configures the sign out URL so 'Sign out' will end the session" do
       meta = find("meta[name='hmrc-timeout-dialog']", visible: false)
 
-      expect(meta["data-sign-out-url"]).to eq(destroy_user_session_path)
+      expect(meta["data-sign-out-url"]).to eq(timeout_sign_out_path)
       expect(meta["data-sign-out-button-text"]).to eq("Sign out")
     end
   end
