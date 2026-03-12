@@ -18,7 +18,7 @@ gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "govwifi_two_factor_auth", git: "https://github.com/GovWifi/govwifi_two_factor_auth.git"
 gem "httparty", "~> 0.24.0"
-gem "mysql2", "~> 0.5.6"
+gem "mysql2", "~> 0.5.7"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
