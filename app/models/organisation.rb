@@ -16,8 +16,6 @@ class Organisation < ApplicationRecord
 
   validates_associated :locations
 
-  delegate :resign_mou?, to: :mou, allow_nil: true
-
   def latest_signed_mou_version
     return BigDecimal("0") if mous.empty?
 
