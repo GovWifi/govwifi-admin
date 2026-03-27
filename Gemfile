@@ -10,7 +10,7 @@ end
 gem "aws-sdk-route53", "~> 1.125.0"
 gem "aws-sdk-s3", "~> 1.213.0"
 gem "cancancan"
-gem "devise", "~> 4.9.4"
+gem "devise", "~> 5.0.3"
 gem "devise_zxcvbn", "~> 6.0.0"
 gem "elasticsearch", "~> 9.3.0"
 gem "google-apis-drive_v3"
