@@ -2,14 +2,14 @@ describe "View authentication requests for an IP", type: :feature do
   let(:ip_address) { "11.22.33.44" }
   let(:ip) { create(:ip, address: ip_address) }
   let(:username) { "ABCDEF" }
-  let(:ap) { "govwifi-ap" }
+  let(:access_point) { "govwifi-ap" }
   let(:mac) { "govwifi-mac" }
   let(:time) { 3.days.ago }
   let(:task_id) { "arn:12345" }
 
   before do
     create(:session,
-           ap:,
+           ap: access_point,
            mac:,
            start: time,
            username:,
@@ -18,7 +18,7 @@ describe "View authentication requests for an IP", type: :feature do
            task_id:)
 
     create(:session,
-           ap:,
+           ap: access_point,
            mac:,
            start: time,
            username:,
@@ -36,7 +36,7 @@ describe "View authentication requests for an IP", type: :feature do
     it "displays the log" do
       expect(page).to have_content("Found 2 results for IP: \"#{ip.address}\"")
       expect(page).to have_css("td", text: username)
-      expect(page).to have_css("td", text: ap)
+      expect(page).to have_css("td", text: access_point)
       expect(page).to have_css("td", text: mac)
       expect(page).to have_css("td", text: time.to_fs(:no_timezone))
       expect(page).to have_css("td", text: "successful")
