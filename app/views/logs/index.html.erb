@@ -6,7 +6,7 @@
 
 <% if logs.present? %>
   <h1 class="govuk-heading-l">
-    Found <%= pluralize(logs.count, "result") %> for
+    Found <%= pluralize(@pagy.count, "result") %> for
     <% if log_search_form.username %>
       username:
     <% elsif log_search_form.ip %>
@@ -29,7 +29,11 @@
 
   <%= render "logs/filter_logs_select", log_search_form: %>
 
+  <%= govuk_pagination(pagy: @pagy) %>
+
   <%= govuk_table(head: table_data[:head], rows: table_data[:rows]) %>
+
+  <%= govuk_pagination(pagy: @pagy) %>
 
 <% else %>
   <div class="govuk-grid-row">
