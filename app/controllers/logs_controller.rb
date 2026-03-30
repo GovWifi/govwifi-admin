@@ -12,6 +12,7 @@ class LogsController < ApplicationController
     when LogSearchForm::LOCATION_FILTER_OPTION
       location = current_organisation.locations.find(log_search_form.location_id)
       logs = Gateways::Sessions.search(ips: location.ips.pluck(:address), success:)
+      @pagy, logs = pagy(logs)
       render locals: { log_search_form:,
                        location_address: location.address,
                        logs:,
@@ -24,17 +25,19 @@ class LogsController < ApplicationController
             end
 
       logs = Gateways::Sessions.search(ips:, success:, authentication_method:)
-
+      @pagy, logs = pagy(logs)
       @current_location = Ip.find_by(address: ips).location if logs.present?
       render locals: { log_search_form:, logs:, table_data: build_table_data(log_search_form, logs) }
     when LogSearchForm::MAC_FILTER_OPTION
       ips = super_admin? ? nil : current_organisation.ip_addresses
       logs = Gateways::Sessions.search(ips:, mac: log_search_form.mac, success:)
+      @pagy, logs = pagy(logs)
       render locals: { log_search_form:, logs:, table_data: build_table_data(log_search_form, logs) }
 
     when LogSearchForm::USERNAME_FILTER_OPTION
       ips = super_admin? ? nil : current_organisation.ip_addresses
       logs = Gateways::Sessions.search(ips:, username: log_search_form.username, success:)
+      @pagy, logs = pagy(logs)
       render locals: { log_search_form:, logs:, table_data: build_table_data(log_search_form, logs) }
     end
   end
