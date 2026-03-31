@@ -120,7 +120,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (4.0.1)
+    bigdecimal (4.1.0)
     bindex (0.8.1)
     builder (3.3.0)
     bullet (8.1.0)
@@ -151,10 +151,10 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     declarative (0.0.20)
-    devise (4.9.4)
+    devise (5.0.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
+      railties (>= 7.0)
       responders
       warden (~> 1.2.3)
     devise_zxcvbn (6.0.0)
@@ -415,9 +415,9 @@ GEM
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
-    responders (3.1.1)
-      actionpack (>= 5.2)
-      railties (>= 5.2)
+    responders (3.2.0)
+      actionpack (>= 7.0)
+      railties (>= 7.0)
     retriable (3.4.1)
     reverse_markdown (3.0.2)
       nokogiri
@@ -621,7 +621,7 @@ DEPENDENCIES
   cancancan
   capybara
   debug
-  devise (~> 4.9.4)
+  devise (~> 5.0.3)
   devise_zxcvbn (~> 6.0.0)
   elasticsearch (~> 9.3.0)
   erb_lint
