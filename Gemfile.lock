@@ -120,7 +120,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (4.1.0)
+    bigdecimal (4.1.1)
     bindex (0.8.1)
     builder (3.3.0)
     bullet (8.1.0)
@@ -491,10 +491,10 @@ GEM
       sprockets-rails
       tilt
     securerandom (0.4.1)
-    sentry-rails (6.4.1)
+    sentry-rails (6.5.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.4.1)
-    sentry-ruby (6.4.1)
+      sentry-ruby (~> 6.5.0)
+    sentry-ruby (6.5.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
