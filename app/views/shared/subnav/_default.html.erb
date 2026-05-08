@@ -1,13 +1,27 @@
-<div class='subnav'>
-  <div class='govuk-grid-row'>
-    <div class='govuk-grid-column-one-half organisation-name'>
-      <strong class="govuk-body"><%= current_organisation.name if current_organisation %></strong>
-    </div>
-    <nav class='govuk-grid-column-one-half'>
-      <%= link_to "Switch organisation", change_organisation_path, class: "govuk-link govuk-body" %>
-      <% if super_admin? %>
-        <%= link_to "View all organisations", super_admin_organisations_path, class: "govuk-link govuk-body" %>
+<div class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <% if current_organisation %>
+        <span class="govuk-service-navigation__service-name">
+          <strong><%= current_organisation.name %></strong>
+        </span>
       <% end %>
-    </nav>
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item <%= 'govuk-service-navigation__item--active' if current_page?(change_organisation_path) %>">
+            <%= link_to "Switch organisation", change_organisation_path, class: "govuk-service-navigation__link" %>
+          </li>
+          <li class="govuk-service-navigation__item <%= 'govuk-service-navigation__item--active' if current_page?(super_admin_organisations_path) %>">
+            <% if super_admin? %>
+              <%= link_to "View all organisations", super_admin_organisations_path, class: "govuk-service-navigation__link" %>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>

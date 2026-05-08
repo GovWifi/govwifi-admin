@@ -49,6 +49,8 @@ describe UseCases::ResetSmokeTestUsers do
         expect(user.valid_password?(new_password)).to be true
         expect(user.failed_attempts).to eq 0
         expect(user.second_factor_attempts_count).to eq 0
+        expect(user.locked_at).to be_nil
+        expect(user.unlock_token).to be_nil
       end
     end
 

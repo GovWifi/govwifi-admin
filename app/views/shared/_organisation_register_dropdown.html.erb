@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<%= asset_path("accessible-autocomplete.min.js") %>"></script>
+<script nonce="<%= content_security_policy_nonce %>" type="text/javascript" src="<%= asset_path("accessible-autocomplete.min.js") %>"></script>
 <script>
   accessibleAutocomplete.enhanceSelectElement({
     selectElement: document.querySelector('.govuk-select'),

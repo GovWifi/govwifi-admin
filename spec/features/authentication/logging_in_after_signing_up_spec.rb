@@ -29,7 +29,7 @@ describe "Logging in after signing up", type: :feature do
     it_behaves_like "not signed in"
 
     it "displays an error to the user" do
-      expect(page).to have_content "Invalid Email or password"
+      expect(page).to have_content "Invalid email or password."
     end
 
     it "logs the error" do

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   root "home#index"
 
+  get "/security.txt", to: "well_known#security_txt"
+  get "/.well-known/security.txt", to: "well_known#security_txt"
+
+  post "/csp-violation-report", to: "content_security_policy#csp_violation_report"
+
   devise_for :users,
              controllers: {
                confirmations: "users/confirmations",
@@ -28,6 +33,11 @@ Rails.application.routes.draw do
   get "/healthcheck", to: "monitoring#healthcheck"
   get "change_organisation", to: "current_organisation#edit"
   patch "change_organisation", to: "current_organisation#update"
+
+  namespace :timeout do
+    get "keep_alive"
+    get "sign_out", action: :sign_out_action
+  end
 
   resources :status, only: %i[index]
   resources :ips, only: %i[index destroy]

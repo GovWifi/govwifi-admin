@@ -8,17 +8,17 @@ git_source(:github) do |repo_name|
 end
 
 gem "aws-sdk-route53", "~> 1.125.0"
-gem "aws-sdk-s3", "~> 1.193.0"
+gem "aws-sdk-s3", "~> 1.213.0"
 gem "cancancan"
-gem "devise", "~> 4.9.4"
+gem "devise", "~> 5.0.3"
 gem "devise_zxcvbn", "~> 6.0.0"
-gem "elasticsearch", "~> 9.2.0"
+gem "elasticsearch", "~> 9.3.0"
 gem "google-apis-drive_v3"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "govwifi_two_factor_auth", git: "https://github.com/GovWifi/govwifi_two_factor_auth.git"
-gem "httparty", "~> 0.23.1"
-gem "mysql2", "~> 0.5.6"
+gem "httparty", "~> 0.24.2"
+gem "mysql2", "~> 0.5.7"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false

@@ -27,10 +27,13 @@ module GovwifiAdmin
     # Force HTTPS for all requests except healthcheck endpoint
     config.force_ssl = true
     config.ssl_options = {
+      hsts: { preload: true, expires: 2.years, subdomains: true },
       redirect: {
         exclude: ->(request) { request.path =~ /healthcheck/ },
       },
     }
+
+    config.action_dispatch.cookies_same_site_protection = :strict
 
     # https://github.com/alphagov/govuk-frontend/issues/1350
     config.assets.css_compressor = nil

@@ -46,6 +46,8 @@ module UseCases
               confirmed_at: user.created_at,
               failed_attempts: 0,
               second_factor_attempts_count: 0,
+              locked_at: nil,
+              unlock_token: nil,
             )
             @logger.info("user failed attempts after reset: #{user.failed_attempts}, 2FA attempts: #{user.second_factor_attempts_count}")
             { email: email, status: :success }

@@ -2,14 +2,14 @@ describe "Filter CBA requests for an IP", type: :feature do
   let(:ip_address) { "11.22.33.44" }
   let(:ip) { create(:ip, address: ip_address) }
   let(:username) { "ABCDEF" }
-  let(:ap) { "govwifi-ap" }
+  let(:access_point) { "govwifi-ap" }
   let(:mac) { "govwifi-mac" }
   let(:time) { 3.days.ago }
   let(:task_id) { "arn:12345" }
 
   before do
     create(:session,
-           ap:,
+           ap: access_point,
            mac:,
            start: time,
            username: nil,
@@ -19,7 +19,7 @@ describe "Filter CBA requests for an IP", type: :feature do
            task_id:)
 
     create(:session,
-           ap:,
+           ap: access_point,
            mac:,
            start: time,
            username:,

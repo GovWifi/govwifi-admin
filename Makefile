@@ -56,6 +56,11 @@ stop:
 
 .PHONY: build lint serve shell stop test
 
+local-yarn-update:
+	rm -rf node_modules
+	rm yarn.lock
+	yarn install
+
 vsctest:
 	RACK_ENV=test ./bin/rails db:drop db:create db:schema:load
 	bundle exec rspec

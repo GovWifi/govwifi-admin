@@ -17,7 +17,7 @@ describe "Locking a user account", type: :feature do
     end
 
     it "displays a generic response" do
-      expect(page).to have_content "Invalid Email or password."
+      expect(page).to have_content "Invalid email or password."
     end
 
     it "disregards any further attempts to sign in" do

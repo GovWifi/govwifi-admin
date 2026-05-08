@@ -11,4 +11,5 @@ Rails.application.config.assets.paths += [
   Rails.root.join("node_modules/govwifi-shared-frontend/dist"),
   Rails.root.join("node_modules/html5shiv/dist"),
   Rails.root.join("vendor/assets/stylesheets"),
+  Rails.root.join("node_modules/hmrc-frontend/hmrc"),
 ]
