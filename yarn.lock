@@ -389,11 +389,11 @@ govuk-frontend@^5.14.0:
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.14.0.tgz#d93f1ffa88b0696114509cab86e4ea474006f8e0"
   integrity sha512-MgfaXswIM6KpXS2T5gltEnzgVLgfM3UoE9+rYkhBiR0suaJ8Let31VZXQZqz9QhiPDbv28fW1nRjIyLujfZIBA==
 
-"govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.14/govwifi-shared-frontend-0.6.14.tgz":
-  version "0.6.14"
-  resolved "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.14/govwifi-shared-frontend-0.6.14.tgz#99be58c718f8611de0905302f853883c848ee0cb"
+"govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.21/govwifi-shared-frontend-0.6.21.tgz":
+  version "0.6.21"
+  resolved "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.21/govwifi-shared-frontend-0.6.21.tgz#c9c4f2e4b2b7e2dfdaa87422a36a72080cfd2ef4"
   dependencies:
-    js-cookie "^3.0.5"
+    js-cookie "^3.0.7"
 
 hard-rejection@^2.1.0:
   version "2.1.0"
@@ -532,7 +532,7 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
-js-cookie@^3.0.5:
+js-cookie@^3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.7.tgz#0a53abfc459c8e89c85d7a38eb6cb68714965b8c"
   integrity sha512-z/wZZgDrkNV1eA0ULjM/F9/50Ya8fbzgKneSpoPsXSGd0KnpdtHfOZWK+GcwLk+EZbS4F9RBhU+K2RgzuDaItw==
