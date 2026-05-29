@@ -56,7 +56,7 @@ client 2-2-2-2 {
 
   context "when an invalid IP has been accidentally saved to the DB" do
     it "ignores this IP address" do
-      Ip.new(address: "1.2.3.1").save!(validate: false)
+      Ip.new(address: "1.2.3.1", location: location1).save!(validate: false)
       expect { described_class.new.execute }.to_not raise_error
     end
   end
