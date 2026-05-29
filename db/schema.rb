@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_23_164928) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_29_103602) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -72,7 +72,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_23_164928) do
     t.string "address"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "location_id"
+    t.bigint "location_id", null: false
     t.index ["address"], name: "index_ips_on_address", unique: true
     t.index ["location_id"], name: "index_ips_on_location_id"
   end
@@ -191,6 +191,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_23_164928) do
   end
 
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ips", "locations", on_delete: :cascade
   add_foreign_key "mous", "organisations"
   add_foreign_key "mous", "users"
   add_foreign_key "nominations", "organisations"

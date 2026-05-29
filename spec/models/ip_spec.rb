@@ -1,9 +1,18 @@
 describe Ip do
-  subject(:ip_address) { described_class.new }
+  subject(:ip_address) { build(:ip) }
 
   it { is_expected.to belong_to(:location) }
   it { is_expected.to validate_presence_of(:address) }
-  it { is_expected.to validate_uniqueness_of(:address) }
+
+  describe "address uniqueness" do
+    it "does not allow duplicate addresses" do
+      create(:ip, address: "141.0.0.10")
+      duplicate = build(:ip, address: "141.0.0.10")
+
+      expect(duplicate).not_to be_valid
+      expect(duplicate.errors.of_kind?(:address, :taken)).to be true
+    end
+  end
 
   # rubocop:disable Rails/SaveBang
 
