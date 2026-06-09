@@ -12,6 +12,10 @@ module Gateways
       bucket: ENV.fetch("S3_PRODUCT_PAGE_DATA_BUCKET"),
       key: ENV.fetch("S3_ORGANISATION_NAMES_OBJECT_KEY"),
     }.freeze
+    S3_METRICS_BUCKET = {
+      bucket: ENV.fetch("S3_METRICS_BUCKET"),
+      key: ENV.fetch("S3_METRICS_BUCKET_OBJECT_KEY"),
+    }.freeze
     LOCATION_IPS = {
       bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
       key: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY"),
