@@ -18,6 +18,8 @@ ENV \
   S3_SIGNUP_ALLOWLIST_BUCKET='s3SignupAllowlistBucket' \
   S3_SIGNUP_ALLOWLIST_OBJECT_KEY='s3SignupAllowlistObjectKey' \
   S3_PRODUCT_PAGE_DATA_BUCKET='s3ProductPageDataBucket' \
+  S3_METRICS_BUCKET='s3MetricsBucket' \
+  S3_METRICS_BUCKET_OBJECT_KEY='s3MetricsBucketObjectKey' \
   S3_ORGANISATION_NAMES_OBJECT_KEY='s3OrganisationNamesObjectKey' \
   S3_EMAIL_DOMAINS_OBJECT_KEY='s3EmailDomainsObjectKey' \
   S3_ALLOWLIST_OBJECT_KEY='s3AllowlistObjectKey' \
@@ -34,7 +36,9 @@ ENV \
   USER_DB_NAME=wifi_user_govwifi \
   LATEST_MOU_VERSION='2.3' \
   S3_CERTIFICATES_BUCKET='s3CertificatesBucket' \
-  S3_CERTIFICATES_OBJECT_KEY='certificates.zip'
+  S3_CERTIFICATES_OBJECT_KEY='certificates.zip' \
+  METRICS_API_ENDPOINT='metricsApiEndpoint' \
+  METRICS_API_BEARER_TOKEN='metricsApiBearerToken'
 
 WORKDIR /usr/src/app
 
