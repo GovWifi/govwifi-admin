@@ -24,7 +24,7 @@ gem "net-pop", require: false
 gem "net-smtp", require: false
 gem "notifications-ruby-client", "~> 6.3.0"
 gem "opensearch-ruby"
-gem "puma", "~> 7.1"
+gem "puma", "~> 7.2"
 gem "rails", "~> 8.0"
 gem "rqrcode"
 gem "rubyzip"
