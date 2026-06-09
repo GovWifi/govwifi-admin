@@ -294,7 +294,7 @@ GEM
       bigdecimal
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.4)
+    net-imap (0.6.4.1)
       date
       net-protocol
     net-pop (0.1.2)
@@ -553,7 +553,7 @@ GEM
     thor (1.5.0)
     tilt (2.7.0)
     timecop (0.9.10)
-    timeout (0.4.4)
+    timeout (0.6.1)
     trailblazer-option (0.1.2)
     tsort (0.2.0)
     tzinfo (2.0.6)
