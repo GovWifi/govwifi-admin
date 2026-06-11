@@ -9,7 +9,7 @@ describe UseCases::Administrator::PublishOrganisationNames do
   end
 
   context "when organisation names are added" do
-    it "creates a allowlist with one entry" do
+    it "creates a allowlist with two entries" do
       organisation1 = create(:organisation)
       organisation2 = create(:organisation)
 
