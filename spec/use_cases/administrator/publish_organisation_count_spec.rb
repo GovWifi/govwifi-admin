@@ -3,8 +3,8 @@ describe UseCases::Administrator::PublishOrganisationCount do
 
   context "when organisation are added" do
     it "counts two entries" do
-      organisation1 = create(:organisation)
-      organisation2 = create(:organisation)
+      _organisation1 = create(:organisation)
+      _organisation2 = create(:organisation)
 
       run_time = Time.zone.today
 

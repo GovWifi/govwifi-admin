@@ -20,7 +20,7 @@ module UseCases
         # UseCases::PerformancePlatform::MetricsApiPublisher.publish(metric)
         logger.info("END: Posting to metrics API")
 
-        logger.debug("#{metric}")
+        logger.debug(metric)
       end
     end
   end
