@@ -17,7 +17,7 @@ module UseCases
         logger.info("END: Writing to S3 bucket")
 
         logger.info("BEGIN: Posting to metrics API")
-        # UseCases::PerformancePlatform::MetricsApiPublisher.publish(metric)
+        UseCases::PerformancePlatform::MetricsApiPublisher.publish(metric)
         logger.info("END: Posting to metrics API")
 
         logger.debug(metric)
