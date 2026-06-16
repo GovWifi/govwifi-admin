@@ -40,10 +40,10 @@ services:
       context: .
       args:
         BUNDLE_INSTALL_FLAGS: "${BUNDLE_INSTALL_FLAGS:- --jobs 20 --retry 5}"
-    links:
-      - db
-      - rr_db
-      - wifi_user_db
+#    links:
+#      - db
+#      - rr_db
+#      - wifi_user_db
     depends_on:
       db:
         condition: service_healthy
