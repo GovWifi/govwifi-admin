@@ -2,7 +2,7 @@
 
 class ErrorSummaryComponent < ViewComponent::Base
   def initialize(title:, list:)
-    super
+    super()
     @title = title
     @list = list
   end
