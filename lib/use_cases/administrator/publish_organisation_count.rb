@@ -19,8 +19,6 @@ module UseCases
         logger.info("BEGIN: Posting to metrics API...")
         UseCases::PerformancePlatform::MetricsApiPublisher.publish(metric)
         logger.info("END: Posting to metrics API")
-
-        logger.debug(metric)
       end
     end
   end
