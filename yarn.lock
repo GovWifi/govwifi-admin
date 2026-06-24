@@ -389,6 +389,11 @@ govuk-frontend@^5.14.0:
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.14.0.tgz#d93f1ffa88b0696114509cab86e4ea474006f8e0"
   integrity sha512-MgfaXswIM6KpXS2T5gltEnzgVLgfM3UoE9+rYkhBiR0suaJ8Let31VZXQZqz9QhiPDbv28fW1nRjIyLujfZIBA==
 
+govuk-frontend@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-6.3.0.tgz#1ff97c181ab08ec0b96fdb96628066a5d32e1018"
+  integrity sha512-cXIQxm5PHCsbic47GXZrVBZhAeeshTLRL6ZBKilLsR6rMCjJuWb7Fruq0VUNMBJFlJk/srsRj/q8d5bM9cgKoA==
+
 "govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.21/govwifi-shared-frontend-0.6.21.tgz":
   version "0.6.21"
   resolved "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.21/govwifi-shared-frontend-0.6.21.tgz#c9c4f2e4b2b7e2dfdaa87422a36a72080cfd2ef4"
