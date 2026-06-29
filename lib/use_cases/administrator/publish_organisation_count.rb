@@ -20,7 +20,7 @@ module UseCases
 
       def stats
         {
-          metric_name: "organisation-count",
+          metric_name: "acount-health-organisation-count",
           count: metric,
           run_time: Time.zone.today,
         }
