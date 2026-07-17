@@ -23,7 +23,7 @@ describe UseCases::Administrator::PublishOrgsWithDormantAdminsCount do
 
   def view_only_dormant_membership(organisation:)
     create(:membership, organisation:, can_manage_team: false, can_manage_locations: false,
-                         user: create(:user, last_sign_in_at: dormant_sign_in))
+                        user: create(:user, last_sign_in_at: dormant_sign_in))
   end
 
   before do
@@ -124,12 +124,12 @@ describe UseCases::Administrator::PublishOrgsWithDormantAdminsCount do
     use_case.publish
 
     expect(a_request(:post, api_endpoint).with(
-      body: {
-        "name" => "account-health-orgs-with-dormant-admins-count",
-        "value" => "1",
-        "datetime" => "2026-07-17T00:00:00Z",
-      }.to_json,
-    )).to have_been_made
+             body: {
+               "name" => "account-health-orgs-with-dormant-admins-count",
+               "value" => "1",
+               "datetime" => "2026-07-17T00:00:00Z",
+             }.to_json,
+           )).to have_been_made
   end
 
   context "when the metrics api request fails" do
