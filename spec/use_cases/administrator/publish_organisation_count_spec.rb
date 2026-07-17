@@ -9,8 +9,11 @@ describe UseCases::Administrator::PublishOrganisationCount do
       run_time: Time.zone.today,
     }
 
-    Gateways::S3.new(**Gateways::S3::S3_METRICS_BUCKET).write(metric.to_yaml)
-    expect(Gateways::S3.new(**Gateways::S3::S3_METRICS_BUCKET).read).to eq(metric.to_yaml)
+    key = "account_health_organisation_count/organisation_count-#{Time.zone.today}"
+    bucket = ENV.fetch("S3_METRICS_BUCKET")
+
+    Gateways::S3.new(bucket: bucket, key: key).write(metric.to_json)
+    expect(Gateways::S3.new(bucket: bucket, key: key).read).to eq(metric.to_json)
   end
 
   it "posts to the metrics api" do
