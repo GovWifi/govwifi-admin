@@ -16,7 +16,7 @@ module UseCases
 
     private
 
-      METRIC_NAME = "acount-health-organisation-count".freeze
+      METRIC_NAME = "account-health-organisation-count".freeze
 
       def metric
         ::Organisation.count(:name)
