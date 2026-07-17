@@ -4,7 +4,7 @@ describe UseCases::Administrator::PublishOrganisationCount do
     _org2 = create(:organisation)
 
     metric = {
-      metric_name: "acount-health-organisation-count",
+      metric_name: "account-health-organisation-count",
       count: 2,
       run_time: Time.zone.today,
     }
@@ -19,7 +19,7 @@ describe UseCases::Administrator::PublishOrganisationCount do
   it "posts to the metrics api" do
     stub_request(:post, "https://metrics.development.wifi.service.gov.uk/v1/record")
     .with(
-      body: "{\"name\":\"acount-health-organisation-count\",\"value\":\"2\",\"datetime\":\"2026-06-22T00:00:00Z\"}",
+      body: "{\"name\":\"account-health-organisation-count\",\"value\":\"2\",\"datetime\":\"2026-06-22T00:00:00Z\"}",
       headers: {
         "Accept" => "*/*",
         "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
