@@ -8,7 +8,7 @@
     "hmrc-frontend": "6.113.0",
     "html5shiv": "^3.7.3",
     "postcss": "^8.5.12",
-    "prettier": "^3.9.4"
+    "prettier": "^3.9.6"
   },
   "devDependencies": {
     "stylelint": "^15.11.0",
