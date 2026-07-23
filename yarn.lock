@@ -389,6 +389,11 @@ govuk-frontend@^5.14.0:
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.14.0.tgz#d93f1ffa88b0696114509cab86e4ea474006f8e0"
   integrity sha512-MgfaXswIM6KpXS2T5gltEnzgVLgfM3UoE9+rYkhBiR0suaJ8Let31VZXQZqz9QhiPDbv28fW1nRjIyLujfZIBA==
 
+govuk-frontend@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-6.4.0.tgz#bacd856aae0b27862b9636734eddcfa14b90b3ac"
+  integrity sha512-jU3oaVFXqK1yDVIdZs1YZ6JD7YDB4PFUHF3rFMWJye9ArImp42F9wCsFzzB1+udjuzGCryJGcHHbBQ5HY+8rqQ==
+
 "govwifi-shared-frontend@https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.21/govwifi-shared-frontend-0.6.21.tgz":
   version "0.6.21"
   resolved "https://github.com/GovWifi/govwifi-shared-frontend/releases/download/v0.6.21/govwifi-shared-frontend-0.6.21.tgz#c9c4f2e4b2b7e2dfdaa87422a36a72080cfd2ef4"
@@ -412,13 +417,13 @@ hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
-hmrc-frontend@6.113.0:
-  version "6.113.0"
-  resolved "https://registry.yarnpkg.com/hmrc-frontend/-/hmrc-frontend-6.113.0.tgz#4dc140b851c3e6b90b54c03c169a9919ae721726"
-  integrity sha512-y5BlQcRaCYlyDW47XwtCEsvVJC9v4193JN6q+xokfYRE6YtJU9O18cSDG6d7QlzSTBGRZ7C33BTaFFtBpOVP4A==
+hmrc-frontend@7.26.0:
+  version "7.26.0"
+  resolved "https://registry.yarnpkg.com/hmrc-frontend/-/hmrc-frontend-7.26.0.tgz#72f602478dfcac5f4797301645d55074e6248255"
+  integrity sha512-Jf1jsC/zHP2UzQJWibofQ1i44hJQWCR2tq/A5G6ulJdCMbYZTmjSf1EZVWOZtLw+xeoRKC8LopcoePfnRcUe3g==
   dependencies:
     accessible-autocomplete "^3.0.1"
-    govuk-frontend "^5.14.0"
+    govuk-frontend "^6.4.0"
 
 hosted-git-info@^4.0.1:
   version "4.1.0"
