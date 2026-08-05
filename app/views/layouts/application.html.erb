@@ -71,6 +71,17 @@
     <% if show_timeout? %>
       <%= javascript_include_tag "hmrc-frontend-6.113.0.min", nonce: content_security_policy_nonce %>
     <% end %>
+
+    <% if ENV.fetch("CHATBOT_ENABLED", "false") == "true" %>
+      <!-- GovWifi AI Support Assistant — served by govwifi-ai-service -->
+      <script src="<%= ENV.fetch("CHATBOT_WIDGET_URL", "https://assistant.wifi.service.gov.uk/widget.js") %>"
+              nonce="<%= content_security_policy_nonce %>"
+              data-nonce="<%= content_security_policy_nonce %>"
+              data-consumer="admin"
+              data-title="GovWifi Admin Support"
+              data-source-filter="dev-docs"
+              defer></script>
+    <% end %>
   </body>
   <%= console if Rails.env.development? %>
 </html>
