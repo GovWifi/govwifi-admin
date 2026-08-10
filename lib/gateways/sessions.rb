@@ -17,10 +17,8 @@ module Gateways
       results = results.where(username:) unless username.nil?
       results = results.where(siteIP: ips) unless ips.nil?
       if mac.present?
-        normalised = mac.gsub(/[^0-9A-Fa-f]/, "").upcase
-        results = results.where(
-          "UPPER(REPLACE(REPLACE(mac, ':', ''), '-', '')) = ?", normalised
-        )
+        formatted_mac = normalize_mac(mac)
+        results = results.where(mac: formatted_mac)
       end
       results = results.where(success:) if success.present?
       if authentication_method.present?
@@ -45,6 +43,15 @@ module Gateways
       else
         0
       end
+    end
+
+  private
+
+    def normalize_mac(mac)
+      # Remove all non-alphanumeric characters and uppercase
+      clean = mac.gsub(/[^0-9A-Fa-f]/, "").upcase
+      # Insert dashes every 2 characters to match IEEE format (e.g., 50-A6-7F-84-9C-D1)
+      clean.scan(/../).join("-")
     end
   end
 end

@@ -66,5 +66,5 @@ group :development, :test do
   gem "listen"
   gem "pry"
   gem "rack-mini-profiler", require: false
-  gem "solargraph"
+  gem "solargraph", require: false
 end

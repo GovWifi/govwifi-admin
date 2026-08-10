@@ -6,11 +6,11 @@ describe "View authentication requests for a mac address", type: :feature do
   let(:ip_organisation_two) { organisation_two.ip_addresses.first }
   let(:other_ip) { "6.6.6.6" }
   let!(:sessions) do
-    create(:session, mac: "b9:e0:ba:aa:08:7e", username: "AAAAAA", siteIP: ip_organisation_one, success: true)
-    create(:session, mac: "b9:e0:ba:aa:08:7d", username: "AAAAAA", siteIP: ip_organisation_one, success: true)
-    create(:session, mac: "b9:e0:ba:aa:08:7e", username: "AAAAAA", siteIP: ip_organisation_one, success: false)
-    create(:session, mac: "a9:e0:cc:bb:08:3e", username: "AAAAAA", siteIP: ip_organisation_two, success: true)
-    create(:session, mac: "f9:e0:ba:aa:08:7e", username: "BBBBBB", siteIP: other_ip, success: false)
+    create(:session, mac: "B9-E0-BA-AA-08-7E", username: "AAAAAA", siteIP: ip_organisation_one, success: true)
+    create(:session, mac: "B9-E0-BA-AA-08-7D", username: "AAAAAA", siteIP: ip_organisation_one, success: true)
+    create(:session, mac: "B9-E0-BA-AA-08-7E", username: "AAAAAA", siteIP: ip_organisation_one, success: false)
+    create(:session, mac: "A9-E0-CC-BB-08-3E", username: "AAAAAA", siteIP: ip_organisation_two, success: true)
+    create(:session, mac: "F9-E0-BA-AA-08-7E", username: "BBBBBB", siteIP: other_ip, success: false)
   end
 
   before :each do
@@ -26,7 +26,7 @@ describe "View authentication requests for a mac address", type: :feature do
       let(:search_string) { "f9:e0:ba:aa:08:7e" }
 
       it "displays no results" do
-        expect(page).to have_content("We have no record of MAC address \"#{search_string}\" reaching the GovWifi service from your organisation in the last 2 weeks")
+        expect(page).to have_content("We have no record of MAC address \"#{LogSearchForm.new(filter_option: LogSearchForm::MAC_FILTER_OPTION, mac: search_string).normalized_mac}\" reaching the GovWifi service from your organisation in the last 2 weeks")
       end
     end
 
@@ -34,7 +34,7 @@ describe "View authentication requests for a mac address", type: :feature do
       let(:search_string) { "aa:bb:cc:dd:11:22" }
 
       it "displays the no results message" do
-        expect(page).to have_content("We have no record of MAC address \"#{search_string}\" reaching the GovWifi service from your organisation in the last 2 weeks")
+        expect(page).to have_content("We have no record of MAC address \"#{LogSearchForm.new(filter_option: LogSearchForm::MAC_FILTER_OPTION, mac: search_string).normalized_mac}\" reaching the GovWifi service from your organisation in the last 2 weeks")
       end
     end
   end
@@ -118,7 +118,7 @@ describe "View authentication requests for a mac address", type: :feature do
     end
 
     describe "when clicking on the mac address hyperlink" do
-      let(:search_string) { "b9:e0:ba:aa:08:7e" }
+      let(:search_string) { "B9-E0-BA-AA-08-7E" }
 
       it "goes to mac logs page" do
         click_link search_string, match: :first
