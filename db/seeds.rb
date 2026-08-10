@@ -31,7 +31,7 @@ Location.create!(
   organisation_id: organisation.id,
 )
 
-FactoryBot.create_list(:location, 41, postcode: "AA11AA", organisation:)
+FactoryBot.create_list(:location, 41, postcode: "AA11AA", organisation: organisation)
 
 location_one = Location.create!(
   address: "Momentum Centre, London",
@@ -56,11 +56,18 @@ end
 ip = FactoryBot.create(:ip, address: Faker::Internet.unique.public_ip_v4_address,
                             location: location_one,
                             created_at: Time.zone.now - 10.days)
+
+# Helper to format MAC to dashes (the standard for our app)
+def format_mac(mac)
+  mac.gsub(/[-:]/, "").upcase.scan(/../).join("-")
+end
+
+# All sessions in seeds are now created with the hyphenated format
 FactoryBot.create_list(:session, 50,
                        success: true,
                        siteIP: ip.address,
                        start: Time.zone.now,
-                       mac: Faker::Internet.mac_address,
+                       mac: format_mac(Faker::Internet.mac_address),
                        ap: Faker::Internet.mac_address,
                        username: SecureRandom.alphanumeric(6).downcase)
 FactoryBot.create_list(:session, 20,
@@ -77,19 +84,21 @@ end
 
 location_one.ips.each_with_index do |location_one_ip, index|
   Session.create(
-    start: (Time.zone.now - (index + 5).day).to_s,
+    start: Time.zone.now - (index + 5).day,
     success: index.even?,
     username: "Gerry",
     siteIP: location_one_ip.address,
+    mac: format_mac(Faker::Internet.mac_address),
   )
 end
 
 location_two.ips.each_with_index do |location_two_ip, index|
   Session.create(
-    start: (Time.zone.now - index.day).to_s,
+    start: Time.zone.now - index.day,
     success: index.even?,
     username: "Garry",
     siteIP: location_two_ip.address,
+    mac: format_mac(Faker::Internet.mac_address),
   )
 end
 
