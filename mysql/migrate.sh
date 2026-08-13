@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-LOGGING_API_REPO="https://github.com/GovWifi/govwifi-logging-api.git"
+LOGGING_API_REPO="${LOGGING_API_REPO:-https://github.com/GovWifi/govwifi-logging-api.git}"
 LOGGING_API_REF="${LOGGING_API_REF:-master}"
 
 echo "==> Resolving logging API ref: $LOGGING_API_REF..."
@@ -14,6 +14,7 @@ fi
 
 CLONE_DIR="/tmp/logging-api-${COMMIT_SHA}"
 MIGRATIONS_DIR="${CLONE_DIR}/mysql/migrations"
+export MIGRATIONS_DIR
 
 if [ -d "$CLONE_DIR" ]; then
   echo "==> Using cached clone at $CLONE_DIR"
@@ -46,6 +47,6 @@ ruby -e "
     ssl_mode: 'DISABLED'
   )
 
-  Sequel::Migrator.run(db, '$MIGRATIONS_DIR')
+  Sequel::Migrator.run(db, ENV['MIGRATIONS_DIR'])
   puts '==> Migrations complete.'
 "

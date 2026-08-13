@@ -41,7 +41,7 @@ class LogSearchForm
   def normalized_mac
     return nil unless filter_option == MAC_FILTER_OPTION && mac.present?
 
-    mac.gsub(/[^0-9A-Fa-f]/, "").upcase.scan(/../).join("-")
+    MacUtils.normalize(mac)
   end
 
 private
