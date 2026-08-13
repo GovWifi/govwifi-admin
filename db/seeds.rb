@@ -3,6 +3,7 @@
 require "faker"
 require "factory_bot"
 
+
 FactoryBot.find_definitions
 
 organisation = Organisation.create!(
@@ -57,17 +58,12 @@ ip = FactoryBot.create(:ip, address: Faker::Internet.unique.public_ip_v4_address
                             location: location_one,
                             created_at: Time.zone.now - 10.days)
 
-# Helper to format MAC to dashes (the standard for our app)
-def format_mac(mac)
-  mac.gsub(/[-:]/, "").upcase.scan(/../).join("-")
-end
-
 # All sessions in seeds are now created with the hyphenated format
 FactoryBot.create_list(:session, 50,
                        success: true,
                        siteIP: ip.address,
                        start: Time.zone.now,
-                       mac: format_mac(Faker::Internet.mac_address),
+                       mac: MacUtils.normalize(Faker::Internet.mac_address),
                        ap: Faker::Internet.mac_address,
                        username: SecureRandom.alphanumeric(6).downcase)
 FactoryBot.create_list(:session, 20,
@@ -88,7 +84,7 @@ location_one.ips.each_with_index do |location_one_ip, index|
     success: index.even?,
     username: "Gerry",
     siteIP: location_one_ip.address,
-    mac: format_mac(Faker::Internet.mac_address),
+    mac: MacUtils.normalize(Faker::Internet.mac_address),
   )
 end
 
@@ -98,7 +94,7 @@ location_two.ips.each_with_index do |location_two_ip, index|
     success: index.even?,
     username: "Garry",
     siteIP: location_two_ip.address,
-    mac: format_mac(Faker::Internet.mac_address),
+    mac: MacUtils.normalize(Faker::Internet.mac_address),
   )
 end
 
