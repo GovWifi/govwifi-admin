@@ -3,7 +3,6 @@
 require "faker"
 require "factory_bot"
 
-
 FactoryBot.find_definitions
 
 organisation = Organisation.create!(
