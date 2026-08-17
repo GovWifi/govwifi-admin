@@ -8,11 +8,15 @@ module UseCases
       end
 
       def publish
+        return if stats.nil?
+
         send_to_s3
         send_to_api
       end
 
     private
+
+      METRIC_NAME = "account-health-organisation-count".freeze
 
       def metric
         ::Organisation.count(:name)
@@ -20,15 +24,20 @@ module UseCases
 
       def stats
         {
-          metric_name: "acount-health-organisation-count",
+          metric_name: METRIC_NAME,
           count: metric,
           run_time: Time.zone.today,
         }
       end
 
+      def key
+        "account_health_organisation_count/organisation_count-#{Time.zone.today}"
+      end
+
       def send_to_s3
         @logger.info("BEGIN: Writing to S3 bucket...")
-        Gateways::S3.new(**Gateways::S3::S3_METRICS_BUCKET).write(stats.to_yaml)
+        bucket = ENV.fetch("S3_METRICS_BUCKET")
+        Gateways::S3.new(bucket: bucket, key: key).write(stats.to_json)
         @logger.info("END: Writing to S3 bucket - (Org count: #{stats[:count]})")
       end
 

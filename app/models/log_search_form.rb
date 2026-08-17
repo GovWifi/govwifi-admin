@@ -38,6 +38,12 @@ class LogSearchForm
     filter_option == MAC_FILTER_OPTION ? @mac : nil
   end
 
+  def normalized_mac
+    return nil unless filter_option == MAC_FILTER_OPTION && mac.present?
+
+    MacUtils.normalize(mac)
+  end
+
 private
 
   def validate_ip
