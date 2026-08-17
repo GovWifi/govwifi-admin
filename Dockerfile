@@ -69,3 +69,4 @@ COPY start.sh /usr/bin/
 RUN chmod u+x /usr/bin/start.sh
 
 CMD ["/usr/bin/start.sh"]
+git rebase --continue
