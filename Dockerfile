@@ -38,7 +38,8 @@ ENV \
   S3_CERTIFICATES_BUCKET='s3CertificatesBucket' \
   S3_CERTIFICATES_OBJECT_KEY='certificates.zip' \
   METRICS_API_ENDPOINT='metricsApiEndpoint' \
-  METRICS_API_BEARER_TOKEN='metricsApiBearerToken'
+  METRICS_API_BEARER_TOKEN='metricsApiBearerToken'  \
+  MARIADB_TLS_DISABLE_PEER_VERIFICATION=1
 
 WORKDIR /usr/src/app
 
