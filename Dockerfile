@@ -1,4 +1,4 @@
-FROM ruby:3.4.8-alpine3.22
+FROM ruby:3.4.10-alpine3.24
 ARG BUNDLE_INSTALL_CMD
 
 # required for certain linting tools that read files, such as erb-lint
@@ -38,9 +38,10 @@ ENV \
   S3_CERTIFICATES_BUCKET='s3CertificatesBucket' \
   S3_CERTIFICATES_OBJECT_KEY='certificates.zip' \
   METRICS_API_ENDPOINT='metricsApiEndpoint' \
-  METRICS_API_BEARER_TOKEN='metricsApiBearerToken' \
+  METRICS_API_BEARER_TOKEN='metricsApiBearerToken'  \
   LOGGING_API_REPO='https://github.com/GovWifi/govwifi-logging-api.git' \
-  LOGGING_API_REF='master'
+  LOGGING_API_REF='master' \
+  MARIADB_TLS_DISABLE_PEER_VERIFICATION=1
 
 WORKDIR /usr/src/app
 
