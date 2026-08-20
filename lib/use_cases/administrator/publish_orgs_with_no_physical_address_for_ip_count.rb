@@ -22,8 +22,10 @@ module UseCases
       end
 
       def metric
-        @metric ||= ::Location
-          .where("(postcode IS NULL OR postcode = '' OR LOWER(postcode) = 'unknown') AND (address IS NULL OR address = '' OR LOWER(address) = 'unknown')")
+        @metric ||= ::Organisation
+          .joins(:locations)
+          .where("(locations.postcode IS NULL OR locations.postcode = '' OR LOWER(locations.postcode) = 'unknown') AND (locations.address IS NULL OR locations.address = '' OR LOWER(locations.address) = 'unknown')")
+          .distinct
           .count
       end
 
