@@ -39,7 +39,7 @@ describe UseCases::Administrator::PublishOrgsWithNoPhysicalAddressForIpCount do
 
   context "when a location has empty postcode and nil address" do
     it "counts it" do
-      build(:location, postcode: "", address: nil).save(validate: false)
+      build(:location, postcode: "", address: nil).save!(validate: false)
 
       use_case.publish
 
@@ -90,7 +90,7 @@ describe UseCases::Administrator::PublishOrgsWithNoPhysicalAddressForIpCount do
   context "when multiple locations qualify" do
     it "aggregates the count across locations" do
       create(:location, postcode: "unknown", address: "unknown")
-      build(:location, postcode: "", address: "").save(validate: false)
+      build(:location, postcode: "", address: "").save!(validate: false)
       create(:location, postcode: "SW1A 1AA", address: "10 Downing Street")
 
       use_case.publish
