@@ -32,7 +32,8 @@
       row.with_cell(text: sort_link("latest_mou_created_at", "MOU Signed"))
       row.with_cell(text: sort_link("locations_count", "Locations"))
       row.with_cell(text: sort_link("ips_count", "IPs"))
-      row.with_cell(text: sort_link("certificates_count", "Uses EAP-TLS"))
+      row.with_cell(text: sort_link("cba_enabled", "Uses EAP-TLS"))
+      row.with_cell(text: sort_link("certificates_count", "Certificate count"))
     end
   end
   table.with_body do |body|
@@ -43,7 +44,8 @@
         row.with_cell(text: mou_created_at_label(organisation))
         row.with_cell(text: organisation.locations_count)
         row.with_cell(text: organisation.ips_count)
-        row.with_cell(text: organisation.certificates.empty? ? "no" : "yes")
+        row.with_cell(text: organisation.cba_enabled? ? "yes" : "no")
+        row.with_cell(text: organisation.certificates_count)
       end
     end
   end

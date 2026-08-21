@@ -3,7 +3,7 @@ class SuperAdmin::OrganisationsController < SuperAdminController
   before_action :set_organisation, only: %i[show destroy toggle_cba_feature]
 
   def index
-    @organisations = Organisation.includes([:certificates]).sortable_with_child_counts(sort_column, sort_direction)
+    @organisations = Organisation.sortable_with_child_counts(sort_column, sort_direction)
     @location_count = Location.count
     respond_to do |format|
       format.html
@@ -39,7 +39,7 @@ private
   end
 
   def sortable_columns
-    %w[name created_at locations_count ips_count latest_mou_created_at last_sign_in_at email sign_in_count certificates_count]
+    %w[name created_at locations_count ips_count latest_mou_created_at last_sign_in_at email sign_in_count certificates_count cba_enabled]
   end
 
   def sort_column
