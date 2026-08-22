@@ -51,6 +51,10 @@ The application also provides the following data for the RADIUS configuration vi
 
 ## Developing
 
+A `Makefile` exists at the root of the application and can be used to initiate
+the most common worflows shown below. To see what's available run `make` with no
+arguments to display the `help` target which will show usage.
+
 ### Serve the application locally
 
 ```shell
