@@ -57,7 +57,7 @@ The application also provides the following data for the RADIUS configuration vi
 make serve
 ```
 
-The GovWifi admin site can be accessed at [http://localhost:8080](http://localhost:8080). 
+The GovWifi admin site can be accessed at [http://localhost:8080](http://localhost:8080).
 Users and credentials are configured under [seeds.rb](db/seeds.rb)
 
 ### Run the test suite
