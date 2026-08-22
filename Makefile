@@ -8,18 +8,46 @@ endif
 DOCKER_COMPOSE += -f docker-compose.development.yml
 DOCKER_COMPOSE_NO2FA = $(DOCKER_COMPOSE) -f docker-compose-no2fa.yml
 
+.DEFAULT_GOAL := help
 
-DOCKER_BUILD_CMD = BUNDLE_INSTALL_FLAGS="$(BUNDLE_FLAGS)" $(DOCKER_COMPOSE) build
+.PHONY: build database serve serve-no2fa shell test prebuilt-test lint autocorrect autocorrect-erb local-yarn-update stop help
 
-build:
-	$(DOCKER_COMPOSE) build
+help:
+	@echo "Available targets:"
+	@echo ""
+	@echo "  build              Build Docker image"
+	@echo "  database           Setup database (create, migrate, seed)"
+	@echo "  prebuilt-test      Run test suite with test database"
+	@echo "  serve              Start development server"
+	@echo "  serve-no2fa        Start development server without 2FA"
+	@echo "  shell              Open shell in running container"
+	@echo "  test               Run test suite"
+	@echo "  lint               Run all linters (check only)"
+	@echo "  autocorrect        Fix Ruby and ERB formatting issues"
+	@echo "  autocorrect-erb    Fix ERB formatting issues (explicit)"
+	@echo "  local-yarn-update  Update yarn dependencies"
+	@echo "  stop               Stop and remove all containers"
+	@echo "  help               Show this help message"
+	@echo ""
+	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Examples:"
+	@echo "  make test          Run tests"
+	@echo "  make lint          Run linters"
+	@echo "  make serve         Start development server"
+	@echo "  make database      Setup database"
+	@echo "  make stop          Stop all containers"
+	@echo ""
 
-prebuild:
-	$(DOCKER_COMPOSE) build
-	$(DOCKER_COMPOSE) up --no-start
+stop:
+	$(DOCKER_COMPOSE) down -v
+	$(DOCKER_COMPOSE) rm -fsv
 
 database:
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:migrate db:seed
+
+build:
+	$(DOCKER_COMPOSE) build
 
 serve: stop database build
 	$(DOCKER_COMPOSE) up -d app
@@ -27,62 +55,30 @@ serve: stop database build
 serve-no2fa: stop database build
 	$(DOCKER_COMPOSE_NO2FA) up -d app
 
-lint: lint-ruby lint-erb lint-scss lint-prettier
-lint-ruby: build
-	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec rubocop
-lint-erb: build
-	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec erb_lint --lint-all
-lint-scss: build
-	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/stylelint/bin/stylelint.mjs "**/*.scss"
-lint-prettier: build
-	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/prettier/bin/prettier.cjs --check "**/*.{json,md,scss,yaml,yml}"
-
-autocorrect: autocorrect-erb
-autocorrect-erb: build
-	$(DOCKER_COMPOSE) run --rm --no-deps app bundle exec erb_lint --lint-all --autocorrect
+shell: serve
+	$(DOCKER_COMPOSE) exec app bash
 
 test: stop build prebuilt-test
 
 prebuilt-test:
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
-	$(DOCKER_COMPOSE) run -e RACK_ENV=test -e COVERAGE=true --rm app bundle exec rspec
+	$(DOCKER_COMPOSE) run -e RACK_ENV=test -e COVERAGE=true --rm app bundle exec rspec --format documentation
 
-shell: serve
-	$(DOCKER_COMPOSE) exec app bash
+lint: build
+	$(DOCKER_COMPOSE) run --no-deps --rm app bundle exec rubocop && \
+	$(DOCKER_COMPOSE) run --no-deps --rm app bundle exec erb_lint --lint-all && \
+	$(DOCKER_COMPOSE) run --no-deps --rm app node ./node_modules/stylelint/bin/stylelint.mjs "**/*.scss" && \
+	$(DOCKER_COMPOSE) run --no-deps --rm app node ./node_modules/prettier/bin/prettier.cjs --check "**/*.{json,md,scss,yaml,yml}"
 
-stop:
-	$(DOCKER_COMPOSE) down -v
-	$(DOCKER_COMPOSE) rm -fsv
+autocorrect: autocorrect-ruby autocorrect-erb
 
-.PHONY: build lint serve shell stop test
+autocorrect-ruby: build
+	$(DOCKER_COMPOSE) run --rm --no-deps app bundle exec rubocop --autocorrect
+
+autocorrect-erb: build
+	$(DOCKER_COMPOSE) run --rm --no-deps app bundle exec erb_lint --lint-all --autocorrect
 
 local-yarn-update:
 	rm -rf node_modules
 	rm yarn.lock
 	yarn install
-
-vsctest:
-	RACK_ENV=test ./bin/rails db:drop db:create db:schema:load
-	bundle exec rspec
-
-vscrefreshdb:
-	./bin/rails db:drop db:create db:schema:load db:seed
-
-vscdbg:
-	BYPASS_2FA=true bundle exec rdbg -n --open=vscode -c -- bin/rails s -b 0.0.0.0
-
-vscdbg-mfa:
-	bundle exec rdbg -n --open=vscode -c -- bin/rails s -b 0.0.0.0
-
-vscrubylint:
-	bundle exec rubocop
-
-vsclint: vscrubylint vscprettier
-	bundle exec erblint --lint-all
-	node ./node_modules/stylelint/bin/stylelint.mjs "**/*.scss"
-
-vscprettier:
-	node ./node_modules/prettier/bin/prettier.cjs --check "**/*.{json,md,scss,yaml,yml}"
-
-vscprettier-write:
-	node ./node_modules/prettier/bin/prettier.cjs --write "**/*.{json,md,scss,yaml,yml}"
