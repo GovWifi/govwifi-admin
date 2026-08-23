@@ -10,7 +10,7 @@ DOCKER_COMPOSE_NO2FA = $(DOCKER_COMPOSE) -f docker-compose-no2fa.yml
 
 .DEFAULT_GOAL := help
 
-.PHONY: build database serve serve-no2fa shell test prebuilt-test lint autocorrect autocorrect-erb local-yarn-update stop help
+.PHONY: build database serve serve-no2fa shell test prebuilt-test lint autocorrect autocorrect-erb autocorrect-ruby local-yarn-update stop help
 
 help:
 	@echo "Available targets:"
@@ -25,6 +25,7 @@ help:
 	@echo "  lint               Run all linters (check only)"
 	@echo "  autocorrect        Fix Ruby and ERB formatting issues"
 	@echo "  autocorrect-erb    Fix ERB formatting issues (explicit)"
+	@echo "  autocorrect-ruby   Fix Ruby formatting issues (explicit)"
 	@echo "  local-yarn-update  Update yarn dependencies"
 	@echo "  stop               Stop and remove all containers"
 	@echo "  help               Show this help message"
