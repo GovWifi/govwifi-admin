@@ -1,6 +1,6 @@
 # GovWifi admin
 
-This is the [govwifi-admin] application, where organisations can create and manage
+This is the [GovWifi admin][govwifi-admin] application, where organisations can create and manage
 their GovWifi installation within their organisation.
 
 The GovWifi [developer documentation][dev-docs] contains technical documentation
@@ -24,7 +24,7 @@ how to build GovWifi end-to-end; the sites, services and infrastructure.
 
 ## Overview
 
-[govwifi-admin] allows users to perform a variety of tasks, including:
+GovWifi admin allows users to perform a variety of tasks, including:
 
 - Create an admin account
 - Invite team members to their organisation
@@ -45,13 +45,13 @@ A "Super Admin" role allows an administrator to:
 - Add custom organisation names to the allowed register (whitelisting)
 - Invite users to organisations
 
-[govwifi-admin] uses a few third party services, including:
+GovWifi admin uses a few third party services, including:
 
 - [GOV.UK Notify][notify] to manage situational notifications sent out to users
 
 - [GOV.UK Zendesk][zendesk] to submit support requests by the user within the app
 
-[govwifi-admin] also provides the following data for the RADIUS configuration via an S3 bucket:
+GovWifi admin also provides the following data for the RADIUS configuration via an S3 bucket:
 
 - IP addresses
 - RADIUS secret keys
@@ -71,7 +71,7 @@ dependent services are up and running.
 make serve
 ```
 
-The [govwifi-admin] site can be accessed at [http://localhost:8080](http://localhost:8080).
+The GovWifi admin site can be accessed at [http://localhost:8080](http://localhost:8080).
 Users and credentials are configured in [seeds.rb](db/seeds.rb).
 
 To forgo the 2FA request upon initial login (during development) you can instead
@@ -105,10 +105,10 @@ make lint
 make shell
 ```
 
-This will allow you to enter into the Docker container for the [govwifi-admin]
+This will allow you to enter into the Docker container for the GovWifi admin
 application and interact directly with the codebase.
 
-An anonymous Docker volume mapping links this container to the [govwifi-admin]
+An anonymous Docker volume mapping links this container to the GovWifi admin
 root of your Git checkout.
 
 Examples include:
@@ -157,8 +157,8 @@ You can find in-depth instructions on using our deploy process
 
 This codebase is released under [the MIT License][mit].
 
-[govwifi-admin]: GovWifi admin
 [mit]: LICENCE
+[govwifi-admin]: https://admin.wifi.service.gov.uk
 [dev-docs]: https://dev-docs.wifi.service.gov.uk
 [notify]: https://www.notifications.service.gov.uk
 [zendesk]: https://govuk.zendesk.com/hc/en-us
