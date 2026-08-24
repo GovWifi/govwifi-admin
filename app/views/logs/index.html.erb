@@ -31,7 +31,9 @@
 
   <%= govuk_pagination(pagy: @pagy) %>
 
-  <%= govuk_table(head: table_data[:head], rows: table_data[:rows]) %>
+  <div class="table-scrollable">
+    <%= govuk_table(head: table_data[:head], rows: table_data[:rows]) %>
+  </div>
 
   <%= govuk_pagination(pagy: @pagy) %>
 
@@ -45,7 +47,7 @@
       <% elsif log_search_form.filter_option==LogSearchForm::USERNAME_FILTER_OPTION %>
         We have no record of username "<%= log_search_form.username %>" <strong> reaching the GovWifi service from your organisation in the last 2 weeks</strong>
       <% elsif log_search_form.filter_option==LogSearchForm::MAC_FILTER_OPTION %>
-        We have no record of MAC address "<%= log_search_form.mac %>" <strong> reaching the GovWifi service from your organisation in the last 2 weeks</strong>
+        We have no record of MAC address "<%= log_search_form.normalized_mac %>" <strong> reaching the GovWifi service from your organisation in the last 2 weeks</strong>
       <% elsif log_search_form.filter_option==LogSearchForm::LOCATION_FILTER_OPTION %>
         Traffic from <%= location_address %> <strong>is not reaching the GovWifi service</strong>
       <% elsif log_search_form.filter_option==LogSearchForm::IP_FILTER_OPTION %>

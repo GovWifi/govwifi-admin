@@ -4,19 +4,22 @@ describe UseCases::Administrator::PublishOrganisationCount do
     _org2 = create(:organisation)
 
     metric = {
-      metric_name: "acount-health-organisation-count",
+      metric_name: "account-health-organisation-count",
       count: 2,
       run_time: Time.zone.today,
     }
 
-    Gateways::S3.new(**Gateways::S3::S3_METRICS_BUCKET).write(metric.to_yaml)
-    expect(Gateways::S3.new(**Gateways::S3::S3_METRICS_BUCKET).read).to eq(metric.to_yaml)
+    key = "account_health_organisation_count/organisation_count-#{Time.zone.today}"
+    bucket = ENV.fetch("S3_METRICS_BUCKET")
+
+    Gateways::S3.new(bucket: bucket, key: key).write(metric.to_json)
+    expect(Gateways::S3.new(bucket: bucket, key: key).read).to eq(metric.to_json)
   end
 
   it "posts to the metrics api" do
     stub_request(:post, "https://metrics.development.wifi.service.gov.uk/v1/record")
     .with(
-      body: "{\"name\":\"acount-health-organisation-count\",\"value\":\"2\",\"datetime\":\"2026-06-22T00:00:00Z\"}",
+      body: "{\"name\":\"account-health-organisation-count\",\"value\":\"2\",\"datetime\":\"2026-06-22T00:00:00Z\"}",
       headers: {
         "Accept" => "*/*",
         "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",

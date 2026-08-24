@@ -12,7 +12,7 @@ services:
       retries: 10
 
   rr_db:
-    build: ./mysql
+    image: "mysql:8.4"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: rr_govwifi
@@ -22,6 +22,17 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       timeout: 5s
       retries: 10
+
+  logging_api_rr_db_migrate:
+    build: ./mysql
+    environment:
+      DB_HOSTNAME: rr_db
+      DB_NAME: rr_govwifi
+      DB_USER: root
+      DB_PASS: root
+    depends_on:
+      rr_db:
+        condition: service_healthy
 
   wifi_user_db:
     build: ./mysql_user
@@ -43,8 +54,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      rr_db:
-        condition: service_healthy
+      logging_api_rr_db_migrate:
+        condition: service_completed_successfully
       wifi_user_db:
         condition: service_healthy
     expose:

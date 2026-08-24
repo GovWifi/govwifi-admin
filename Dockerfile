@@ -38,7 +38,9 @@ ENV \
   S3_CERTIFICATES_BUCKET='s3CertificatesBucket' \
   S3_CERTIFICATES_OBJECT_KEY='certificates.zip' \
   METRICS_API_ENDPOINT='metricsApiEndpoint' \
-  METRICS_API_BEARER_TOKEN='metricsApiBearerToken'
+  METRICS_API_BEARER_TOKEN='metricsApiBearerToken' \
+  LOGGING_API_REPO='https://github.com/GovWifi/govwifi-logging-api.git' \
+  LOGGING_API_REF='master'
 
 WORKDIR /usr/src/app
 

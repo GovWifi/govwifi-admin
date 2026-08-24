@@ -37,8 +37,6 @@ storage/
 coverage
 
 ci/secrets
-.vscode/rdbg_autoattach.json
-
 # Ignore assets
 public/assets
 
