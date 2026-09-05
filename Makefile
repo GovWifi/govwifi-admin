@@ -1,9 +1,11 @@
 DOCKER_COMPOSE = docker compose -f docker-compose.yml
-BUNDLE_FLAGS=
+BUNDLE_FLAGS = --build-arg BUNDLE_INSTALL_FLAGS='--jobs 20 --retry 5'
 
 ifdef DEPLOYMENT
-  BUNDLE_FLAGS = --without test development
+	BUNDLE_FLAGS = --build-arg BUNDLE_INSTALL_FLAGS='--jobs 20 --retry 5' --build-arg BUNDLE_WITHOUT='development test'
 endif
+
+DOCKER_BUILD_CMD = $(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
 
 DOCKER_COMPOSE += -f docker-compose.development.yml
 DOCKER_COMPOSE_NO2FA = $(DOCKER_COMPOSE) -f docker-compose-no2fa.yml
@@ -48,7 +50,7 @@ database:
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:migrate db:seed
 
 build:
-	$(DOCKER_COMPOSE) build
+	$(DOCKER_BUILD_CMD)
 
 serve: stop database build
 	$(DOCKER_COMPOSE) up -d app

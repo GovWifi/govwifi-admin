@@ -50,7 +50,12 @@ RUN apk add --no-cache --virtual .build-deps build-base yaml-dev libffi-dev && \
 
 COPY Gemfile Gemfile.lock .ruby-version ./
 ARG BUNDLE_INSTALL_FLAGS
+ARG BUNDLE_WITHOUT
 RUN bundle install --no-cache ${BUNDLE_INSTALL_FLAGS}
+RUN if [ "${BUNDLE_WITHOUT}" = "development test" ]; then \
+        echo 'BUNDLE_WITHOUT: "development:test"' > /usr/local/bundle/config; \
+        bundle clean --force; \
+      fi
 
 COPY package.json yarn.lock ./
 RUN yarn && yarn cache clean

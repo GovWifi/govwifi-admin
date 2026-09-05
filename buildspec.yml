@@ -16,8 +16,10 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - BUNDLE_INSTALL_FLAGS="--jobs 20 --retry 5"
+      - BUNDLE_WITHOUT="development test"
       - echo Building the Docker image...
-      - docker build --build-arg BUNDLE_INSTALL_CMD='bundle install --jobs 20 --retry 5' -t $REPOSITORY_URI:$COMMIT_SHA -t $REPOSITORY_URI:$IMAGE_TAG .
+      - docker build --build-arg BUNDLE_INSTALL_FLAGS="$BUNDLE_INSTALL_FLAGS" --build-arg BUNDLE_WITHOUT="$BUNDLE_WITHOUT" -t $REPOSITORY_URI:$COMMIT_SHA -t $REPOSITORY_URI:$IMAGE_TAG .
   post_build:
     commands:
       - echo Build completed on `date`
