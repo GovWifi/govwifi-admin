@@ -52,8 +52,8 @@ COPY Gemfile Gemfile.lock .ruby-version ./
 ARG BUNDLE_INSTALL_FLAGS
 ARG BUNDLE_WITHOUT
 RUN bundle install --no-cache ${BUNDLE_INSTALL_FLAGS}
-RUN if [ "${BUNDLE_WITHOUT}" = "development test" ]; then \
-        echo 'BUNDLE_WITHOUT: "development:test"' > /usr/local/bundle/config; \
+RUN if [ -n "${BUNDLE_WITHOUT}" ]; then \
+        bundle config set without "${BUNDLE_WITHOUT}"; \
         bundle clean --force; \
       fi
 
