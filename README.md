@@ -6,8 +6,10 @@ their GovWifi installation within their organisation.
 The GovWifi [developer documentation][dev-docs] contains technical documentation
 for the GovWifi team.
 
-N.B. The GovWifi [terraform repository][terraform-repo] contains information on
-how to build GovWifi end-to-end; the sites, services and infrastructure.
+> N.B.
+>
+> The GovWifi [terraform repository][terraform-repo] contains information on
+> how to build GovWifi end-to-end; the sites, services and infrastructure.
 
 ## Table of Contents
 
