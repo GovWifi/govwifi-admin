@@ -88,7 +88,7 @@ private
       end
     end
     if log_search_form.ip.nil?
-      headers << "IP"
+      headers << "IP Address"
       columns << logs.map do |log|
         helpers.govuk_link_to(log.siteIP,
                               logs_path(log_search_form: { ip: log.siteIP, filter_option: LogSearchForm::IP_FILTER_OPTION }))
@@ -102,7 +102,7 @@ private
     columns << logs.map { |log| log.success ? "successful" : "failed" }
 
     if super_admin?
-      headers << "Radius Server task id"
+      headers << "Radius Server Task ID"
       columns << logs.map(&:task_id)
     end
 

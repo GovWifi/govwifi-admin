@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "aws-sdk-route53", "~> 1.125.0"
+gem "aws-sdk-route53", "~> 1.137.0"
 gem "aws-sdk-s3", "~> 1.213.0"
 gem "cancancan"
 gem "devise", "~> 5.0.4"
@@ -25,7 +25,7 @@ gem "net-smtp", require: false
 gem "notifications-ruby-client", "~> 6.3.0"
 gem "opensearch-ruby"
 gem "puma", "~> 7.2"
-gem "rails", "~> 8.0"
+gem "rails", "~> 8.1"
 gem "rqrcode"
 gem "rubyzip"
 gem "sassc-rails"
@@ -66,5 +66,5 @@ group :development, :test do
   gem "listen"
   gem "pry"
   gem "rack-mini-profiler", require: false
-  gem "solargraph"
+  gem "solargraph", require: false
 end

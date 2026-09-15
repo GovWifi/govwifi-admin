@@ -16,9 +16,6 @@ development:
 test:
   !!merge <<: *default
 
-alpaca:
-  !!merge <<: *default
-
 staging:
   !!merge <<: *default
 

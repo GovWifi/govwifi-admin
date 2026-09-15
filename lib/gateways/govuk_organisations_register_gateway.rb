@@ -1282,7 +1282,7 @@ module Gateways
         "Mansfield District Council",
         "Newark and Sherwood District Council",
         "Rushcliffe Borough Council",
-        "North Yorkshire County Council",
+        "North Yorkshire Council",
         "Craven District Council",
         "Hambleton District Council",
         "Harrogate Borough Council",
