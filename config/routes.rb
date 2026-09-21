@@ -39,7 +39,6 @@ Rails.application.routes.draw do
     get "sign_out", action: :sign_out_action
   end
 
-  resources :status, only: %i[index]
   resources :ips, only: %i[index destroy]
   resources :certificates, only: %i[index show new create destroy edit update]
   resources :help, only: %i[create new] do
