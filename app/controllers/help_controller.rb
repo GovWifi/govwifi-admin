@@ -54,15 +54,20 @@ class HelpController < ApplicationController
 
       redirect_to_homepage
     else
-      render @support_form.choice
+      render_support_form
     end
   rescue ZendeskAPI::Error::RecordInvalid => e
     @support_form.errors.add(:email, "Email is not a valid email address")
     Sentry.capture_exception(e)
-    render @support_form.choice
+    render_support_form
   end
 
 private
+
+  def render_support_form
+    template = SupportForm::VALID_CHOICES.include?(@support_form.choice) ? @support_form.choice : "technical_support"
+    render template, formats: [:html]
+  end
 
   def redirect_signed_in_user
     redirect_to signed_in_new_help_path if current_user
