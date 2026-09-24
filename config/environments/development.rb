@@ -91,48 +91,7 @@ Rails.application.configure do
       },
     },
   }
-  config.route53_aws_config = {
-    stub_responses: {
-      get_health_check_status: {
-        health_check_observations: [
-          {
-            region: "ap-southeast-2",
-            ip_address: "39.239.222.111",
-            status_report: {
-              status: "Success: HTTP Status Code 200, OK",
-            },
-          },
-        ],
-      },
-      list_health_checks: {
-        max_items: 10,
-        marker: "PageMarker",
-        is_truncated: false,
-        health_checks: [
-          {
-            caller_reference: "AdminMonitoring",
-            id: "abc123",
-            health_check_version: 1,
-            health_check_config: {
-              ip_address: "111.111.111.111",
-              measure_latency: false,
-              type: "HTTP",
-            },
-          },
-          {
-            caller_reference: "AdminMonitoring",
-            id: "xyz789",
-            health_check_version: 1,
-            health_check_config: {
-              ip_address: "222.222.222.222",
-              measure_latency: false,
-              type: "HTTP",
-            },
-          },
-        ],
-      },
-    },
-  }
+  config.route53_aws_config = {}
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new($stdout)
