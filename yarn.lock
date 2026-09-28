@@ -67,10 +67,10 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.4.tgz#56e2cc26c397c038fab0e3a917a12d5c5909e901"
   integrity sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==
 
-accessible-autocomplete@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/accessible-autocomplete/-/accessible-autocomplete-3.0.1.tgz#8ddf4934d0b4ba6acb28de486dd505e062cdc86e"
-  integrity sha512-xMshgc2LT5addvvfCTGzIkRrvhbOFeylFSnSMfS/PdjvvvElZkakCwxO3/yJYBWyi1hi3tZloqOJQ5kqqJtH4g==
+accessible-autocomplete@^3.0.1, accessible-autocomplete@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/accessible-autocomplete/-/accessible-autocomplete-3.0.2.tgz#1d6cdd4917ca83083c6af840f9f71b13b516231a"
+  integrity sha512-po7fS9YyTFFZjzaenYKtV4JUcb6xh2eFttTsspg5NIX5epQCbderffjW8evYOTuDh+FgJyYPwL9B7qTkhND3gA==
 
 ajv@^8.0.1:
   version "8.20.0"
