@@ -32,7 +32,7 @@ private
   end
 
   def token_from_params
-    params[:token] || params.dig(:mou_form, :token)
+    (params[:token] || params.dig(:mou_form, :token)).to_s
   end
 
   def set_nomination
