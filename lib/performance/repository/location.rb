@@ -1,0 +1,48 @@
+# frozen_string_literal: true
+
+module Performance::Repository
+  class Location
+    def self.month_to_date_locations_added(date: Time.zone.today)
+      date_str = format_date(date)
+      sql = ::Location.sanitize_sql_array([
+        "SELECT
+          DATE_FORMAT(?, '%Y-%m-%d') AS run_time,
+          COUNT(id) AS total
+        FROM
+          locations
+        WHERE
+          created_at BETWEEN DATE_FORMAT(?, '%Y-%m-01') AND ?",
+        date_str,
+        date_str,
+        date_str,
+      ])
+
+      result = ::Location.connection.select_one(sql)
+      result&.transform_keys(&:to_sym)
+    end
+
+    def self.monthly_rolling_window_locations_added(date: Time.zone.today)
+      date_str = format_date(date)
+      sql = ::Location.sanitize_sql_array([
+        "SELECT
+          DATE_FORMAT(?, '%Y-%m-%d') AS run_time,
+          COUNT(id) AS total
+        FROM
+          locations
+        WHERE
+          created_at BETWEEN ? - INTERVAL 31 DAY AND ? - INTERVAL 1 DAY",
+        date_str,
+        date_str,
+        date_str,
+      ])
+
+      result = ::Location.connection.select_one(sql)
+      result&.transform_keys(&:to_sym)
+    end
+
+    def self.format_date(date)
+      (date.is_a?(Date) ? date : Date.parse(date.to_s)).strftime("%Y-%m-%d")
+    end
+    private_class_method :format_date
+  end
+end
