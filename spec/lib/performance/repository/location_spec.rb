@@ -12,7 +12,9 @@ describe Performance::Repository::Location do
         FROM
           locations
         WHERE
-          created_at BETWEEN DATE_FORMAT(?, '%Y-%m-01') AND ?",
+          created_at >= DATE_FORMAT(?, '%Y-%m-01')
+        AND
+          created_at < ? + INTERVAL 1 DAY",
         "2026-07-17",
         "2026-07-17",
         "2026-07-17",
@@ -59,7 +61,9 @@ describe Performance::Repository::Location do
         FROM
           locations
         WHERE
-          created_at BETWEEN ? - INTERVAL 31 DAY AND ? - INTERVAL 1 DAY",
+          created_at >= ? - INTERVAL 30 DAY
+        AND
+          created_at < ?",
         "2026-07-17",
         "2026-07-17",
         "2026-07-17",
