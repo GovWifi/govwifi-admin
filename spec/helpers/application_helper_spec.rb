@@ -3,6 +3,12 @@ require "rails_helper"
 RSpec.describe ApplicationHelper, type: :helper do
   let(:title) { "some random title" }
 
+  describe "#number_in_words" do
+    it "spells out one to nine and uses numerals from 10" do
+      expect([1, 3, 9, 10].map { |number| helper.number_in_words(number) }).to eq(%w[one three nine 10])
+    end
+  end
+
   describe "#infer_page_title" do
     let(:dummy) do
       Class.new do

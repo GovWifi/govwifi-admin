@@ -15,7 +15,7 @@
           Ask an administrator or someone who can manage locations to update it.
         <% end %>
       <% else %>
-        Your organisation has <%= @incomplete_locations.size %> locations without an address or postcode.
+        Your organisation has <%= number_in_words(@incomplete_locations.size) %> locations without an address or postcode.
         <% if can_manage_locations %>
           Add the missing details to continue using GovWifi:
         <% else %>

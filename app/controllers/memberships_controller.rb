@@ -17,6 +17,8 @@ class MembershipsController < ApplicationController
 
   def index
     @resend_email = params["resend_email"]
+    @confirmed_administrators = UseCases::AccountHealth::Checks.new(Organisation.where(id: current_organisation.id))
+      .confirmed_administrator_counts.fetch(current_organisation.id, 0)
     all_members = current_organisation.memberships.includes(:user)
     administrators = all_members.filter_map { |membership| membership.user if membership.administrator? }
     location_managers = all_members.filter_map { |membership| membership.user if membership.manage_locations? }

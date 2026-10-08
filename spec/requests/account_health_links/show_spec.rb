@@ -17,6 +17,12 @@ describe "GET /account_health/:organisation_id/:issue", type: :request do
       expect(session[:organisation_id]).to eq(organisation.id)
     end
 
+    it "redirects fewer than two administrators to the Team members page" do
+      get account_health_link_path(organisation_id: organisation.id, issue: "fewer_than_two_administrators")
+
+      expect(response).to redirect_to("/memberships")
+    end
+
     it "redirects missing location details to the Locations page" do
       get account_health_link_path(organisation_id: organisation.id, issue: "missing_location_details")
 

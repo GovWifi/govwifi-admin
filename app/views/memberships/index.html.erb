@@ -2,10 +2,11 @@
 
 <%= render partial: "confirm_resend_invitation" if @resend_email.present? %>
 
+<%= render "account_health_warning" if @confirmed_administrators < 2 %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Team members</h1>
-    <%= render "memberships/minimum_two_administrators_required" unless current_organisation.meets_admin_user_minimum? %>
   </div>
 
   <div class="govuk-grid-column-one-third text-right">
