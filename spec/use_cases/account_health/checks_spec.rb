@@ -22,6 +22,15 @@ describe UseCases::AccountHealth::Checks do
     end
   end
 
+  describe "inactive administrators" do
+    it "applies to organisations with an administrator who has not signed in for over a year" do
+      inactive = create(:organisation).tap { |org| add_member(org) && add_member(org, signed_in_at: 2.years.ago) }
+      create(:organisation).tap { |org| add_member(org) && add_member(org, signed_in_at: nil) }
+
+      expect(described_class.new.organisation_ids(:inactive_administrator)).to eq([inactive.id])
+    end
+  end
+
   describe "missing location details" do
     let(:organisation) { create(:organisation) }
 

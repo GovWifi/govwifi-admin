@@ -63,6 +63,15 @@ describe UseCases::AccountHealth::SendNotifications do
     expect(sent_emails.map { |e| e[:reference] }.uniq).to eq(%w[account_health_missing_location_details])
   end
 
+  it "emails only the administrator who has not signed in for over a year" do
+    admin.update!(current_sign_in_at: 2.years.ago, last_sign_in_at: 2.years.ago)
+
+    use_case.execute
+
+    expect(sent_emails.map { |e| [e[:email_address], e[:reference]] })
+      .to eq([[admin.email, "account_health_inactive_administrator"]])
+  end
+
   it "emails once per issue, and again only if it recurs after being fixed" do
     remove_mou
     2.times { use_case.execute }

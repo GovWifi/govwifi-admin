@@ -1,3 +1,4 @@
+<% can_manage_team = current_user.can_manage_team?(current_organisation) %>
 <div class="govuk-notification-banner" role="region" aria-labelledby="account-health-administrators-title" data-module="govuk-notification-banner" id="account-health-administrators">
   <div class="govuk-notification-banner__header">
     <h2 class="govuk-notification-banner__title" id="account-health-administrators-title">
@@ -5,20 +6,44 @@
     </h2>
   </div>
   <div class="govuk-notification-banner__content">
-    <p class="govuk-notification-banner__heading">
-      <% if @confirmed_administrators.zero? %>
-        Your organisation has no administrators.
-      <% else %>
-        Your organisation has only one administrator.
+    <% if @confirmed_administrators < 2 %>
+      <p class="govuk-notification-banner__heading">
+        <% if @confirmed_administrators.zero? %>
+          Your organisation has no administrators.
+        <% else %>
+          Your organisation has only one administrator.
+        <% end %>
+        There must be a minimum of two administrators for each organisation.
+        <% if can_manage_team %>
+          <%= link_to "Invite a team member", new_users_invitation_path, class: "govuk-notification-banner__link" %> to continue using GovWifi.
+        <% elsif @confirmed_administrators.zero? %>
+          <%= link_to "Contact GovWifi support", signed_in_new_help_path, class: "govuk-notification-banner__link" %> to add an administrator.
+        <% else %>
+          Ask your administrator to invite another administrator.
+        <% end %>
+      </p>
+    <% end %>
+
+    <% if @inactive_administrators.any? %>
+      <% names = @inactive_administrators.map { |membership| membership.user.name.presence || membership.user.email } %>
+      <p class="govuk-notification-banner__heading">
+        <%= names.to_sentence %> <%= names.one? ? "hasn’t" : "haven’t" %> signed in for over a year.
+        <% if !can_manage_team %>
+          If they have left your organisation, ask an administrator to remove them.
+        <% elsif @inactive_administrators.one? %>
+          If they have left your organisation,
+          <%= link_to "remove them from your team", edit_membership_path(@inactive_administrators.first, remove_team_member: true), class: "govuk-notification-banner__link" %>.
+        <% else %>
+          If they have left your organisation, remove them from your team:
+        <% end %>
+      </p>
+      <% if can_manage_team && @inactive_administrators.many? %>
+        <ul class="govuk-list govuk-list--bullet">
+          <% @inactive_administrators.zip(names).each do |membership, name| %>
+            <li><%= link_to "Remove #{name}", edit_membership_path(membership, remove_team_member: true), class: "govuk-notification-banner__link" %></li>
+          <% end %>
+        </ul>
       <% end %>
-      There must be a minimum of two administrators for each organisation.
-      <% if current_user.can_manage_team?(current_organisation) %>
-        <%= link_to "Invite a team member", new_users_invitation_path, class: "govuk-notification-banner__link" %> to continue using GovWifi.
-      <% elsif @confirmed_administrators.zero? %>
-        <%= link_to "Contact GovWifi support", signed_in_new_help_path, class: "govuk-notification-banner__link" %> to add an administrator.
-      <% else %>
-        Ask your administrator to invite another administrator.
-      <% end %>
-    </p>
+    <% end %>
   </div>
 </div>

@@ -88,22 +88,23 @@ module UseCases
         end
       end
 
-      # Confirmed users with an accepted membership who can fix the issue: anyone who can manage
-      # locations for location issues, otherwise administrators.
+      # Confirmed users with an accepted membership who should hear about the issue: the inactive
+      # administrators themselves, anyone who can manage locations for location issues, otherwise
+      # administrators.
       def eligible_recipients(organisation_id, issue)
-        permissions = if issue == "missing_location_details"
-                        { can_manage_locations: true }
-                      else
-                        { can_manage_team: true, can_manage_locations: true }
-                      end
-        User
-          .joins(:memberships)
-          .where(memberships: { organisation_id:, **permissions })
-          .where.not(memberships: { confirmed_at: nil })
-          .where.not(confirmed_at: nil)
-          .distinct
-          .order(:id)
-          .to_a
+        users = if issue == "inactive_administrator"
+                  User.where(id: Checks.new(::Organisation.where(id: organisation_id)).inactive_administrators.select(:user_id))
+                else
+                  permissions = if issue == "missing_location_details"
+                                  { can_manage_locations: true }
+                                else
+                                  { can_manage_team: true, can_manage_locations: true }
+                                end
+                  User.joins(:memberships)
+                    .where(memberships: { organisation_id:, **permissions })
+                    .where.not(memberships: { confirmed_at: nil })
+                end
+        users.where.not(confirmed_at: nil).distinct.order(:id).to_a
       end
 
       def deliver_pending
