@@ -14,4 +14,11 @@ module AccountHealthHelpers
                         can_manage_locations: permissions != :view_only)
     user
   end
+
+  def add_location_with_ip(organisation, address: "1 High Street", postcode: "SW1A 1AA")
+    location = create(:location, organisation:)
+    create(:ip, location:)
+    location.update_columns(address:, postcode:)
+    location.reload
+  end
 end
