@@ -7,6 +7,7 @@ class Organisation < ApplicationRecord
   has_many :ips, through: :locations
   has_many :certificates, dependent: :destroy
   has_one :nomination
+  has_many :account_health_notifications, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :service_email, format: { with: Devise.email_regexp }
