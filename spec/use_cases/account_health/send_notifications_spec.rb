@@ -72,6 +72,15 @@ describe UseCases::AccountHealth::SendNotifications do
       .to eq([[admin.email, "account_health_inactive_administrator"]])
   end
 
+  it "emails an administrator who becomes inactive while another administrator's issue is still open" do
+    admin.update!(current_sign_in_at: 2.years.ago, last_sign_in_at: 2.years.ago)
+    use_case.execute
+    second_admin.update!(current_sign_in_at: 2.years.ago, last_sign_in_at: 2.years.ago)
+    use_case.execute
+
+    expect(sent_emails.map { |e| e[:email_address] }).to eq([admin.email, second_admin.email])
+  end
+
   it "emails once per issue, and again only if it recurs after being fixed" do
     remove_mou
     2.times { use_case.execute }

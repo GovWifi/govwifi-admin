@@ -60,8 +60,9 @@ module UseCases
 
         AccountHealthNotification.transaction do
           if notification
-            # Already emailed, or still waiting for someone to email.
-            add_recipients(notification, now) if notification.uncontactable_at.present?
+            # Already emailed, or still waiting for someone to email. Inactive administrators are each
+            # emailed about themselves, so anyone who has become inactive since is added too.
+            add_recipients(notification, now) if notification.uncontactable_at.present? || finding.issue == "inactive_administrator"
           else
             notification = AccountHealthNotification.create!(
               organisation_id: finding.organisation_id,
@@ -78,10 +79,12 @@ module UseCases
 
       def add_recipients(notification, now)
         users = eligible_recipients(notification.organisation_id, notification.issue)
+        already_added = notification.recipients.pluck(:email_address)
 
         if users.any?
-          users.each { |user| notification.recipients.create!(user:, email_address: user.email) }
-          notification.update!(uncontactable_at: nil)
+          users.reject { |user| already_added.include?(user.email) }
+            .each { |user| notification.recipients.create!(user:, email_address: user.email) }
+          notification.update!(uncontactable_at: nil) if notification.uncontactable_at
         elsif notification.uncontactable_at.nil?
           notification.update!(uncontactable_at: now)
           @logger.warn("Account health: nobody to email about #{notification.issue} for organisation #{notification.organisation_id}; recorded for support")
