@@ -2,7 +2,6 @@ module AccountHealthHelper
   # Red is urgent: notified over 3 months ago, or we can't reach them.
   ACCOUNT_HEALTH_COLOURS = {
     cannot_notify: "red",
-    notification_failed: "red",
     overdue: "red",
     follow_up_due: "yellow",
     recently_notified: "green",

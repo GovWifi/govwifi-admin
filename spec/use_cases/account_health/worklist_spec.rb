@@ -14,9 +14,9 @@ describe UseCases::AccountHealth::Worklist do
   end
 
   # An organisation whose only issue is no signed MoU, notified at sent_at.
-  def unsigned_organisation(sent_at:, attempts: 1)
+  def unsigned_organisation(sent_at:, attempts: 1, detected_at: sent_at || now)
     organisation = create(:organisation).tap { |org| 2.times { add_member(org) } }
-    create(:account_health_notification, organisation:, detected_at: sent_at || now)
+    create(:account_health_notification, organisation:, detected_at:)
       .recipients.create!(email_address: "admin@gov.uk", sent_at:, attempts:)
     organisation
   end
@@ -31,11 +31,11 @@ describe UseCases::AccountHealth::Worklist do
   it "lists organisations we cannot reach first, then the longest outstanding, leaving out those not notified yet" do
     recent = unsigned_organisation(sent_at: now - 1.week)
     overdue = unsigned_organisation(sent_at: now - 6.months)
-    failed = unsigned_organisation(sent_at: nil, attempts: AccountHealthNotificationRecipient::MAX_ATTEMPTS)
+    failed = unsigned_organisation(sent_at: nil, attempts: AccountHealthNotificationRecipient::MAX_ATTEMPTS, detected_at: now - 1.week)
     no_administrators = create(:organisation)
     not_notified = create(:organisation).tap { |org| 2.times { add_member(org) } }
 
-    expect(entries.select(&:listed?).map(&:organisation)).to eq([no_administrators, failed, overdue, recent])
+    expect(entries.select(&:listed?).map(&:organisation)).to eq([failed, no_administrators, overdue, recent])
     expect(entry_for(not_notified).listed?).to be(false)
   end
 
@@ -46,7 +46,14 @@ describe UseCases::AccountHealth::Worklist do
 
     statuses = entry_for(organisation).lines.to_h { |line| [line.issue, line.status] }
 
-    expect(statuses).to eq("no_signed_mou" => :cannot_notify, "fewer_than_two_administrators" => :cannot_notify, "missing_location_details" => :not_emailed)
+    expect(statuses).to eq("no_signed_mou" => :cannot_notify, "fewer_than_two_administrators" => :cannot_notify, "missing_location_details" => :not_notified)
+  end
+
+  it "treats an organisation as unreachable once nobody can be notified, even after an email was sent" do
+    organisation = unsigned_organisation(sent_at: now - 2.months)
+    organisation.memberships.destroy_all
+
+    expect(entry_for(organisation).lines.find { |line| line.issue == "no_signed_mou" }.status).to eq(:cannot_notify)
   end
 
   it "only uses an inactive administrator's own notification date" do

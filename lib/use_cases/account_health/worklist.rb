@@ -3,17 +3,16 @@ module UseCases
     # The super admin Account health worklist. Combines the live rules with the recorded emails so
     # each organisation with an issue gets one entry, most urgent first. Read only.
     class Worklist
-      # Most urgent first. The first five are shown on the worklist; the rest have not been notified yet.
-      STATUSES = %i[
+      # Most urgent first. Issues not notified yet are left off the worklist.
+      PRIORITIES = %i[
         cannot_notify
-        notification_failed
+        no_active_administrators
         overdue
         follow_up_due
         recently_notified
-        retrying
-        not_emailed
+        not_notified
       ].freeze
-      LISTED_STATUSES = STATUSES.first(5).freeze
+      LISTED_STATUSES = %i[cannot_notify overdue follow_up_due recently_notified].freeze
 
       Entry = Struct.new(:organisation, :issues, :no_active_administrators, keyword_init: true) do
         # One line per rule. For inactive administrators, the most urgent of their individual statuses.
@@ -21,7 +20,6 @@ module UseCases
           issues.group_by(&:issue).values.map { |same| same.min_by(&:sort_key) }
         end
 
-        # The lines shown on the worklist. Issues not notified yet are left out.
         def listed_lines
           lines.select { |line| LISTED_STATUSES.include?(line.status) }
         end
@@ -30,18 +28,16 @@ module UseCases
           no_active_administrators || listed_lines.any?
         end
 
-        # Organisations we cannot notify come first, then those with no active administrators, then the
-        # longest outstanding.
         def sort_key
           rank, date = lines.map(&:sort_key).min
-          rank = [rank, 0.5].min if no_active_administrators
+          rank = [rank, PRIORITIES.index(:no_active_administrators)].min if no_active_administrators
           [rank, date, organisation.name]
         end
       end
 
       Issue = Struct.new(:issue, :status, :first_notified_at, :recorded_at, keyword_init: true) do
         def sort_key
-          [STATUSES.index(status).to_f, first_notified_at || recorded_at || Time.zone.now]
+          [PRIORITIES.index(status), first_notified_at || recorded_at || Time.zone.now]
         end
       end
 
@@ -93,44 +89,37 @@ module UseCases
         recipients = notification&.recipients.to_a
         sent_at = recipients.filter_map(&:sent_at).min
         status =
-          if sent_at
-            self.class.email_age_status(sent_at, now: @now)
-          elsif people_for(organisation_id, issue).none? { |membership| eligible?(membership) }
+          if people_for(organisation_id, issue).none? { |membership| eligible?(membership) } || failed?(recipients)
             :cannot_notify
+          elsif sent_at
+            self.class.email_age_status(sent_at, now: @now)
           else
-            sending_status(recipients)
+            :not_notified
           end
 
-        recorded_at = status == :cannot_notify ? notification&.uncontactable_at : notification&.detected_at
-        Issue.new(issue:, status:, first_notified_at: sent_at, recorded_at:)
+        Issue.new(issue:, status:, first_notified_at: sent_at, recorded_at: notification&.uncontactable_at || notification&.detected_at)
       end
 
-      # The inactive administrator issue is recorded once per organisation, so an administrator only
-      # has their own email date if they were one of the people emailed when it was first recorded.
       def inactive_administrator_issue(membership)
         notification = notifications[[membership.organisation_id, "inactive_administrator"]]
         recipient = notification&.recipients&.find { |r| r.user_id == membership.user_id }
         status =
-          if recipient&.sent_at
-            self.class.email_age_status(recipient.sent_at, now: @now)
-          elsif !eligible?(membership)
+          if !eligible?(membership) || failed?([recipient].compact)
             :cannot_notify
+          elsif recipient&.sent_at
+            self.class.email_age_status(recipient.sent_at, now: @now)
           else
-            sending_status([recipient].compact)
+            :not_notified
           end
 
         Issue.new(issue: "inactive_administrator", status:, first_notified_at: recipient&.sent_at, recorded_at: notification&.detected_at)
       end
 
-      # Not sending because email is switched off or the organisation is outside the rollout is not a failure.
-      def sending_status(recipients)
-        if recipients.empty?
-          :not_emailed
-        elsif recipients.all? { |r| r.attempts >= AccountHealthNotificationRecipient::MAX_ATTEMPTS }
-          :notification_failed
-        else
-          :retrying
-        end
+      # Nobody was notified and no more attempts will be made: Notify rejected every request, or the
+      # recipients left before they were emailed. Not sending because email is switched off or the
+      # organisation is outside the rollout is not a failure.
+      def failed?(recipients)
+        recipients.any? && recipients.all? { |r| r.sent_at.nil? && r.attempts >= AccountHealthNotificationRecipient::MAX_ATTEMPTS }
       end
 
       # Who would be emailed about an issue, matching UseCases::AccountHealth::SendNotifications.
