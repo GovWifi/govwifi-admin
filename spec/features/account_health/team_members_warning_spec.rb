@@ -12,8 +12,16 @@ describe "Account health warning on Team members", type: :feature do
     visit memberships_path
 
     within("#account-health-administrators") do
-      expect(page).to have_content("Jo Bloggs hasn’t signed in for over a year.")
+      expect(page).to have_content("Jo Bloggs has not signed in for over a year.")
       expect(page).to have_link("remove them from your team", href: edit_membership_path(inactive.membership_for(organisation), remove_team_member: true))
     end
+  end
+
+  it "hides the warning while a confirmation is showing" do
+    sign_in_user administrator
+    visit memberships_path(resend_email: inactive.email)
+
+    expect(page).to have_content("Are you sure you want to resend the invitation")
+    expect(page).not_to have_css("#account-health-administrators")
   end
 end

@@ -13,7 +13,7 @@
         <% else %>
           Your organisation has only one administrator.
         <% end %>
-        There must be a minimum of two administrators for each organisation.
+        There must be a minimum of 2 administrators for each organisation.
         <% if can_manage_team %>
           <%= link_to "Invite a team member", new_users_invitation_path, class: "govuk-notification-banner__link" %> to continue using GovWifi.
         <% elsif @confirmed_administrators.zero? %>
@@ -27,7 +27,7 @@
     <% if @inactive_administrators.any? %>
       <% names = @inactive_administrators.map { |membership| membership.user.name.presence || membership.user.email } %>
       <p class="govuk-notification-banner__heading">
-        <%= names.to_sentence %> <%= names.one? ? "hasn’t" : "haven’t" %> signed in for over a year.
+        <%= names.to_sentence %> <%= names.one? ? "has not" : "have not" %> signed in for over a year.
         <% if !can_manage_team %>
           If they have left your organisation, ask an administrator to remove them.
         <% elsif @inactive_administrators.one? %>
