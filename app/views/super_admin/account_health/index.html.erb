@@ -1,0 +1,47 @@
+<% content_for :page_title, "Account health" %>
+
+<h1 class="govuk-heading-xl">Account health</h1>
+
+<% if @entries.any? %>
+  <table class="govuk-table">
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Organisation</th>
+        <th scope="col" class="govuk-table__header">Issues</th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      <% @entries.each do |entry| %>
+        <tr class="govuk-table__row" id="organisation-<%= entry.organisation.id %>">
+          <td class="govuk-table__cell">
+            <%= link_to entry.organisation.name, super_admin_organisation_path(entry.organisation), class: "govuk-link" %>
+          </td>
+          <td class="govuk-table__cell">
+            <ul class="govuk-list govuk-!-margin-bottom-0">
+              <% entry.listed_lines.each do |line| %>
+                <li class="govuk-!-margin-bottom-3"><%= account_health_issue_tag(line) %></li>
+              <% end %>
+              <% if entry.no_active_administrators %>
+                <li class="govuk-!-margin-bottom-3"><%= account_health_no_active_administrators_tag %></li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="govuk-table" id="key">
+    <caption class="govuk-table__caption govuk-table__caption--s">What the colours mean</caption>
+    <tbody class="govuk-table__body">
+      <% AccountHealthHelper::ACCOUNT_HEALTH_KEY.each do |colour, label, meaning| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--<%= colour %>"><%= label %></strong></td>
+          <td class="govuk-table__cell"><%= meaning %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="govuk-body-l">No organisations need attention.</p>
+<% end %>
