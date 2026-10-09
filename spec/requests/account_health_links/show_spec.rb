@@ -23,6 +23,12 @@ describe "GET /account_health/:organisation_id/:issue", type: :request do
       expect(response).to redirect_to("/memberships")
     end
 
+    it "redirects inactive administrators to the Team members page" do
+      get account_health_link_path(organisation_id: organisation.id, issue: "inactive_administrator")
+
+      expect(response).to redirect_to("/memberships")
+    end
+
     it "redirects missing location details to the Locations page" do
       get account_health_link_path(organisation_id: organisation.id, issue: "missing_location_details")
 
