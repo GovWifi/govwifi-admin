@@ -19,11 +19,6 @@ module ApplicationHelper
     safe_join([content_for(:page_title), SITE_CONFIG["default_page_title"]].reject(&:nil?), " - ")
   end
 
-  # Spells out one to nine, following the GOV.UK style guide.
-  def number_in_words(number)
-    %w[zero one two three four five six seven eight nine][number] || number.to_s
-  end
-
   def format_ip(ip)
     content_tag(:span, class: "ip-address") do
       ip.scan(/\d{1,3}/).join(content_tag(:span, ".", class: "ip-address-separator")).html_safe
