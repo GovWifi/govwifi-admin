@@ -5,6 +5,7 @@ module UseCases
       RULES = %i[
         no_signed_mou
         missing_location_details
+        fewer_than_two_administrators
       ].freeze
 
       # Accepted by Location#validate_postcode_format but not a real place.
@@ -27,6 +28,16 @@ module UseCases
           .where("#{missing_sql('locations.address')} AND #{missing_sql('locations.postcode')}")
       end
 
+      # Administrators who have accepted their invitation, by organisation ID.
+      # Organisations with none are not included.
+      def confirmed_administrator_counts
+        @confirmed_administrator_counts ||= ::Membership
+          .where(organisation_id: @organisations.select(:id), can_manage_team: true, can_manage_locations: true)
+          .where.not(confirmed_at: nil)
+          .group(:organisation_id)
+          .count
+      end
+
     private
 
       def find_organisation_ids(rule)
@@ -35,6 +46,8 @@ module UseCases
           @organisations.where.missing(:mous).pluck(:id)
         when :missing_location_details
           incomplete_locations.distinct.pluck(:organisation_id)
+        when :fewer_than_two_administrators
+          @organisations.pluck(:id).select { |id| confirmed_administrator_counts.fetch(id, 0) < 2 }
         else
           raise ArgumentError, "Unknown account health rule: #{rule}"
         end
