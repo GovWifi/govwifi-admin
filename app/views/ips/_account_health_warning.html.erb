@@ -1,0 +1,36 @@
+<% can_manage_locations = current_user.can_manage_locations?(current_organisation) %>
+<div class="govuk-notification-banner" role="region" aria-labelledby="account-health-locations-title" data-module="govuk-notification-banner" id="account-health-locations">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="account-health-locations-title">
+      Important
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">
+      <% if @incomplete_locations.one? %>
+        Your organisation has a location without an address or postcode.
+        <% if can_manage_locations %>
+          <%= link_to "Add the missing details", edit_location_path(@incomplete_locations.first), class: "govuk-notification-banner__link" %> to continue using GovWifi.
+        <% else %>
+          Ask an administrator or someone who can manage locations to update it.
+        <% end %>
+      <% else %>
+        Your organisation has <%= @incomplete_locations.size %> locations without an address or postcode.
+        <% if can_manage_locations %>
+          Add the missing details to continue using GovWifi:
+        <% else %>
+          Ask an administrator or someone who can manage locations to update them.
+        <% end %>
+      <% end %>
+    </p>
+    <% if can_manage_locations && @incomplete_locations.many? %>
+      <ul class="govuk-list govuk-list--bullet">
+        <% @incomplete_locations.each do |location| %>
+          <li>
+            <%= link_to "Update location with IP #{location.ips.map(&:address).min}", edit_location_path(location), class: "govuk-notification-banner__link" %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

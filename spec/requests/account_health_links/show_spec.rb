@@ -16,6 +16,12 @@ describe "GET /account_health/:organisation_id/:issue", type: :request do
       expect(response).to redirect_to("/mous/show_options")
       expect(session[:organisation_id]).to eq(organisation.id)
     end
+
+    it "redirects missing location details to the Locations page" do
+      get account_health_link_path(organisation_id: organisation.id, issue: "missing_location_details")
+
+      expect(response).to redirect_to("/ips")
+    end
   end
 
   context "when signed in but not a member of the organisation" do

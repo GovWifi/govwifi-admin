@@ -3,6 +3,7 @@
 class AccountHealthLinksController < ApplicationController
   DESTINATIONS = {
     "no_signed_mou" => :show_options_mous_path,
+    "missing_location_details" => :ips_path,
   }.freeze
 
   skip_before_action :redirect_user_with_no_organisation
