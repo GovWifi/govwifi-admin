@@ -3,6 +3,8 @@ services:
     build:
       args:
         RUN_PRECOMPILATION: "false"
+    environment:
+      DEPLOY_ENV: development
     volumes:
       - ".:/usr/src/app"
       - "tmp:/usr/src/app/tmp"
