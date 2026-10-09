@@ -19,6 +19,14 @@ describe "Account health warning on Locations", type: :feature do
       expect(warning).to have_link("Add the missing details", href: edit_location_path(incomplete))
     end
 
+    it "hides the warning while a confirmation is showing" do
+      sign_in_user administrator
+      visit ips_path(location_id: complete.id, confirm_remove: true)
+
+      expect(page).to have_content("Are you sure you want to remove this location?")
+      expect(page).not_to have_css("#account-health-locations")
+    end
+
     it "does not offer edit links to view-only members" do
       viewer = add_member(organisation, permissions: :view_only)
       sign_in_user viewer

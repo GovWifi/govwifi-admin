@@ -6,7 +6,7 @@
     <%= render "confirm_remove_location" if @location_to_delete && current_user.can_manage_locations?(current_organisation) %>
     <%= render "confirm_rotate_radius_key" if @key_to_rotate && current_user.can_manage_locations?(current_organisation) %>
   </div>
-  <% if @incomplete_locations.any? %>
+  <% if @incomplete_locations.any? && !(@ip_to_delete || @location_to_delete || @key_to_rotate) %>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full govuk-!-padding-0">
         <%= render "account_health_warning" %>
