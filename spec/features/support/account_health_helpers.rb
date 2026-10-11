@@ -1,7 +1,7 @@
 module AccountHealthHelpers
   # The factory names organisations "Gov Org <n>" and validates them against the register.
-  def allow_account_health_organisation_names(count = 30)
-    stub_const("Gateways::GovukOrganisationsRegisterGateway::GOVERNMENT_ORGS", (1..count).map { |n| "Gov Org #{n}" }.freeze)
+  def allow_account_health_organisation_names
+    stub_const("Gateways::GovukOrganisationsRegisterGateway::GOVERNMENT_ORGS", (1..30).map { |n| "Gov Org #{n}" }.freeze)
   end
 
   # Adds a member with accepted membership. permissions: :administrator, :manage_locations or :view_only.
