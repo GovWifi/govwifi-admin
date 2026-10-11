@@ -18,6 +18,8 @@ class IpsController < ApplicationController
       ).references(:ips)
     end
     @pagy, @locations = pagy(locations_scope.order(:address))
+    @incomplete_locations = UseCases::AccountHealth::Checks.new(Organisation.where(id: current_organisation.id))
+      .incomplete_locations.includes(:ips).order(:id).to_a
   end
 
   def destroy

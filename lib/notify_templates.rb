@@ -11,6 +11,7 @@ class NotifyTemplates
     user_account_removed_email
     user_account_removed_sms
     account_health_no_signed_mou
+    account_health_missing_location_details
   ].freeze
 
   def self.template_hash

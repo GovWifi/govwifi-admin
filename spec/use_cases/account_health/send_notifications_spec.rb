@@ -53,6 +53,16 @@ describe UseCases::AccountHealth::SendNotifications do
     expect(sent_emails.map { |e| e[:email_address] }).to contain_exactly(admin.email, second_admin.email)
   end
 
+  it "emails everyone who can manage locations about locations missing details" do
+    location_manager = add_member(organisation, permissions: :manage_locations)
+    add_location_with_ip(organisation, address: "", postcode: "")
+
+    use_case.execute
+
+    expect(sent_emails.map { |e| e[:email_address] }).to contain_exactly(admin.email, second_admin.email, location_manager.email)
+    expect(sent_emails.map { |e| e[:reference] }.uniq).to eq(%w[account_health_missing_location_details])
+  end
+
   it "emails once per issue, and again only if it recurs after being fixed" do
     remove_mou
     2.times { use_case.execute }

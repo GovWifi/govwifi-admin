@@ -77,7 +77,7 @@ module UseCases
       end
 
       def add_recipients(notification, now)
-        users = eligible_recipients(notification.organisation_id)
+        users = eligible_recipients(notification.organisation_id, notification.issue)
 
         if users.any?
           users.each { |user| notification.recipients.create!(user:, email_address: user.email) }
@@ -88,11 +88,17 @@ module UseCases
         end
       end
 
-      # Confirmed users with an accepted administrator membership.
-      def eligible_recipients(organisation_id)
+      # Confirmed users with an accepted membership who can fix the issue: anyone who can manage
+      # locations for location issues, otherwise administrators.
+      def eligible_recipients(organisation_id, issue)
+        permissions = if issue == "missing_location_details"
+                        { can_manage_locations: true }
+                      else
+                        { can_manage_team: true, can_manage_locations: true }
+                      end
         User
           .joins(:memberships)
-          .where(memberships: { organisation_id:, can_manage_team: true, can_manage_locations: true })
+          .where(memberships: { organisation_id:, **permissions })
           .where.not(memberships: { confirmed_at: nil })
           .where.not(confirmed_at: nil)
           .distinct
@@ -116,7 +122,7 @@ module UseCases
         recipient.with_lock do
           next if recipient.sent_at.present? || recipient.attempts >= AccountHealthNotificationRecipient::MAX_ATTEMPTS
 
-          unless eligible_recipients(notification.organisation_id).map(&:id).include?(recipient.user_id)
+          unless eligible_recipients(notification.organisation_id, notification.issue).map(&:id).include?(recipient.user_id)
             recipient.update!(attempts: AccountHealthNotificationRecipient::MAX_ATTEMPTS, last_error: "No longer eligible")
             next
           end
@@ -134,7 +140,7 @@ module UseCases
       def log_dry_run(findings)
         @logger.info("Account health emails are disabled (set ACCOUNT_HEALTH_EMAILS_ENABLED=true to send). Nothing recorded or sent.")
         findings.group_by(&:issue).each do |issue, issue_findings|
-          recipient_counts = issue_findings.map { |f| eligible_recipients(f.organisation_id).size }
+          recipient_counts = issue_findings.map { |f| eligible_recipients(f.organisation_id, issue).size }
           @logger.info("Account health (dry run): #{issue}: #{issue_findings.size} organisations, " \
                        "#{recipient_counts.sum} recipients, #{recipient_counts.count(&:zero?)} with nobody to email")
         end
