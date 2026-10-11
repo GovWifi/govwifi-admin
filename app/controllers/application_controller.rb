@@ -84,7 +84,8 @@ protected
        new_super_admin_allowlist_path,
        super_admin_wifi_user_search_path,
        super_admin_wifi_admin_search_path,
-       super_admin_change_organisation_path]
+       super_admin_change_organisation_path,
+       super_admin_account_health_path]
     if sidebar_paths.include?(request.path)
       session[:sidebar_path] = request.path
     end

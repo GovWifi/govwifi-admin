@@ -93,6 +93,7 @@ Rails.application.routes.draw do
   namespace :super_admin do
     get "change_organisation", to: "current_organisation#edit"
     patch "change_organisation", to: "current_organisation#update"
+    get "account_health", to: "account_health#index"
     resources :locations, only: %i[index edit update] do
       collection do
         get "map", to: "locations/map#index"
