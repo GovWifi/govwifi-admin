@@ -6,7 +6,10 @@ module UseCases
         no_signed_mou
         missing_location_details
         fewer_than_two_administrators
+        inactive_administrator
       ].freeze
+
+      INACTIVE_AFTER = 365.days
 
       # Accepted by Location#validate_postcode_format but not a real place.
       PLACEHOLDER_VALUES = %w[unknown].freeze
@@ -38,6 +41,16 @@ module UseCases
           .count
       end
 
+      # Administrators who have not signed in for over a year. Someone who has never signed in is
+      # inactive a year after accepting their invitation.
+      def inactive_administrators
+        ::Membership
+          .joins(:user)
+          .where(organisation_id: @organisations.select(:id), can_manage_team: true, can_manage_locations: true)
+          .where.not(confirmed_at: nil)
+          .where("COALESCE(users.current_sign_in_at, users.last_sign_in_at, memberships.confirmed_at) < ?", INACTIVE_AFTER.ago)
+      end
+
     private
 
       def find_organisation_ids(rule)
@@ -48,6 +61,8 @@ module UseCases
           incomplete_locations.distinct.pluck(:organisation_id)
         when :fewer_than_two_administrators
           @organisations.pluck(:id).select { |id| confirmed_administrator_counts.fetch(id, 0) < 2 }
+        when :inactive_administrator
+          inactive_administrators.distinct.pluck(:organisation_id)
         else
           raise ArgumentError, "Unknown account health rule: #{rule}"
         end

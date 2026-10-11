@@ -13,6 +13,7 @@ class NotifyTemplates
     account_health_no_signed_mou
     account_health_missing_location_details
     account_health_fewer_than_two_administrators
+    account_health_inactive_administrator
   ].freeze
 
   def self.template_hash
