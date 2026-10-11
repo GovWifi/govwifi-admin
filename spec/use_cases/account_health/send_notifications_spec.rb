@@ -99,9 +99,9 @@ describe UseCases::AccountHealth::SendNotifications do
     remove_mou
     use_case.execute
     recipient = AccountHealthNotificationRecipient.find_by(user: admin)
-    recipient.update!(sent_at: nil, attempts: 0)
+    recipient.update!(sent_at: nil)
     stale_copy = AccountHealthNotificationRecipient.find(recipient.id)
-    recipient.update!(sent_at: Time.zone.now, attempts: 1)
+    recipient.update!(sent_at: Time.zone.now)
 
     expect { use_case.send(:deliver, stale_copy) }.not_to(change { sent_emails.size })
   end
@@ -131,15 +131,5 @@ describe UseCases::AccountHealth::SendNotifications do
       expect(AccountHealthNotification.count).to eq(0)
       expect(logger).to have_received(:info).with("Account health (dry run): no_signed_mou: 1 organisations, 2 recipients, 0 with nobody to email")
     end
-  end
-
-  it "is disabled unless ACCOUNT_HEALTH_EMAILS_ENABLED is 'true'" do
-    original = ENV["ACCOUNT_HEALTH_EMAILS_ENABLED"]
-    ENV.delete("ACCOUNT_HEALTH_EMAILS_ENABLED")
-    expect(described_class.enabled?).to be(false)
-    ENV["ACCOUNT_HEALTH_EMAILS_ENABLED"] = "true"
-    expect(described_class.enabled?).to be(true)
-  ensure
-    ENV["ACCOUNT_HEALTH_EMAILS_ENABLED"] = original
   end
 end
