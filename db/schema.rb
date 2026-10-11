@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_29_103602) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_25_100000) do
+  create_table "account_health_notification_recipients", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "account_health_notification_id", null: false
+    t.bigint "user_id"
+    t.string "email_address", null: false
+    t.datetime "sent_at"
+    t.integer "attempts", default: 0, null: false
+    t.string "last_error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_health_notification_id", "email_address"], name: "index_account_health_recipients_on_notification_and_email", unique: true
+    t.index ["user_id"], name: "index_account_health_notification_recipients_on_user_id"
+  end
+
+  create_table "account_health_notifications", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "organisation_id", null: false
+    t.string "issue", null: false
+    t.string "open_key"
+    t.datetime "detected_at", null: false
+    t.datetime "resolved_at"
+    t.datetime "uncontactable_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["open_key"], name: "index_account_health_notifications_on_open_key", unique: true
+    t.index ["organisation_id", "issue"], name: "index_account_health_notifications_on_organisation_and_issue"
+  end
+
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -190,6 +216,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_29_103602) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "account_health_notification_recipients", "account_health_notifications", on_delete: :cascade
+  add_foreign_key "account_health_notification_recipients", "users", on_delete: :nullify
+  add_foreign_key "account_health_notifications", "organisations", on_delete: :cascade
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "ips", "locations", on_delete: :cascade
   add_foreign_key "mous", "organisations"

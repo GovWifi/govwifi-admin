@@ -95,6 +95,20 @@ class GovWifiMailer < ::Devise::Mailer
     Services.notify_gateway.send_sms(opts)
   end
 
+  def account_health_notification(email_address, issue, organisation)
+    template_name = "account_health_#{issue}"
+    opts = {
+      email_address:,
+      personalisation: {
+        organisation: organisation.name,
+        action_url: account_health_link_url(organisation_id: organisation.id, issue:),
+      },
+      template_id: NotifyTemplates.template(template_name),
+      reference: template_name,
+    }
+    Services.notify_gateway.send_email(opts)
+  end
+
   def send_survey(email_address)
     opts = {
       email_address:,

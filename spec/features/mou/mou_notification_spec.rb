@@ -22,6 +22,15 @@ describe "MOU notification banner", type: :feature do
         expect(page).to have_content("Your organisation hasn’t signed the MOU yet.")
         expect(page).to have_link("Sign the memorandum of understanding", href: show_options_mous_path)
       end
+
+      it "does not show the notification banner on other pages" do
+        [ips_path, memberships_path].each do |path|
+          visit path
+
+          expect(page).to have_current_path(path)
+          expect(page).not_to have_content("Your organisation hasn’t signed the MOU yet.")
+        end
+      end
     end
 
     context "when organisation does not need to sign the MOU" do

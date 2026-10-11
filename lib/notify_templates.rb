@@ -10,6 +10,7 @@ class NotifyTemplates
     first_ip_survey
     user_account_removed_email
     user_account_removed_sms
+    account_health_no_signed_mou
   ].freeze
 
   def self.template_hash

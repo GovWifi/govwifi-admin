@@ -31,6 +31,10 @@ Rails.application.routes.draw do
   end
 
   get "/healthcheck", to: "monitoring#healthcheck"
+  get "account_health/:organisation_id/:issue",
+      to: "account_health_links#show",
+      as: :account_health_link,
+      constraints: { organisation_id: /\d+/ }
   get "change_organisation", to: "current_organisation#edit"
   patch "change_organisation", to: "current_organisation#update"
 
