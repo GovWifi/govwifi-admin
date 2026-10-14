@@ -31,6 +31,21 @@ describe "Session timeout", type: :feature do
     end
   end
 
+  context "when the signed in user is a superadmin" do
+    let(:user) { create(:user, :super_admin, :with_organisation) }
+
+    before do
+      sign_in_user user
+      visit root_path
+    end
+
+    it "shows the 1 hour timeout" do
+      meta = find("meta[name='hmrc-timeout-dialog']", visible: false)
+
+      expect(meta["data-timeout"]).to eq(SITE_CONFIG["superadmin_session_timeout_in_minutes"].minutes.to_i.to_s)
+    end
+  end
+
   context "when a user is not signed in" do
     it "does not render the timeout" do
       visit root_path

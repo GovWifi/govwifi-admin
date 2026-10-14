@@ -3,6 +3,7 @@ default: &default
   end_user_troubleshooting_link: "https://www.wifi.service.gov.uk/get-help-connecting/"
   service_status_link: "https://status.wifi.service.gov.uk/"
   organisation_docs_link: "https://docs.wifi.service.gov.uk"
+  superadmin_session_timeout_in_minutes: 60
   support_link: "https://www.wifi.service.gov.uk/get-help-connecting/"
   connect_to_govwifi_link: "https://www.wifi.service.gov.uk/connect-to-govwifi/"
   cookies_docs_link: "https://www.wifi.service.gov.uk/cookies/"
