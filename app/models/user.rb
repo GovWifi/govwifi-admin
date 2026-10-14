@@ -18,6 +18,20 @@ class User < ApplicationRecord
 
   has_one_time_password
 
+  # Session timeout is inactivity based (Devise :timeoutable). Superadmins get a
+  # longer lifetime than the global Devise timeout; every other user keeps the
+  # global Devise.timeout_in value, unmodified.
+  def timeout_in
+    self.class.session_timeout_for(self)
+  end
+
+  def self.session_timeout_for(user)
+    return Devise.timeout_in unless user.is_super_admin?
+
+    super_admin_timeout = SITE_CONFIG["superadmin_session_timeout_in_minutes"]
+    super_admin_timeout ? super_admin_timeout.minutes : Devise.timeout_in
+  end
+
   validates :name, presence: true, if: :confirmed?
 
   validates :password,

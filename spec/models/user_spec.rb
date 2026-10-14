@@ -215,4 +215,26 @@ describe User do
       expect(user.reload.confirmed_member_of?(organisation)).to be false
     end
   end
+  describe "session timeout" do
+    let(:organisation) { create(:organisation) }
+
+    it "gives superadmins a 1 hour timeout" do
+      user = create(:user, :super_admin, :with_organisation)
+
+      expect(user.timeout_in).to eq(SITE_CONFIG["superadmin_session_timeout_in_minutes"].minutes)
+    end
+
+    it "leaves regular users on the global Devise timeout" do
+      user = create(:user, :with_organisation)
+
+      expect(user.timeout_in).to eq(Devise.timeout_in)
+    end
+
+    it "uses the global Devise timeout when no superadmin value is configured" do
+      allow(SITE_CONFIG).to receive(:[]).with("superadmin_session_timeout_in_minutes").and_return(nil)
+      user = create(:user, :super_admin, :with_organisation)
+
+      expect(user.timeout_in).to eq(Devise.timeout_in)
+    end
+  end
 end

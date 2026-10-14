@@ -1,7 +1,7 @@
 <meta
   name="hmrc-timeout-dialog"
   content="hmrc-timeout-dialog"
-  <% timeout = Devise.timeout_in.to_i %>
+  <% timeout = (current_user&.timeout_in || Devise.timeout_in).to_i %>
   <% countdown = 2.minutes.to_i %>
   data-timeout="<%= timeout %>"
   data-countdown="<%= countdown %>"

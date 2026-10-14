@@ -44,3 +44,39 @@ describe "Logout users after period of inactivity", type: :feature do
     end
   end
 end
+
+describe "Logout superadmins after period of inactivity", type: :feature do
+  let(:user) { create(:user, :super_admin, :with_organisation) }
+
+  context "when a signed in superadmin has been inactive for 59 minutes" do
+    before do
+      sign_in_user user
+      visit root_path
+      Timecop.travel(Time.zone.now + 59.minutes) { visit root_path }
+    end
+
+    after { Timecop.return }
+
+    it "stays signed in when they navigate to a page" do
+      visit memberships_path
+
+      expect(page).to have_content("Invite a team member")
+    end
+  end
+
+  context "when a signed in superadmin has been inactive for 1 hour" do
+    before do
+      sign_in_user user
+      visit root_path
+      Timecop.travel(Time.zone.now + 60.minutes) { visit root_path }
+    end
+
+    after { Timecop.return }
+
+    it "shows the session expired message on the sign in page" do
+      expect(page).to have_content("Your session expired. Please sign in again to continue.")
+      expect(page).to have_field("Email")
+      expect(page).to have_button("Continue")
+    end
+  end
+end
