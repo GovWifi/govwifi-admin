@@ -39,7 +39,7 @@ describe "Session timeout", type: :feature do
       visit root_path
     end
 
-    it "shows the 1 hour timeout" do
+    it "shows the 12 hour timeout" do
       meta = find("meta[name='hmrc-timeout-dialog']", visible: false)
 
       expect(meta["data-timeout"]).to eq(SITE_CONFIG["superadmin_session_timeout_in_minutes"].minutes.to_i.to_s)

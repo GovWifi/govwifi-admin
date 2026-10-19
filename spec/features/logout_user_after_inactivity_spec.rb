@@ -64,11 +64,11 @@ describe "Logout superadmins after period of inactivity", type: :feature do
     end
   end
 
-  context "when a signed in superadmin has been inactive for 1 hour" do
+  context "when a signed in superadmin has been inactive for 12 hours" do
     before do
       sign_in_user user
       visit root_path
-      Timecop.travel(Time.zone.now + 60.minutes) { visit root_path }
+      Timecop.travel(Time.zone.now + 720.minutes) { visit root_path }
     end
 
     after { Timecop.return }

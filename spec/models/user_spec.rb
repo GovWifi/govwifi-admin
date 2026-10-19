@@ -218,7 +218,7 @@ describe User do
   describe "session timeout" do
     let(:organisation) { create(:organisation) }
 
-    it "gives superadmins a 1 hour timeout" do
+    it "gives superadmins a 12 hour timeout" do
       user = create(:user, :super_admin, :with_organisation)
 
       expect(user.timeout_in).to eq(SITE_CONFIG["superadmin_session_timeout_in_minutes"].minutes)
