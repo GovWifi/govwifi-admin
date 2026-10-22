@@ -44,8 +44,13 @@ class Organisation < ApplicationRecord
        COUNT(DISTINCT(certificates.id)) AS certificates_count")
       .left_joins(:locations).left_joins(:ips).left_joins(:mous).left_joins(:certificates)
       .group("organisations.id")
-      .order(sort_column => sort_direction)
+      .order(sort_order(sort_column, sort_direction))
   }
+
+  def self.sort_order(column, direction)
+    ordered_column = column == "name" ? "TRIM(organisations.name)" : column
+    "#{ordered_column} #{direction}"
+  end
 
   def enable_cba_feature!
     update(cba_enabled: true)
