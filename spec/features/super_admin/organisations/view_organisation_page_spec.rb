@@ -35,9 +35,7 @@ describe "View details of an organisation", type: :feature do
 
     it "has the creation date of the organisation" do
       expect(page).to have_content(
-        organisation.created_at.strftime(
-          "#{organisation.created_at.day.ordinalize} of %B, %Y",
-        ),
+        organisation.created_at.strftime("%-d %B %Y"),
       )
     end
 

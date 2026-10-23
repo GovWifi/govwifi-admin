@@ -21,11 +21,21 @@ module SettingsHelper
   end
 
   def mou_status_label(current_organisation)
+    if current_organisation.resign_mou? && current_organisation.mous.present?
+      label = content_tag(:span, class: "govuk-!-font-weight-bold") { "Not signed" }
+      label += sign_mou_label
+      return label
+    end
+
     last_mou = current_organisation.mous.last
 
-    return "Signed by #{last_mou.name} on #{last_mou.formatted_date}" if last_mou&.name.present?
+    if last_mou&.name.present?
+      return "Signed by #{last_mou.name} on #{last_mou.formatted_date} at #{last_mou.formatted_time}"
+    end
 
-    return "#{current_organisation.name} signed the GovWifi MOU" if last_mou.present?
+    if last_mou.present?
+      return "#{current_organisation.name} signed the GovWifi MOU on #{last_mou.formatted_date} at #{last_mou.formatted_time}"
+    end
 
     label = content_tag(:span, class: "govuk-!-font-weight-bold") { "Not signed" }
     label += if current_organisation.nomination&.name
@@ -44,7 +54,7 @@ module SettingsHelper
 
       {
         text: "Review",
-        href: "https://www.wifi.service.gov.uk/memorandum-of-understanding/",
+        href: review_mou_settings_path,
         visually_hidden_text: "memorandum of understanding",
       }
     else
