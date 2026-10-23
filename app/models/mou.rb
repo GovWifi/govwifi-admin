@@ -11,6 +11,10 @@ class Mou < ApplicationRecord
     created_at.strftime("%-d %B %Y")
   end
 
+  def formatted_time
+    created_at.strftime("%H:%M UTC")
+  end
+
   def self.latest_known_version
     BigDecimal(ENV.fetch("LATEST_MOU_VERSION", "1.0"))
   end
