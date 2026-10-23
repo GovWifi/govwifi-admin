@@ -9,7 +9,11 @@ class MouForm
   attr_accessor :name, :email_address, :job_role, :signed, :token
 
   def save!(organisation:, user: nil)
-    Mou.create!(name:, email_address:, job_role:, organisation:, user:, version: Mou.latest_known_version)
+    Mou.transaction do
+      mou = Mou.create!(name:, email_address:, job_role:, organisation:, user:, version: Mou.latest_known_version)
+      organisation.update_columns(mou_resign_required_at: nil)
+      mou
+    end
   end
 
 private

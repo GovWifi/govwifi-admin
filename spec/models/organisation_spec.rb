@@ -266,4 +266,38 @@ describe Organisation do
       expect(csv.first["Created at"]).to eq(org1.created_at.to_s)
     end
   end
+
+  describe "#resign_mou?" do
+    let(:organisation) { create(:organisation) }
+
+    it "returns true if there are no MOUs" do
+      expect(organisation.resign_mou?).to be true
+    end
+
+    it "returns true if mou_resign_required_at is present" do
+      create(:mou, organisation:, version: Mou.latest_known_version)
+      organisation.update!(mou_resign_required_at: Time.zone.now)
+      expect(organisation.resign_mou?).to be true
+    end
+
+    it "returns false if the organisation has the latest MOU" do
+      create(:mou, organisation:, version: Mou.latest_known_version)
+      expect(organisation.resign_mou?).to be false
+    end
+
+    it "returns true if the organisation has an outdated MOU" do
+      create(:mou, organisation:, version: Mou.latest_known_version - 0.1)
+      expect(organisation.resign_mou?).to be true
+    end
+  end
+
+  describe "#require_mou_resign!" do
+    let(:organisation) { create(:organisation) }
+
+    it "sets mou_resign_required_at" do
+      expect {
+        organisation.require_mou_resign!
+      }.to change { organisation.reload.mou_resign_required_at }.from(nil).to(be_present)
+    end
+  end
 end
