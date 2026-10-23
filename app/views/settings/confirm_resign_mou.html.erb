@@ -1,0 +1,29 @@
+<% content_for :page_title, "Re-sign the MOU" %>
+
+<div class="govuk-form-group">
+  <%= link_to "Back", review_mou_settings_path, class: "govuk-back-link" %>
+
+  <h1 class="govuk-heading-l">Re-sign the MOU</h1>
+
+  <p class="govuk-body">
+    <%= current_organisation.name %> signed the GovWifi MOU on <%= current_organisation.mous.last.formatted_date %> at <%= current_organisation.mous.last.formatted_time %>.
+  </p>
+
+  <p class="govuk-body">
+    Proceeding will ask you to sign the MOU again.
+  </p>
+
+  <p class="govuk-body">
+    Your organisation will not be able to use GovWifi until the MOU has been signed again.
+  </p>
+
+  <%= button_to(
+        "Re-sign the MOU",
+        resign_mou_settings_path,
+        method: :post,
+        class: "govuk-button govuk-button--warning",
+        "data-module": "govuk-button",
+      ) %>
+
+  <p class="govuk-body"><%= link_to "Cancel", review_mou_settings_path, class: "govuk-link--no-visited-state" %></p>
+</div>
