@@ -81,10 +81,10 @@ describe "Upload Certificate", type: :feature do
 
     it "takes you to the form to upload a certificate" do
       click_on "Certificates"
-      expect(page).to have_link("Add Certificate")
+      expect(page).to have_link("Add certificate")
 
-      click_on "Add Certificate"
-      expect(page).to have_content "Add Certificate"
+      click_on "Add certificate"
+      expect(page).to have_content "Add certificate"
     end
   end
 
@@ -95,9 +95,9 @@ describe "Upload Certificate", type: :feature do
 
     it "reports an error" do
       fill_in "Name", with: "MyCert1"
-      click_button "Upload Certificate"
+      click_button "Upload certificate"
 
-      expect(page).to have_content "No Certificate file selected. Please choose a file to try again."
+      expect(page).to have_content "No certificate file selected. Please choose a file to try again."
     end
   end
 
@@ -108,9 +108,9 @@ describe "Upload Certificate", type: :feature do
 
     it "reports an error" do
       attach_file("File", root_certificate_path)
-      click_button "Upload Certificate"
+      click_button "Upload certificate"
 
-      expect(page).to have_content "Certificate Name can't be blank"
+      expect(page).to have_content "Certificate name can't be blank"
     end
   end
 
@@ -126,7 +126,7 @@ describe "Upload Certificate", type: :feature do
 
       fill_in "Name", with: "MyCert1"
       attach_file("File", Rails.root.join(file.path))
-      click_button "Upload Certificate"
+      click_button "Upload certificate"
 
       file.unlink
 
@@ -139,11 +139,11 @@ describe "Upload Certificate", type: :feature do
       visit new_certificate_path
       fill_in "Name", with: "MyCert1"
       attach_file("File", root_certificate_path)
-      click_button "Upload Certificate"
+      click_button "Upload certificate"
     end
     it "succeeds" do
       expect(page).to have_current_path(certificates_path)
-      expect(page).to have_content("New Certificate Added")
+      expect(page).to have_content("New certificate added")
     end
     it "lists the new certificate" do
       expect(page.find_link("MyCert1")).to_not be nil
@@ -163,7 +163,7 @@ describe "Upload Certificate", type: :feature do
         visit new_certificate_path
         fill_in "Name", with: "MyCert2"
         attach_file("File", intermediate_certificate_path)
-        click_button "Upload Certificate"
+        click_button "Upload certificate"
 
         expect(page).to have_selector("td ul li", text: "Intermediate")
       end
@@ -231,7 +231,7 @@ describe "Upload Certificate", type: :feature do
             expect(page).not_to have_css("tbody tr")
           end
           it "confirms the certificate has been removed" do
-            expect(page).to have_content("Successfully removed Certificate: MyCert1")
+            expect(page).to have_content("Successfully removed certificate: MyCert1")
           end
         end
       end
@@ -246,14 +246,14 @@ describe "Upload Certificate", type: :feature do
     it "reports an error" do
       fill_in "Name", with: "MyCert1"
       attach_file("File", root_certificate_path)
-      click_button "Upload Certificate"
+      click_button "Upload certificate"
 
       visit new_certificate_path
       fill_in "Name", with: "MyCert1"
       attach_file("File", intermediate_certificate_path)
-      click_button "Upload Certificate"
+      click_button "Upload certificate"
 
-      expect(page).to have_content "Certificate Name already taken"
+      expect(page).to have_content "Certificate name already taken"
     end
   end
 
@@ -265,12 +265,12 @@ describe "Upload Certificate", type: :feature do
     it "reports an error" do
       fill_in "Name", with: "MyCert1"
       attach_file("File", root_certificate_path)
-      click_button "Upload Certificate"
+      click_button "Upload certificate"
 
       visit new_certificate_path
       fill_in "Name", with: "MyCert2"
       attach_file("File", root_certificate_path)
-      click_button "Upload Certificate"
+      click_button "Upload certificate"
 
       expect(page).to have_content "This certificate has already been uploaded"
     end
@@ -282,7 +282,7 @@ describe "Upload Certificate", type: :feature do
     it "reports an error" do
       fill_in "Name", with: "MyCert1"
       attach_file("File", intermediate_certificate_path)
-      click_button "Upload Certificate"
+      click_button "Upload certificate"
 
       expect(page).to have_content "The certificate does not have a known issuing certificate. Please add its issuing certificate first."
     end

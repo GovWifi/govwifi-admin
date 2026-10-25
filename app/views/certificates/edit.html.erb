@@ -1,11 +1,11 @@
-<% content_for :page_title, "Edit Certificate" %>
+<% content_for :page_title, "Edit certificate" %>
 
 <%= govuk_back_link href: :back %>
 
 <%= form_with model: @certificate, method: "patch"  do |f| %>
   <%= f.govuk_error_summary %>
   <h1 class='govuk-heading-l'>What would you like to rename this certificate?</h1>
-  <%= f.govuk_text_field :name, hint: { text: "e.g. IntermediateCA 1" } %>
+  <%= f.govuk_text_field :name, hint: { text: "e.g. Intermediate CA 1" } %>
   <%= f.govuk_submit "Update" %>
 <% end %>
 
