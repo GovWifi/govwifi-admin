@@ -6,7 +6,7 @@ describe "View and search locations", type: :feature do
     create(:location, address: "69 Garry Street, London", postcode: "HA7 2BL", organisation:)
     sign_in_user user
     visit root_path
-    within(".leftnav") { click_on "All Locations" }
+    within(".leftnav") { click_on "All locations" }
   end
 
   it "takes the user to the locations page" do

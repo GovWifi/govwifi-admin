@@ -6,7 +6,7 @@ describe "Reset two factor authentication", type: :feature do
     before do
       sign_in_user super_admin_user
       visit "/"
-      click_on "Assume Membership"
+      click_on "Assume membership"
       click_on organisation.name
     end
 

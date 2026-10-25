@@ -8,7 +8,7 @@ describe "Set Radius Secret Key", type: :feature do
     location.save!
     sign_in_user user
     visit root_path
-    click_on "All Locations"
+    click_on "All locations"
     click_on location.address
     click_on "Set secret key"
   end

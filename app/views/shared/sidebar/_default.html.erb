@@ -34,10 +34,10 @@
     <% if super_admin? %>
       <ul class="govuk-list">
         <li>
-          <%= link_to "All Locations", super_admin_locations_path, class: active_tab(super_admin_locations_path) %>
+          <%= link_to "All locations", super_admin_locations_path, class: active_tab(super_admin_locations_path) %>
         </li>
         <li>
-          <%= link_to "All Organisations", super_admin_organisations_path, class: active_tab(super_admin_organisations_path) %>
+          <%= link_to "All organisations", super_admin_organisations_path, class: active_tab(super_admin_organisations_path) %>
         </li>
         <li>
           <%= link_to "Super admins", super_admin_users_path, class: active_tab(super_admin_users_path) %>
@@ -46,13 +46,13 @@
           <%= link_to "Allow list", new_super_admin_allowlist_path, class: active_tab(new_super_admin_allowlist_path) %>
         </li>
         <li>
-          <%= link_to "User Details", super_admin_wifi_user_search_path, class: active_tab(super_admin_wifi_user_search_path) %>
+          <%= link_to "User details", super_admin_wifi_user_search_path, class: active_tab(super_admin_wifi_user_search_path) %>
         </li>
         <li>
-          <%= link_to "Admin Details", super_admin_wifi_admin_search_path, class: active_tab(super_admin_wifi_admin_search_path) %>
+          <%= link_to "Admin details", super_admin_wifi_admin_search_path, class: active_tab(super_admin_wifi_admin_search_path) %>
         </li>
         <li>
-          <%= link_to "Assume Membership", super_admin_change_organisation_path, class: active_tab(super_admin_change_organisation_path) %>
+          <%= link_to "Assume membership", super_admin_change_organisation_path, class: active_tab(super_admin_change_organisation_path) %>
         </li>
       </ul>
     <% end %>
