@@ -22,7 +22,7 @@ describe "POST /certificates", type: :request do
     it "redirects to the certificates index page" do
       perform
       expect(response).to redirect_to certificates_path
-      expect(flash[:notice]).to match(/New Certificate Added/)
+      expect(flash[:notice]).to match(/New certificate added/)
     end
     include_examples "cba flag and location permissions"
   end

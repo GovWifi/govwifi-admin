@@ -5,6 +5,11 @@ class Certificate < ApplicationRecord
   validates :fingerprint, presence: true, uniqueness: { scope: :organisation_id }
 
   validates :content, :subject, :issuer, :not_before, :not_after, :serial, presence: true
+
+  def name=(value)
+    super(value.to_s.squish)
+  end
+
   def root_cert?
     subject == issuer
   end

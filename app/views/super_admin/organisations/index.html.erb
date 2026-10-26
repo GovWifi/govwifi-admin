@@ -24,6 +24,7 @@
   <input type="search" id="filter-input" class="govuk-input" autocomplete="off">
 </p>
 
+<div class="table-scrollable">
 <%= govuk_table do |table|
   table.with_head do |head|
     head.with_row do |row|
@@ -32,7 +33,8 @@
       row.with_cell(text: sort_link("latest_mou_created_at", "MOU Signed"))
       row.with_cell(text: sort_link("locations_count", "Locations"))
       row.with_cell(text: sort_link("ips_count", "IPs"))
-      row.with_cell(text: sort_link("certificates_count", "Uses EAP-TLS"))
+      row.with_cell(text: sort_link("cba_enabled", "CBA Enabled"))
+      row.with_cell(text: sort_link("certificates_count", "Certs Present"))
     end
   end
   table.with_body do |body|
@@ -43,11 +45,13 @@
         row.with_cell(text: mou_created_at_label(organisation))
         row.with_cell(text: organisation.locations_count)
         row.with_cell(text: organisation.ips_count)
-        row.with_cell(text: organisation.certificates.empty? ? "no" : "yes")
+        row.with_cell(text: organisation.cba_enabled ? "yes" : "no")
+        row.with_cell(text: organisation.certificates_count.zero? ? "no" : "yes")
       end
     end
   end
 end %>
+</div>
 
 <div role="status">
   <p class="govuk-body govwifi-hidden-element" id="no-results">

@@ -3,7 +3,7 @@ class SuperAdmin::OrganisationsController < SuperAdminController
   before_action :set_organisation, only: %i[show destroy toggle_cba_feature]
 
   def index
-    @organisations = Organisation.includes([:certificates]).sortable_with_child_counts(sort_column, sort_direction)
+    @organisations = Organisation.sortable_with_child_counts(sort_column, sort_direction)
     @location_count = Location.count
     respond_to do |format|
       format.html
@@ -29,7 +29,12 @@ class SuperAdmin::OrganisationsController < SuperAdminController
 
   def toggle_cba_feature
     @organisation.update!(cba_enabled: !@organisation.cba_enabled)
-    redirect_to super_admin_organisation_path, notice: "Cba feature flag toggled successfully"
+
+    if @organisation.cba_enabled
+      redirect_to super_admin_organisation_path, notice: "Certificate-Based Authentication has been enabled"
+    else
+      redirect_to super_admin_organisation_path, notice: "Certificate-Based Authentication has been disabled"
+    end
   end
 
 private

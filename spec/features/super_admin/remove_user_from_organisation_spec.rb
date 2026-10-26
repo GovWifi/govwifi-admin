@@ -7,7 +7,7 @@ describe "Removing a team member from an organisation as a super admin", type: :
     create(:user, organisations: [organisation])
     sign_in_user super_admin
     visit "/"
-    click_on "Assume Membership"
+    click_on "Assume membership"
     click_on organisation.name
     click_on "Team members"
     click_on "Edit", match: :first

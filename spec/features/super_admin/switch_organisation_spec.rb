@@ -9,7 +9,7 @@ describe "Switch organisations", type: :feature do
     organisation = create(:organisation)
 
     visit "/"
-    click_on "Assume Membership"
+    click_on "Assume membership"
     click_button(organisation.name)
 
     expect(page).to have_css("strong", text: organisation.name)

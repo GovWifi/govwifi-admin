@@ -1,3 +1,5 @@
+require "csv"
+
 class Organisation < ApplicationRecord
   CSV_HEADER = ["Name", "Created At", "MOU Signed", "Locations", "IPs"].freeze
   has_many :mous, dependent: :destroy

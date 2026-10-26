@@ -1,4 +1,4 @@
-<% content_for :page_title, "Remove Certificate", flush: true %>
+<% content_for :page_title, "Remove certificate", flush: true %>
 
 <%= error_summary(title: "Are you sure you want to remove certificate '#{@certificate.name}'?",
                   list: [govuk_inset_text(text: "Any devices using a related certificate will stop connecting to GovWifi"),
