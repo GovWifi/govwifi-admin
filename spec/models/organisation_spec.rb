@@ -88,6 +88,23 @@ describe Organisation do
     end
   end
 
+  describe ".fetch_organisations_from_register" do
+    before do
+      create(:custom_organisation_name, name: "  Zeta Org  ")
+      create(:custom_organisation_name, name: "Alpha Org")
+    end
+
+    it "squishes custom organisation names before returning them" do
+      expect(Organisation.fetch_organisations_from_register).to include("Zeta Org")
+    end
+
+    it "sorts the register alphabetically despite whitespace in custom names" do
+      names = Organisation.fetch_organisations_from_register
+      expect(names).to eq(names.sort_by(&:downcase))
+      expect(names.index("Alpha Org")).to be < names.index("Zeta Org")
+    end
+  end
+
   context "when organisation service email is left blank" do
     let(:organisation) { build(:organisation, service_email: "") }
 
