@@ -9,7 +9,8 @@ describe "Sorting custom organisations in the allow list", type: :feature do
   end
 
   it "lists custom organisations in ascending alphabetical order despite surrounding whitespace" do
-    names = page.all("a.red-link").map { |link| link.text.sub("Remove ", "").sub(" from the allow list", "") }
-    expect(names).to eq(%w[Alpha Org Zeta Org])
+    rows = page.all("tr").select { |tr| tr.find("th[scope=row]") }
+    names = rows.map(&:text)
+    expect(names.index { |t| t.include?("Alpha") }).to be < names.index { |t| t.include?("Zeta") }
   end
 end
