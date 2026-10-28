@@ -1,3 +1,3 @@
 <%= error_summary(title: "Are you sure you want to remove this organisation?") do %>
-  <%= govuk_button_to "Yes, remove #{params[:organisation_to_remove]} from the allow list", super_admin_allowlist_organisation_name_path(params[:id]), method: :delete, warning: true %>
+  <%= govuk_button_to "Yes, remove #{params[:organisation_to_remove].to_s.squish} from the allow list", super_admin_allowlist_organisation_name_path(params[:id]), method: :delete, warning: true %>
 <% end %>

@@ -2,6 +2,13 @@ describe Organisation do
   it { is_expected.to have_many(:users).through(:memberships) }
   it { is_expected.to have_many(:locations) }
 
+  describe "#display_name" do
+    it "returns the name squished" do
+      organisation = build(:organisation, name: "  Gov Org  ")
+      expect(organisation.display_name).to eq("Gov Org")
+    end
+  end
+
   describe "#latest_signed_mou_version" do
     let(:user) { create(:user, organisations: [organisation]) }
     let(:organisation) { create(:organisation) }
