@@ -36,7 +36,7 @@ private
   end
 
   def ordered_custom_orgs
-    CustomOrganisationName.all.order("#{sort_column} #{sort_direction}")
+    CustomOrganisationName.all.order("TRIM(name) #{sort_direction}")
   end
 
   def sortable_columns
