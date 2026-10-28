@@ -1,4 +1,4 @@
-<% content_for :page_title, @organisation.name.to_s %>
+<% content_for :page_title, @organisation.display_name.to_s %>
 
 <div class="govuk-grid-row">
   <%= render "confirm_remove_organisation" if params[:remove_organisation] %>
@@ -7,7 +7,7 @@
     <%= link_to "Back to list", super_admin_organisations_path, class: "govuk-back-link" %>
 
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-2 govuk-!-margin-top-2">
-      <%= @organisation.name %>
+      <%= @organisation.display_name %>
     </h1>
 
     <p class="govuk-body govuk-!-margin-bottom-8">

@@ -8,6 +8,10 @@ class CustomOrganisationName < ApplicationRecord
     self.name = name.to_s.squish
   end
 
+  def display_name
+    name.to_s.squish
+  end
+
   def custom_org_in_register?
     if Organisation.fetch_organisations_from_register.include?(name.strip)
       errors.add(:name, "Name is already in our register")

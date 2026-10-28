@@ -8,7 +8,7 @@
 <%= govuk_table do |table|
   table.with_body do |body|
     @organisations.each do |organisation|
-      button_html = button_to(organisation.name, super_admin_change_organisation_path(organisation_id: organisation.id), method: :patch, class: "govuk-heading-s govuk-link button-as-link govuk-!-margin-bottom-2")
+      button_html = button_to(organisation.display_name, super_admin_change_organisation_path(organisation_id: organisation.id), method: :patch, class: "govuk-heading-s govuk-link button-as-link govuk-!-margin-bottom-2")
       body.with_row do |row|
         row.with_cell(text: button_html)
       end

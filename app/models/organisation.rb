@@ -52,6 +52,10 @@ class Organisation < ApplicationRecord
     "#{ordered_column} #{direction}"
   end
 
+  def display_name
+    name.to_s.squish
+  end
+
   def enable_cba_feature!
     update(cba_enabled: true)
   end

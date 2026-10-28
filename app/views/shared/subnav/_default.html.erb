@@ -4,7 +4,7 @@
     <div class="govuk-service-navigation__container">
       <% if current_organisation %>
         <span class="govuk-service-navigation__service-name">
-          <strong><%= current_organisation.name %></strong>
+          <strong><%= current_organisation.display_name %></strong>
         </span>
       <% end %>
       <nav aria-label="Menu" class="govuk-service-navigation__wrapper">

@@ -10,9 +10,9 @@
   <tbody class="govuk-table__body">
     <% organisations.each do |organisation| %>
       <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row"><%= organisation.name %></th>
+        <th class="govuk-table__header" scope="row"><%= organisation.display_name %></th>
         <td class="govuk-table__cell"><%= organisation.created_at.strftime("%e %b %Y") %></td>
-        <td class="govuk-table__cell"><%= link_to "Remove", super_admin_allowlist_organisation_names_path(id: organisation.id, organisation_to_remove: organisation.name), class: "govuk-link red-link", id: "custom-organisation-#{organisation.id}", aria: { label: "Remove #{organisation.name} from the allow list" } %></td>
+        <td class="govuk-table__cell"><%= link_to "Remove", super_admin_allowlist_organisation_names_path(id: organisation.id, organisation_to_remove: organisation.name), class: "govuk-link red-link", id: "custom-organisation-#{organisation.id}", aria: { label: "Remove #{organisation.display_name} from the allow list" } %></td>
       </tr>
     <% end %>
   </tbody>

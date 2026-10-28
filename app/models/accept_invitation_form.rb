@@ -45,7 +45,7 @@ class AcceptInvitationForm
   end
 
   def organisation_name
-    @membership&.organisation&.name
+    @membership&.organisation&.display_name
   end
 
 private
