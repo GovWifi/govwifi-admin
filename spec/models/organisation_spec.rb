@@ -167,6 +167,23 @@ describe Organisation do
       it "orders results alphabetically" do
         expect(sorted_results).to eq([first_organisation, second_organisation])
       end
+
+      it "orders results alphabetically despite leading whitespace" do
+        create(:custom_organisation_name, name: "  Beta Org")
+        create(:custom_organisation_name, name: "Alpha Org")
+        
+        org_beta = build(:organisation, name: "  Beta Org")
+        org_beta.save(validate: false)
+        
+        org_alpha = build(:organisation, name: "Alpha Org")
+        org_alpha.save(validate: false)
+
+        # We need to reload sorted_results because they were defined via let
+        results = described_class.sortable_with_child_counts("name", "asc")
+        names = results.map(&:name)
+        expect(names).to include("Alpha Org", "  Beta Org")
+        expect(names.index("Alpha Org")).to be < names.index("  Beta Org")
+      end
     end
 
     context "when sorting by created_at" do

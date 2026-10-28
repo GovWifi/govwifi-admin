@@ -48,7 +48,7 @@ class Organisation < ApplicationRecord
   }
 
   def self.sort_order(column, direction)
-    ordered_column = column == "name" ? "TRIM(organisations.name)" : column
+    ordered_column = column.to_s == "name" ? "TRIM(organisations.name)" : column
     "#{ordered_column} #{direction}"
   end
 
@@ -73,7 +73,7 @@ class Organisation < ApplicationRecord
   end
 
   def validate_in_register?
-    unless Organisation.fetch_organisations_from_register.include?(name)
+    unless Organisation.fetch_organisations_from_register.include?(name&.squish)
       errors.add(:name, "Name isn't in the organisations allow list")
     end
   end
