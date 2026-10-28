@@ -23,9 +23,9 @@ module SettingsHelper
   def mou_status_label(current_organisation)
     last_mou = current_organisation.mous.last
 
-    return "Signed by #{last_mou.name} on #{last_mou.formatted_date}" if last_mou&.name.present?
+    return "Signed by #{last_mou.name.to_s.squish} on #{last_mou.formatted_date}" if last_mou&.name.present?
 
-    return "#{current_organisation.name} signed the GovWifi MOU" if last_mou.present?
+    return "#{current_organisation.display_name} signed the GovWifi MOU" if last_mou.present?
 
     label = content_tag(:span, class: "govuk-!-font-weight-bold") { "Not signed" }
     label += if current_organisation.nomination&.name

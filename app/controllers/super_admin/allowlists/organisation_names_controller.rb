@@ -26,7 +26,7 @@ class SuperAdmin::Allowlists::OrganisationNamesController < SuperAdminController
     custom_org = CustomOrganisationName.find_by(id: params.fetch(:id))
 
     custom_org.destroy!
-    redirect_to super_admin_allowlist_organisation_names_path, notice: "Successfully removed #{custom_org.name}"
+    redirect_to super_admin_allowlist_organisation_names_path, notice: "Successfully removed #{custom_org.display_name}"
   end
 
 private

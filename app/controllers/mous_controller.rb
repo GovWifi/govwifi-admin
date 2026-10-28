@@ -26,7 +26,7 @@ class MousController < ApplicationController
       old_nomination&.destroy!
       mou = @mou_form.save!(organisation: current_organisation, user: current_user)
       send_thank_you_email(mou)
-      redirect_to settings_path, notice: "#{current_organisation.name} has accepted the MOU for GovWifi"
+      redirect_to settings_path, notice: "#{current_organisation.display_name} has accepted the MOU for GovWifi"
     end
   end
 

@@ -27,9 +27,9 @@
   <%= f.govuk_text_field :job_role, width: "two-thirds", label: { size: "s", text: "Job role" } %>
   <%= f.hidden_field :token, value: @token %>
   <%= f.govuk_check_boxes_fieldset :signed, legend: { text: "Accept terms", size: "m" } do %>
-    <%= f.govuk_check_box :signed, true, false, multiple: false, link_errors: true, label: { text: "I confirm that I have the authority to accept these terms and that #{@nomination.organisation_name} will be bound by them." } %>
+    <%= f.govuk_check_box :signed, true, false, multiple: false, link_errors: true, label: { text: "I confirm that I have the authority to accept these terms and that #{@nomination.organisation_display_name} will be bound by them." } %>
   <% end %>
   <%= f.govuk_submit "Accept the MOU" %>
 <% end %>
 
-<p class="govuk-body">This will send an email to <%= @nomination.organisation_name %> confirming that you have signed the MOU.</p>
+<p class="govuk-body">This will send an email to <%= @nomination.organisation_display_name %> confirming that you have signed the MOU.</p>
