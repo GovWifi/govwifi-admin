@@ -9,7 +9,7 @@ describe "Sorting custom organisations in the allow list", type: :feature do
   end
 
   it "lists custom organisations in ascending alphabetical order despite surrounding whitespace" do
-    rows = page.all("tr").select { |tr| tr.find("th[scope=row]") }
+    rows = page.all("tbody tr")
     names = rows.map(&:text)
     expect(names.index { |t| t.include?("Alpha") }).to be < names.index { |t| t.include?("Zeta") }
   end
