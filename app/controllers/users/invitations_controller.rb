@@ -14,7 +14,7 @@ class Users::InvitationsController < ApplicationController
     if @invitation_form.valid?
       @invitation_form.save!
 
-      redirect_to memberships_path, notice: "#{@invitation_form.email} has been invited to join #{current_organisation.name}"
+      redirect_to memberships_path, notice: "#{@invitation_form.email} has been invited to join #{current_organisation.display_name}"
     else
       render(params.dig(:invitation_form, :source) == "invite_admin" ? :invite_second_admin : :new)
     end
@@ -40,8 +40,8 @@ class Users::InvitationsController < ApplicationController
     email = params[:email]
     user = User.find_by_email(email)
     membership = user&.membership_for(current_organisation)
-    raise "Cannot find membership for user #{email} and organisation #{current_organisation.name}" if user.nil? || membership.nil?
-    raise "The membership for user #{email} and organisation #{current_organisation.name} has already been confirmed" if membership.confirmed?
+    raise "Cannot find membership for user #{email} and organisation #{current_organisation.display_name}" if user.nil? || membership.nil?
+    raise "The membership for user #{email} and organisation #{current_organisation.display_name} has already been confirmed" if membership.confirmed?
 
     GovWifiMailer.membership_instructions(
       user,

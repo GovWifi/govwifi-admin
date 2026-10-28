@@ -91,7 +91,7 @@ class Organisation < ApplicationRecord
       csv << CSV_HEADER
       Organisation.includes(:mous).sortable_with_child_counts("name", "asc").each do |o|
         mou_signed_at = o.mous.present? ? o.mous.map(&:created_at).join(", ") : "-"
-        csv << [o.name, o.created_at, mou_signed_at, o.locations_count, o.ips_count]
+        csv << [o.display_name, o.created_at, mou_signed_at, o.locations_count, o.ips_count]
       end
     end
   end
@@ -102,7 +102,7 @@ class Organisation < ApplicationRecord
       Organisation
         .select("organisations.*, users.name AS user_name")
         .joins("LEFT OUTER JOIN users ON users.email = organisations.service_email").each do |o|
-        csv << [o.service_email, o.name, o.user_name, o.created_at]
+        csv << [o.service_email, o.display_name, o.user_name, o.created_at]
       end
     end
   end
