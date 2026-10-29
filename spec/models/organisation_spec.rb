@@ -178,12 +178,12 @@ describe Organisation do
       it "orders results alphabetically despite leading whitespace" do
         create(:custom_organisation_name, name: "  Beta Org")
         create(:custom_organisation_name, name: "Alpha Org")
-        
+
         org_beta = build(:organisation, name: "  Beta Org")
-        org_beta.save(validate: false)
-        
+        org_beta.save!(validate: false)
+
         org_alpha = build(:organisation, name: "Alpha Org")
-        org_alpha.save(validate: false)
+        org_alpha.save!(validate: false)
 
         # We need to reload sorted_results because they were defined via let
         results = described_class.sortable_with_child_counts("name", "asc")
