@@ -4,42 +4,44 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# --- Bundler & Ruby tooling ---
 # Ignore bundler config.
 /.bundle
+.byebug_history
+.gems
+vendor/
 
+# --- Node & JavaScript ---
+/node_modules
+/yarn-error.log
+package-lock.json
+
+# --- Databases ---
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# --- Logs & tempfiles ---
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
 
-/node_modules
-/yarn-error.log
-
-.byebug_history
-package-lock.json
-
+# --- IDEs & OS files ---
 # Ignore mac specific file that stores custom attributes
 .DS_Store
-
 # Ignore IDE files
-
 .idea
 
-# Ignore storage files
-storage/
-
-# SimpleCov output
-coverage
-
+# --- Secrets & environment ---
 ci/secrets
-# Ignore assets
-public/assets
-
-.gems
 .envrc
 
+# --- Assets, build output & storage ---
+# Ignore assets
+public/assets
+# SimpleCov output
+coverage
+# Ignore storage files
+storage/

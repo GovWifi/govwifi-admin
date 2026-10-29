@@ -1,0 +1,11 @@
+# .erb_lint.yml
+#
+# erb_lint has no built-in default exclusions, so without this file it scans
+# every ERB file in the repo -- including the ~300 files under vendor/ that
+# skew the lint results for the actual project code.
+#
+# Paths here are matched against every file (absolute and repo-relative), so
+# "vendor/**/*" excludes the whole vendored tree regardless of depth.
+
+exclude:
+  - "vendor/**/*"

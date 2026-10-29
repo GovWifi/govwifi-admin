@@ -1,0 +1,3 @@
+# Vendored gems (e.g. sassc/sassc-rails test fixtures) are third-party code
+# and not part of this project. Excluded from stylelint scanning.
+vendor/**
