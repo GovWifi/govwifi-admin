@@ -39,6 +39,30 @@ describe "Adding a custom organisation name", type: :feature do
       end
     end
 
+    context "when the organisation name has leading or trailing whitespace" do
+      let(:name) { "  Custom Org name  " }
+
+      it "stores the name stripped of surrounding whitespace" do
+        expect {
+          click_on "Allow organisation"
+        }.to change(CustomOrganisationName, :count).by(1)
+
+        expect(CustomOrganisationName.last.name).to eq("Custom Org name")
+      end
+    end
+
+    context "when the organisation name has repeated internal whitespace" do
+      let(:name) { "Custom   Org   name" }
+
+      it "collapses internal whitespace runs to a single space" do
+        expect {
+          click_on "Allow organisation"
+        }.to change(CustomOrganisationName, :count).by(1)
+
+        expect(CustomOrganisationName.last.name).to eq("Custom Org name")
+      end
+    end
+
     context "when the organisation name is blank" do
       let(:name) { "" }
 

@@ -8,7 +8,7 @@ module UseCases
 
     def execute
       csv = ::Organisation.all
-              .map { |o| [o.name, o.service_email].to_csv }
+              .map { |o| [o.display_name, o.service_email].to_csv }
               .join
 
       time = Time.zone.now.strftime("%Y-%m-%d-%H-%M-%S")

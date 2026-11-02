@@ -2,6 +2,13 @@ describe Organisation do
   it { is_expected.to have_many(:users).through(:memberships) }
   it { is_expected.to have_many(:locations) }
 
+  describe "#display_name" do
+    it "returns the name squished" do
+      organisation = build(:organisation, name: "  Gov Org  ")
+      expect(organisation.display_name).to eq("Gov Org")
+    end
+  end
+
   describe "#latest_signed_mou_version" do
     let(:user) { create(:user, organisations: [organisation]) }
     let(:organisation) { create(:organisation) }
@@ -88,6 +95,23 @@ describe Organisation do
     end
   end
 
+  describe ".fetch_organisations_from_register" do
+    before do
+      create(:custom_organisation_name, name: "  Zeta Org  ")
+      create(:custom_organisation_name, name: "Alpha Org")
+    end
+
+    it "squishes custom organisation names before returning them" do
+      expect(Organisation.fetch_organisations_from_register).to include("Zeta Org")
+    end
+
+    it "sorts the register alphabetically despite whitespace in custom names" do
+      names = Organisation.fetch_organisations_from_register
+      expect(names).to eq(names.sort_by(&:downcase))
+      expect(names.index("Alpha Org")).to be < names.index("Zeta Org")
+    end
+  end
+
   context "when organisation service email is left blank" do
     let(:organisation) { build(:organisation, service_email: "") }
 
@@ -149,6 +173,23 @@ describe Organisation do
 
       it "orders results alphabetically" do
         expect(sorted_results).to eq([first_organisation, second_organisation])
+      end
+
+      it "orders results alphabetically despite leading whitespace" do
+        create(:custom_organisation_name, name: "  Beta Org")
+        create(:custom_organisation_name, name: "Alpha Org")
+
+        org_beta = build(:organisation, name: "  Beta Org")
+        org_beta.save!(validate: false)
+
+        org_alpha = build(:organisation, name: "Alpha Org")
+        org_alpha.save!(validate: false)
+
+        # We need to reload sorted_results because they were defined via let
+        results = described_class.sortable_with_child_counts("name", "asc")
+        names = results.map(&:name)
+        expect(names).to include("Alpha Org", "  Beta Org")
+        expect(names.index("Alpha Org")).to be < names.index("  Beta Org")
       end
     end
 

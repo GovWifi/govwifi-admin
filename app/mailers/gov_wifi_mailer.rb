@@ -48,7 +48,7 @@ class GovWifiMailer < ::Devise::Mailer
     opts = {
       email_address: record.email,
       personalisation: { invite_url: edit_users_invitation_url(invitation_token:),
-                         organisation: opts.fetch(:organisation).name },
+                         organisation: opts.fetch(:organisation).display_name },
       template_id: NotifyTemplates.template(:cross_organisation_invitation),
       reference: "invite_email",
     }

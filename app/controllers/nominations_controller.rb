@@ -34,7 +34,7 @@ private
       name,
       email,
       nominated_by,
-      current_organisation.name,
+      current_organisation.display_name,
       token,
     ).deliver_now
   end

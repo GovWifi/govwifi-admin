@@ -4,6 +4,6 @@ class Users::MembershipsController < ApplicationController
     invitation.confirm!
 
     session[:organisation_id] = invitation.organisation.id
-    redirect_to root_path, notice: "You have successfully joined #{invitation.organisation.name}"
+    redirect_to root_path, notice: "You have successfully joined #{invitation.organisation.display_name}"
   end
 end

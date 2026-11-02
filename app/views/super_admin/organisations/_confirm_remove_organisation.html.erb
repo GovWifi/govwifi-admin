@@ -1,4 +1,4 @@
-<%= error_summary(title: "Are you sure you want to delete #{@organisation.name}") do %>
+<%= error_summary(title: "Are you sure you want to delete #{@organisation.display_name}") do %>
   <%= govuk_button_to("Yes, remove this organisation",
       super_admin_organisation_path(@organisation),
       method: :delete,
