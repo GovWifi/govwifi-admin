@@ -9,7 +9,7 @@ describe "Lookup wifi user contact details", type: :feature do
 
     sign_in_user user
     visit root_path
-    click_on "User details"
+    click_on "User Details"
 
     fill_in "Username, email address or phone number", with: search_term
     click_on "Find user details"

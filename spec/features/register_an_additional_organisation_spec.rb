@@ -43,7 +43,7 @@ describe "Register an additional organisation", type: :feature do
       select organisation_2_name, from: "name"
       fill_in "Service email", with: "info@gov.uk"
       click_on "Add organisation"
-      click_on "Switch organisation"
+      click_on "Switch Organisation"
       expect(page).to have_selector("ul.govuk-list li form button", text: organisation_2_name, count: 1)
     end
   end

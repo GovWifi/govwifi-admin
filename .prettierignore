@@ -1,0 +1,6 @@
+# Vendored gems (e.g. sassc/sassc-rails test fixtures, gemspecs, docs) are
+# third-party code and not part of this project. Excluded from prettier.
+vendor/**
+
+# Project README describing the admin app. Not maintained by Prettier.
+AGENTS.md

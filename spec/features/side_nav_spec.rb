@@ -23,7 +23,7 @@ describe "Side nav logic", type: :feature do
       context "With an organisation" do
         let(:user) { create(:user, :super_admin, :with_organisation) }
         it "displays the regular admin links" do
-          expect(@section).to have_link("Team members", href: memberships_path)
+          expect(@section).to have_link("Team Members", href: memberships_path)
         end
         it "displays a settings link referring to the new organisation settings path" do
           expect(@section).to have_link("Settings", href: new_organisation_settings_path)
@@ -35,7 +35,7 @@ describe "Side nav logic", type: :feature do
           end
         end
         it "displays super admin links" do
-          expect(@section).to have_link("All locations")
+          expect(@section).to have_link("All Locations")
         end
         it "displays a separation bar" do
           expect(@section).to have_selector("hr.govuk-section-break")
@@ -45,10 +45,10 @@ describe "Side nav logic", type: :feature do
         let(:user) { create(:user, :super_admin) }
 
         it "does not display the regular admin links" do
-          expect(@section).to_not have_link("Team members", href: memberships_path)
+          expect(@section).to_not have_link("Team Members", href: memberships_path)
         end
         it "displays super admin links" do
-          expect(@section).to have_link("All locations")
+          expect(@section).to have_link("All Locations")
         end
         it "does not display a separation bar" do
           expect(@section).to_not have_selector("hr.govuk-section-break")
@@ -58,7 +58,7 @@ describe "Side nav logic", type: :feature do
     context "Regular User" do
       let(:user) { create(:user, :with_organisation) }
       it "displays the regular admin links" do
-        expect(@section).to have_link("Team members", href: memberships_path)
+        expect(@section).to have_link("Team Members", href: memberships_path)
       end
       it "does not display super admin links" do
         expect(@section).to_not have_link("All locations")

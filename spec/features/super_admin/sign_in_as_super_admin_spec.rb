@@ -13,11 +13,11 @@ describe "Signing in as a super admin", type: :feature do
     end
 
     it "shows the super_org sidebar" do
-      expect(page).to have_content "Allow list"
+      expect(page).to have_content "Allow List"
     end
 
     it "renders the super admin overview" do
-      expect(page.find(".govuk-heading-l")).to have_content "All organisations"
+      expect(page.find(".govuk-heading-l")).to have_content "All Organisations"
     end
 
     context "when visiting a normal organisation" do
@@ -26,12 +26,12 @@ describe "Signing in as a super admin", type: :feature do
 
         visit root_path
 
-        click_on "Switch organisation"
+        click_on "Switch Organisation"
         click_on "Gov Org 2"
       end
 
       it "shows the normal organisation sidebar" do
-        expect(page).to have_content "Team members"
+        expect(page).to have_content "Team Members"
       end
 
       it "renders the normal organisation overview" do
