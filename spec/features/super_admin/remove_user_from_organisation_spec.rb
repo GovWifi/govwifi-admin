@@ -9,7 +9,7 @@ describe "Removing a team member from an organisation as a super admin", type: :
     visit "/"
     click_on "Assume Membership"
     click_on organisation.name
-    click_on "Team members"
+    click_on "Team Members"
     click_on "Edit", match: :first
     click_on "Remove user from GovWifi admin"
   end

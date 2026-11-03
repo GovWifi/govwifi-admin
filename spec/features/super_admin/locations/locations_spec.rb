@@ -10,7 +10,7 @@ describe "View and search locations", type: :feature do
   end
 
   it "takes the user to the locations page" do
-    expect(page).to have_content("GovWifi locations")
+    expect(page).to have_content("GovWifi Locations")
   end
 
   context "with all the locations details" do

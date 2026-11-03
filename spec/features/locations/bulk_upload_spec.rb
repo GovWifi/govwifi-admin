@@ -211,8 +211,8 @@ describe "Bulk upload locations and IPs", type: :feature do
       end
 
       it "displays the IP address error messages" do
-        expect(page).to have_content("Ip address 192.1.2.3 is a duplicate", count: 4)
-        expect(page).to have_content("Ip address 192.1.2.4 is a duplicate", count: 4)
+        expect(page).to have_content("IP address 192.1.2.3 is a duplicate", count: 4)
+        expect(page).to have_content("IP address 192.1.2.4 is a duplicate", count: 4)
       end
 
       it "does not have a save button" do

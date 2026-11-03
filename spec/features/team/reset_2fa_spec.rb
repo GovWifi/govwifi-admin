@@ -12,19 +12,19 @@ describe "Reset two factor authentication", type: :feature do
 
     it "shows the option to reset 2FA for org members who have 2FA enabled" do
       create(:user, :with_2fa, organisations: [organisation])
-      click_on "Team members"
+      click_on "Team Members"
       expect(page).to have_content("Reset 2FA", count: 1)
     end
 
     it "shows the option to reset 2FA for org members who do not 2FA enabled" do
       create(:user, organisations: [organisation])
-      click_on "Team members"
+      click_on "Team Members"
       expect(page).to_not have_content("Reset 2FA")
     end
 
     it "shows confirmation before resetting 2FA for an org member" do
       create(:user, :with_2fa, organisations: [organisation])
-      click_on "Team members"
+      click_on "Team Members"
       click_on "Reset 2FA"
 
       expect(page).to have_content("Are you sure you want to reset")
@@ -32,7 +32,7 @@ describe "Reset two factor authentication", type: :feature do
 
     it "resets 2FA for an org member once super admin confirms the reset" do
       user = create(:user, :with_2fa, organisations: [organisation])
-      click_on "Team members"
+      click_on "Team Members"
       click_on "Reset 2FA"
 
       expect { click_on "Yes, reset two factor authentication" }.to change { user.reload.totp_enabled? }.from(true).to(false)
@@ -40,7 +40,7 @@ describe "Reset two factor authentication", type: :feature do
 
     it "redirects back to org listing once 2FA has been reset" do
       create(:user, :with_2fa, organisations: [organisation])
-      click_on "Team members"
+      click_on "Team Members"
       click_on "Reset 2FA"
       click_on "Yes, reset two factor authentication"
 
@@ -49,7 +49,7 @@ describe "Reset two factor authentication", type: :feature do
 
     it "shows a notice once 2FA has been reset" do
       create(:user, :with_2fa, organisations: [organisation])
-      click_on "Team members"
+      click_on "Team Members"
       click_on "Reset 2FA"
       click_on "Yes, reset two factor authentication"
 

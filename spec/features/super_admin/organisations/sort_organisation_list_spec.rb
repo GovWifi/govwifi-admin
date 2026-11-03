@@ -45,14 +45,14 @@ describe "Sorting the organisations list", type: :feature do
         expect(page.body).to match(/Gov Org 1.*Gov Org 2.*Gov Org 3/m)
       end
 
-      context "when using eap-tls" do
-        it "sorts the list from yes to no after EAP-TLS is clicked the first time" do
-          click_link "Uses EAP-TLS"
+      context "when using certs present" do
+        it "sorts the list from yes to no after Certs Present is clicked the first time" do
+          click_link "Certs Present"
 
           expect(page.body).to match(/Gov Org 2.*Gov Org 1.*Gov Org 3/m)
         end
-        it "sorts the list from no to yes after EAP-TLS is clicked twice" do
-          2.times { click_link "Uses EAP-TLS" }
+        it "sorts the list from no to yes after Certs Present is clicked twice" do
+          2.times { click_link "Certs Present" }
 
           expect(page.body).to match(/Gov Org 1.*Gov Org 3.*Gov Org 2/m)
         end

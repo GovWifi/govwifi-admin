@@ -30,7 +30,7 @@ describe "Rename Certificate", type: :feature do
       click_link "Rename root_cert"
       fill_in "Name", with: ""
       click_button("Update")
-      expect(page).to have_content("Certificate Name can't be blank")
+      expect(page).to have_content("Certificate name can't be blank")
     end
   end
 end

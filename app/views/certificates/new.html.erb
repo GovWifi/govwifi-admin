@@ -1,16 +1,17 @@
-<% content_for :page_title, "Add Certificate" %>
+<% content_for :page_title, "Add certificate" %>
 
 <%= govuk_back_link href: :back %>
 
 <%= form_with model: @certificate_form, url: { action: "create" }  do |f| %>
   <%= f.govuk_error_summary %>
-  <h1 class='govuk-heading-l'>Add Certificate</h1>
+  <h1 class='govuk-heading-l'>Add certificate</h1>
   <%= govuk_inset_text do %>
-    You need to upload at least one <strong>Intermediate</strong> Certificate to enable GovWifi Certificate Based Authentication. This will allow devices you issue (with a corresponding client certificate) to seamlessly authenticate with GovWifi.
+    You need to upload at least one <strong>intermediate certificate</strong> to enable GovWifi Certificate-Based Authentication.
+    This will allow devices you issue (with a corresponding client certificate) to seamlessly authenticate with GovWifi.
   <% end %>
-  <%= f.govuk_text_field :name, hint: { text: "e.g. IntermediateCA 1" } %>
+  <%= f.govuk_text_field :name, hint: { text: "e.g. Intermediate CA 1" } %>
   <%= f.govuk_file_field :file %>
-  <%= f.govuk_submit "Upload Certificate" %>
+  <%= f.govuk_submit "Upload certificate" %>
 <% end %>
 
 <p class="govuk-body">

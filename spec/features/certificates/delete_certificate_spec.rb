@@ -33,14 +33,14 @@ describe "Delete Certificate", type: :feature do
       end
       it "removes the root certificate" do
         click_button "Remove"
-        expect(page).to have_content("Successfully removed Certificate: #{intermediate_name}")
+        expect(page).to have_content("Successfully removed certificate: #{intermediate_name}")
       end
       it "allows the root to be removed afterwards" do
         click_button "Remove"
         click_link root_name
         click_button "Remove"
         click_button "Remove"
-        expect(page).to have_content("Successfully removed Certificate: #{root_name}")
+        expect(page).to have_content("Successfully removed certificate: #{root_name}")
       end
     end
   end

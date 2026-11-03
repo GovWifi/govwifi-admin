@@ -49,12 +49,12 @@ en:
           attributes:
             name:
               format: "%{message}"
-              blank: "Certificate Name can't be blank"
-              taken: "Certificate Name already taken"
+              blank: "Certificate name can't be blank"
+              taken: "Certificate name already taken"
             file:
               format: "%{message}"
               taken: "This certificate has already been uploaded"
-              blank: "No Certificate file selected. Please choose a file to try again."
+              blank: "No certificate file selected. Please choose a file to try again."
               invalid_certificate: "Certificates must be in a .PEM format"
               no_parent: "The certificate does not have a known issuing certificate. Please add its issuing certificate first."
         mou_form:
@@ -143,16 +143,16 @@ en:
               ipv6: "Address '%{ip_address}' is an IPv6 address. Only IPv4 addresses can be added."
               private: "Address '%{ip_address}' is a private IP address. Only public IPv4 addresses can be added."
               malformed: "Address '%{ip_address}' is not a valid IP address"
-              unpersisted_duplicate: "Ip address %{address} is a duplicate"
+              unpersisted_duplicate: "IP address %{address} is a duplicate"
         certificate:
           attributes:
             name:
               format: "%{message}"
-              blank: "Certificate Name can't be blank"
-              taken: "Certificate Name already taken"
+              blank: "Certificate name can't be blank"
+              taken: "Certificate name already taken"
             fingerprint:
               format: "%{message}"
-              taken: "Identical Certificate already exists"
+              taken: "Identical certificate already exists"
         mou:
           attributes:
             name:
@@ -183,7 +183,7 @@ en:
 
   certificates:
     not_allowed: "You are not allowed to perform this operation"
-    new_certificate: "New Certificate Added: %{name}"
+    new_certificate: "New certificate added: %{name}"
     remove_children: "Cannot remove a certificate with issued certificates. Please remove the issued certificates first."
-    removed: "Successfully removed Certificate: %{name}"
+    removed: "Successfully removed certificate: %{name}"
     renamed: "Successfully renamed the certificate"

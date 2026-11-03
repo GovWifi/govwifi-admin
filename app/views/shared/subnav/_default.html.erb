@@ -13,11 +13,11 @@
         </button>
         <ul class="govuk-service-navigation__list" id="navigation">
           <li class="govuk-service-navigation__item <%= 'govuk-service-navigation__item--active' if current_page?(change_organisation_path) %>">
-            <%= link_to "Switch organisation", change_organisation_path, class: "govuk-service-navigation__link" %>
+            <%= link_to "Switch Organisation", change_organisation_path, class: "govuk-service-navigation__link" %>
           </li>
           <li class="govuk-service-navigation__item <%= 'govuk-service-navigation__item--active' if current_page?(super_admin_organisations_path) %>">
             <% if super_admin? %>
-              <%= link_to "View all organisations", super_admin_organisations_path, class: "govuk-service-navigation__link" %>
+              <%= link_to "View All Organisations", super_admin_organisations_path, class: "govuk-service-navigation__link" %>
             <% end %>
           </li>
         </ul>

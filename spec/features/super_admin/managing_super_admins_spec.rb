@@ -7,8 +7,8 @@ describe "Managing super admins", type: :feature do
       sign_in_user super_admin
       visit root_path
 
-      click_on "View all organisations"
-      click_on "Super admins"
+      click_on "View All Organisations"
+      click_on "Super Admins"
     end
 
     context "when user is not a super admin" do

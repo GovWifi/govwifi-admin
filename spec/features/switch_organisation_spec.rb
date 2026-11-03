@@ -14,7 +14,7 @@ describe "Switching organisations", type: :feature do
       create(:membership, :unconfirmed, organisation: unconfirmed_org, user:)
       create(:organisation)
       visit root_path
-      click_on "Switch organisation"
+      click_on "Switch Organisation"
     end
     it "displays a button for the confirmed organisation membership" do
       expect(page).to have_button(confirmed_org.name)
@@ -35,7 +35,7 @@ describe "Switching organisations", type: :feature do
     context "when switching organisations" do
       before do
         visit root_path
-        click_on "Switch organisation"
+        click_on "Switch Organisation"
       end
 
       it "does not display the sidenav" do
