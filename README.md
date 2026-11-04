@@ -88,15 +88,18 @@ This will run the full test suite (RSpec based) to ensure that everything works
 as expected.
 
 For a comprehensive, clean run (recommended for CI or final verification):
+
 ```shell
 make test
 ```
 
 For faster feedback during development, you can run the tests in parallel:
+
 ```shell
 make test-parallel
 ```
-*Note: If you have modified the database schema, run `make test-parallel-setup` first.*
+
+_Note: If you have modified the database schema, run `make test-parallel-setup` first._
 
 ### Use the linter
 
