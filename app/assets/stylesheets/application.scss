@@ -1,6 +1,9 @@
 $govuk-image-url-function: "image-url";
+$govuk-suppressed-warnings: ("libsass",);
 $govuk-font-url-function: "font-url";
 
+// govuk-frontend 5.x emits a false-positive "LibSass is deprecated" warning
+// when compiled with Dart Sass (sassc); the app uses Dart Sass, so suppress it.
 @import "../../../node_modules/govuk-frontend/dist/govuk/index";
 @import "../../../node_modules/accessible-autocomplete/dist/accessible-autocomplete.min";
 // .govuk-header__content,
