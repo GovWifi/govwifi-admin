@@ -10,7 +10,7 @@ DOCKER_COMPOSE_NO2FA = $(DOCKER_COMPOSE) -f docker-compose-no2fa.yml
 
 .DEFAULT_GOAL := help
 
-.PHONY: build database serve serve-no2fa shell test prebuilt-test lint autocorrect autocorrect-erb autocorrect-ruby local-yarn-update stop help
+.PHONY: build database serve serve-no2fa shell test prebuilt-test test-parallel test-parallel-setup lint autocorrect autocorrect-erb autocorrect-ruby local-yarn-update stop help
 
 help:
 	@echo "Available targets:"
@@ -18,6 +18,8 @@ help:
 	@echo "  build              Build Docker image"
 	@echo "  database           Setup database (create, migrate, seed)"
 	@echo "  prebuilt-test      Run test suite with test database"
+	@echo "  test-parallel       Run test suite in parallel"
+	@echo "  test-parallel-setup  Setup parallel test databases"
 	@echo "  serve              Start development server"
 	@echo "  serve-no2fa        Start development server without 2FA"
 	@echo "  shell              Open shell in running container"
@@ -33,8 +35,9 @@ help:
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Examples:"
-	@echo "  make test          Run tests"
-	@echo "  make lint          Run linters"
+	@echo "  make test            Run tests"
+	@echo "  make test-parallel     Run tests in parallel"
+	@echo "  make lint              Run linters"
 	@echo "  make serve         Start development server"
 	@echo "  make database      Setup database"
 	@echo "  make stop          Stop all containers"
@@ -59,7 +62,17 @@ serve-no2fa: stop database build
 shell: serve
 	$(DOCKER_COMPOSE) exec app bash
 
-test: stop build prebuilt-test
+test: stop build test-parallel-setup test-parallel
+
+test-parallel:
+	$(DOCKER_COMPOSE) run -e RACK_ENV=test -e RUBYLIB=spec --rm app bundle exec parallel_rspec spec/
+
+test-parallel-setup:
+	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app bundle exec rake parallel:create
+	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:schema:load
+	@for i in $$(seq 2 $$(nproc)); do \
+		$(DOCKER_COMPOSE) run -e RACK_ENV=test -e TEST_ENV_NUMBER=$$i --rm app ./bin/rails db:schema:load; \
+	done
 
 prebuilt-test:
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load

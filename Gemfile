@@ -46,6 +46,7 @@ group :test do
   gem "ostruct"
   gem "rack_session_access"
   gem "rails-controller-testing"
+  gem "parallel_tests"
   gem "rspec-rails"
   gem "rubocop-govuk"
   gem "shoulda-matchers"

@@ -8,7 +8,7 @@ mysql: &mysql
 
 test:
   !!merge <<: *mysql
-  database: govwifi_admin_test
+  database: govwifi_admin_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 development:
   !!merge <<: *mysql
