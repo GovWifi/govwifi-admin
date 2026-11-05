@@ -1,5 +1,5 @@
 $govuk-image-url-function: "image-url";
-$govuk-suppressed-warnings: ("libsass",);
+$govuk-suppressed-warnings: ("libsass");
 $govuk-font-url-function: "font-url";
 
 // govuk-frontend 5.x emits a false-positive "LibSass is deprecated" warning
