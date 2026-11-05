@@ -35,4 +35,4 @@ wifi_user:
   port: <%= ENV.fetch('USER_DB_PORT', 3306) %>
   username: <%= ENV.fetch('USER_DB_USER') %>
   password: <%= ENV.fetch('USER_DB_PASS') %>
-  database: <%= ENV.fetch('USER_DB_NAME') %>
+  database: <%= ENV['TEST_ENV_NUMBER'] ? "#{ENV.fetch('USER_DB_NAME')}#{ENV['TEST_ENV_NUMBER']}" : ENV.fetch('USER_DB_NAME') %>
