@@ -80,18 +80,16 @@ test-parallel-setup:
 	echo ">> test-parallel-setup: aligned workers = $$N_WORKERS"; \
 	$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test PARALLEL_WORKERS=$$N_WORKERS bundle exec rake parallel:drop"; \
 	$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test PARALLEL_WORKERS=$$N_WORKERS bundle exec rake parallel:create"; \
-	$(DOCKER_COMPOSE) exec app sh -c 'RACK_ENV=test ./bin/rails db:schema:load'; \
+	$(DOCKER_COMPOSE) exec app sh -c 'RACK_ENV=test ./bin/rails db:schema:load' & \
 	for i in $$(seq 2 $$N_WORKERS); do \
-		$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test TEST_ENV_NUMBER=$$i ./bin/rails db:schema:load"; \
+		$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test TEST_ENV_NUMBER=$$i ./bin/rails db:schema:load" & \
 	done; \
-	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'DROP DATABASE IF EXISTS wifi_user_govwifi;'"; \
-	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'CREATE DATABASE wifi_user_govwifi;'"; \
-	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root wifi_user_govwifi < /docker-entrypoint-initdb.d/wifi_user_schema.sql"; \
+	wait; \
+	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'DROP DATABASE IF EXISTS wifi_user_govwifi; CREATE DATABASE wifi_user_govwifi;'; MYSQL_PWD=root mysql -u root wifi_user_govwifi < /docker-entrypoint-initdb.d/wifi_user_schema.sql" & \
 	for i in $$(seq 2 $$N_WORKERS); do \
-		$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'DROP DATABASE IF EXISTS wifi_user_govwifi$$i;'" && \
-		$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'CREATE DATABASE wifi_user_govwifi$$i;'" && \
-		$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root wifi_user_govwifi$$i < /docker-entrypoint-initdb.d/wifi_user_schema.sql"; \
-	done
+		$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'DROP DATABASE IF EXISTS wifi_user_govwifi$$i; CREATE DATABASE wifi_user_govwifi$$i;'; MYSQL_PWD=root mysql -u root wifi_user_govwifi$$i < /docker-entrypoint-initdb.d/wifi_user_schema.sql" & \
+	done; \
+	wait
 
 prebuilt-test:
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
