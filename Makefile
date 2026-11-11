@@ -80,16 +80,8 @@ test-parallel-setup:
 	echo ">> test-parallel-setup: aligned workers = $$N_WORKERS"; \
 	$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test PARALLEL_WORKERS=$$N_WORKERS bundle exec rake parallel:drop"; \
 	$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test PARALLEL_WORKERS=$$N_WORKERS bundle exec rake parallel:create"; \
-	$(DOCKER_COMPOSE) exec app sh -c 'RACK_ENV=test ./bin/rails db:schema:load' & \
-	for i in $$(seq 2 $$N_WORKERS); do \
-		$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test TEST_ENV_NUMBER=$$i ./bin/rails db:schema:load" & \
-	done; \
-	wait; \
-	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'DROP DATABASE IF EXISTS wifi_user_govwifi; CREATE DATABASE wifi_user_govwifi;'; MYSQL_PWD=root mysql -u root wifi_user_govwifi < /docker-entrypoint-initdb.d/wifi_user_schema.sql" & \
-	for i in $$(seq 2 $$N_WORKERS); do \
-		$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'DROP DATABASE IF EXISTS wifi_user_govwifi$$i; CREATE DATABASE wifi_user_govwifi$$i;'; MYSQL_PWD=root mysql -u root wifi_user_govwifi$$i < /docker-entrypoint-initdb.d/wifi_user_schema.sql" & \
-	done; \
-	wait
+	$(DOCKER_COMPOSE) exec app sh -c "export RACK_ENV=test; export N_WORKERS=$$N_WORKERS; for i in \$$(seq 1 \$$N_WORKERS); do ( [ \$$i -eq 1 ] && ./bin/rails db:schema:load || TEST_ENV_NUMBER=\$$i ./bin/rails db:schema:load ) & done; wait"; \
+	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "export MYSQL_PWD=root; export N_WORKERS=$$N_WORKERS; for i in \$$(seq 1 \$$N_WORKERS); do ( DB=wifi_user_govwifi; [ \$$i -gt 1 ] && DB=wifi_user_govwifi\$$i; mysql -u root -e \"DROP DATABASE IF EXISTS \$$DB; CREATE DATABASE \$$DB;\"; mysql -u root \$$DB < /docker-entrypoint-initdb.d/wifi_user_schema.sql ) & done; wait"
 
 prebuilt-test:
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
