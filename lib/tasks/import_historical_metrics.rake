@@ -9,7 +9,8 @@ namespace :metrics do
       "HISTORICAL_METRICS_ODS_PATH",
       Gateways::HistoricalReportingSpreadsheet::DEFAULT_FILE_PATH,
     )
-    args.with_defaults(file_path: default_path, dry_run: "false")
+    default_dry_run = ENV.fetch("DRY_RUN", "false")
+    args.with_defaults(file_path: default_path, dry_run: default_dry_run)
 
     logger = Logger.new($stdout)
     dry_run = %w[true 1 yes].include?(args[:dry_run].to_s.strip.downcase)
@@ -23,5 +24,11 @@ namespace :metrics do
     ).execute
 
     raise "Historical metrics import failed for #{summary[:failed]} record(s)" if summary[:failed].positive?
+  end
+
+  desc "Alias for metrics:import_historical_data"
+  task :import_historical_metrics, %i[file_path dry_run] => :environment do |_, args|
+    Rake::Task["metrics:import_historical_data"].reenable
+    Rake::Task["metrics:import_historical_data"].invoke(args[:file_path], args[:dry_run])
   end
 end

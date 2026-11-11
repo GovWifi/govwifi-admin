@@ -6,7 +6,9 @@ require "rake"
 describe "metrics:import_historical_data rake task" do
   before do
     Rake::Task.define_task(:environment) unless Rake::Task.task_defined?(:environment)
-    Rake::Task["metrics:import_historical_data"]&.clear if Rake::Task.task_defined?("metrics:import_historical_data")
+    %w[metrics:import_historical_data metrics:import_historical_metrics].each do |task_name|
+      Rake::Task[task_name].clear if Rake::Task.task_defined?(task_name)
+    end
     load File.expand_path("../../lib/tasks/import_historical_metrics.rake", __dir__)
   end
 
@@ -40,6 +42,51 @@ describe "metrics:import_historical_data rake task" do
 
     Rake::Task["metrics:import_historical_data"].reenable
     Rake::Task["metrics:import_historical_data"].invoke
+  end
+
+  context "when HISTORICAL_METRICS_ODS_PATH and DRY_RUN environment variables are set" do
+    around do |example|
+      original_path = ENV["HISTORICAL_METRICS_ODS_PATH"]
+      original_dry_run = ENV["DRY_RUN"]
+      ENV["HISTORICAL_METRICS_ODS_PATH"] = "/tmp/env_figures.ods"
+      ENV["DRY_RUN"] = "true"
+      example.run
+    ensure
+      ENV["HISTORICAL_METRICS_ODS_PATH"] = original_path
+      ENV["DRY_RUN"] = original_dry_run
+    end
+
+    it "uses the environment variable defaults when task arguments are omitted" do
+      use_case_double = instance_double(
+        UseCases::Administrator::ImportHistoricalMetrics,
+        execute: { total: 18, recorded: 18, skipped: 0, failed: 0 },
+      )
+
+      expect(UseCases::Administrator::ImportHistoricalMetrics).to receive(:new).with(
+        file_path: "/tmp/env_figures.ods",
+        dry_run: true,
+        logger: anything,
+      ).and_return(use_case_double)
+
+      Rake::Task["metrics:import_historical_data"].reenable
+      Rake::Task["metrics:import_historical_data"].invoke
+    end
+  end
+
+  it "supports the metrics:import_historical_metrics alias task" do
+    use_case_double = instance_double(
+      UseCases::Administrator::ImportHistoricalMetrics,
+      execute: { total: 18, recorded: 18, skipped: 0, failed: 0 },
+    )
+
+    expect(UseCases::Administrator::ImportHistoricalMetrics).to receive(:new).with(
+      file_path: "/tmp/alias_figures.ods",
+      dry_run: true,
+      logger: anything,
+    ).and_return(use_case_double)
+
+    Rake::Task["metrics:import_historical_metrics"].reenable
+    Rake::Task["metrics:import_historical_metrics"].invoke("/tmp/alias_figures.ods", "true")
   end
 
   it "raises RuntimeError when one or more metric uploads fail" do
