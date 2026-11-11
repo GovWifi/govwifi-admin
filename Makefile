@@ -67,18 +67,27 @@ test: stop build test-parallel-setup test-parallel
 test-parallel:
 	$(DOCKER_COMPOSE) exec app sh -c 'RACK_ENV=test RUBYLIB=spec bundle exec parallel_rspec spec/'
 
+# test-parallel-setup
+#
+# `parallel:create` builds one test DB per *container* CPU, so the schema-load
+# loops must use the same count. N_WORKERS is derived from the container (has
+# `nproc` on both Linux and macOS); the host fallback only runs if that fails.
 test-parallel-setup:
 	$(DOCKER_COMPOSE) up -d
-	$(DOCKER_COMPOSE) exec app sh -c 'RACK_ENV=test bundle exec rake parallel:drop'
-	$(DOCKER_COMPOSE) exec app sh -c 'RACK_ENV=test bundle exec rake parallel:create'
-	$(DOCKER_COMPOSE) exec app sh -c 'RACK_ENV=test ./bin/rails db:schema:load'
-	@for i in $$(seq 2 $$(nproc)); do \
-		$(DOCKER_COMPOSE) exec app sh -c 'RACK_ENV=test TEST_ENV_NUMBER=$$i ./bin/rails db:schema:load'; \
-	done
-	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'DROP DATABASE IF EXISTS wifi_user_govwifi;'"
-	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'CREATE DATABASE wifi_user_govwifi;'"
-	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root wifi_user_govwifi < /docker-entrypoint-initdb.d/wifi_user_schema.sql"
-	@for i in $$(seq 2 $$(nproc)); do \
+	@N_WORKERS=$$(docker compose -f docker-compose.yml -f docker-compose.development.yml exec app sh -c 'nproc' 2>/dev/null); \
+	[ -n "$$N_WORKERS" ] || N_WORKERS=$$(sysctl -n hw.physicalcpu 2>/dev/null || nproc 2>/dev/null); \
+	[ -n "$$N_WORKERS" ] || N_WORKERS=9; \
+	echo ">> test-parallel-setup: aligned workers = $$N_WORKERS"; \
+	$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test PARALLEL_WORKERS=$$N_WORKERS bundle exec rake parallel:drop"; \
+	$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test PARALLEL_WORKERS=$$N_WORKERS bundle exec rake parallel:create"; \
+	$(DOCKER_COMPOSE) exec app sh -c 'RACK_ENV=test ./bin/rails db:schema:load'; \
+	for i in $$(seq 2 $$N_WORKERS); do \
+		$(DOCKER_COMPOSE) exec app sh -c "RACK_ENV=test TEST_ENV_NUMBER=$$i ./bin/rails db:schema:load"; \
+	done; \
+	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'DROP DATABASE IF EXISTS wifi_user_govwifi;'"; \
+	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'CREATE DATABASE wifi_user_govwifi;'"; \
+	$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root wifi_user_govwifi < /docker-entrypoint-initdb.d/wifi_user_schema.sql"; \
+	for i in $$(seq 2 $$N_WORKERS); do \
 		$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'DROP DATABASE IF EXISTS wifi_user_govwifi$$i;'" && \
 		$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root -e 'CREATE DATABASE wifi_user_govwifi$$i;'" && \
 		$(DOCKER_COMPOSE) exec wifi_user_db sh -c "MYSQL_PWD=root mysql -u root wifi_user_govwifi$$i < /docker-entrypoint-initdb.d/wifi_user_schema.sql"; \
