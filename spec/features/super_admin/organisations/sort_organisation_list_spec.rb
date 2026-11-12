@@ -45,16 +45,35 @@ describe "Sorting the organisations list", type: :feature do
         expect(page.body).to match(/Gov Org 1.*Gov Org 2.*Gov Org 3/m)
       end
 
-      context "when using eap-tls" do
-        it "sorts the list from yes to no after EAP-TLS is clicked the first time" do
-          click_link "Uses EAP-TLS"
+      context "when using cba in use" do
+        it "sorts the list from yes to no after CBA in use? is clicked the first time" do
+          click_link "CBA in use?"
 
           expect(page.body).to match(/Gov Org 2.*Gov Org 1.*Gov Org 3/m)
         end
-        it "sorts the list from no to yes after EAP-TLS is clicked twice" do
-          2.times { click_link "Uses EAP-TLS" }
+        it "sorts the list from no to yes after CBA in use? is clicked twice" do
+          2.times { click_link "CBA in use?" }
 
           expect(page.body).to match(/Gov Org 1.*Gov Org 3.*Gov Org 2/m)
+        end
+      end
+
+      context "when using cba enabled" do
+        before do
+          create(:organisation, name: "Local Auth 1", cba_enabled: true)
+          create(:organisation, name: "Gov Org 4", cba_enabled: false)
+        end
+
+        it "sorts the list from yes to no after CBA enabled? is clicked the first time" do
+          click_link "CBA enabled?"
+
+          expect(page.body).to match(/Local Auth 1.*Gov Org 4/m)
+        end
+
+        it "sorts the list from no to yes after CBA enabled? is clicked twice" do
+          2.times { click_link "CBA enabled?" }
+
+          expect(page.body).to match(/Gov Org 4.*Local Auth 1/m)
         end
       end
     end
