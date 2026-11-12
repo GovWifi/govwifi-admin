@@ -30,11 +30,11 @@ module SettingsHelper
     last_mou = current_organisation.mous.last
 
     if last_mou&.name.present?
-      return "Signed by #{last_mou.name} on #{last_mou.formatted_date} at #{last_mou.formatted_time}"
+      return "Signed by #{last_mou.name} on #{last_mou.formatted_date}"
     end
 
     if last_mou.present?
-      return "#{current_organisation.name} signed the GovWifi MOU on #{last_mou.formatted_date} at #{last_mou.formatted_time}"
+      return "#{current_organisation.name} signed the GovWifi MOU on #{last_mou.formatted_date}"
     end
 
     label = content_tag(:span, class: "govuk-!-font-weight-bold") { "Not signed" }
