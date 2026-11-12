@@ -6,15 +6,11 @@
   <h1 class="govuk-heading-l">Re-sign the MOU</h1>
 
   <p class="govuk-body">
-    <%= current_organisation.name %> signed the GovWifi MOU on <%= current_organisation.mous.last.formatted_date %> at <%= current_organisation.mous.last.formatted_time %>.
+    <%= current_organisation.name %> signed the GovWifi MOU on <%= current_organisation.mous.last.formatted_date %>.
   </p>
 
   <p class="govuk-body">
     Proceeding will ask you to sign the MOU again.
-  </p>
-
-  <p class="govuk-body">
-    Your organisation will not be able to use GovWifi until the MOU has been signed again.
   </p>
 
   <%= button_to(
