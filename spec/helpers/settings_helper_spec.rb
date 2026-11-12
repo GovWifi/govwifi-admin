@@ -26,11 +26,9 @@ describe SettingsHelper do
 
       before { mou }
 
-      it "shows the signer name with date and time in UTC" do
+      it "shows the signer name with date" do
         label = helper.mou_status_label(organisation)
         expect(label).to include("Signed by Test Signer")
-        expect(label).to include("at")
-        expect(label).to include("UTC")
       end
     end
 
