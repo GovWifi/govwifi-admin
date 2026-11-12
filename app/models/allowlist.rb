@@ -12,6 +12,10 @@ class Allowlist
 
   attr_accessor :email_domain, :admin, :register, :organisation_name, :step
 
+  def organisation_display_name
+    organisation_name.to_s.squish
+  end
+
   validate :validate_organisation_name, unless: proc { |allowlist|
     allowlist.organisation_name.blank?
   }

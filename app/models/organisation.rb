@@ -49,8 +49,17 @@ class Organisation < ApplicationRecord
        COUNT(DISTINCT(certificates.id)) AS certificates_count")
       .left_joins(:locations).left_joins(:ips).left_joins(:mous).left_joins(:certificates)
       .group("organisations.id")
-      .order(sort_column => sort_direction)
+      .order(sort_order(sort_column, sort_direction))
   }
+
+  def self.sort_order(column, direction)
+    ordered_column = column.to_s == "name" ? "TRIM(organisations.name)" : column
+    "#{ordered_column} #{direction}"
+  end
+
+  def display_name
+    name.to_s.squish
+  end
 
   def enable_cba_feature!
     update(cba_enabled: true)
@@ -73,13 +82,13 @@ class Organisation < ApplicationRecord
   end
 
   def validate_in_register?
-    unless Organisation.fetch_organisations_from_register.include?(name)
+    unless Organisation.fetch_organisations_from_register.include?(name&.squish)
       errors.add(:name, "Name isn't in the organisations allow list")
     end
   end
 
   def self.fetch_organisations_from_register
-    Gateways::GovukOrganisationsRegisterGateway.new.all_orgs.sort_by(&:downcase)
+    Gateways::GovukOrganisationsRegisterGateway.new.all_orgs.map(&:squish).sort_by(&:downcase)
   end
 
   def self.all_as_csv
@@ -87,7 +96,7 @@ class Organisation < ApplicationRecord
       csv << CSV_HEADER
       Organisation.includes(:mous).sortable_with_child_counts("name", "asc").each do |o|
         mou_signed_at = o.mous.present? ? o.mous.map(&:created_at).join(", ") : "-"
-        csv << [o.name, o.created_at, mou_signed_at, o.locations_count, o.ips_count]
+        csv << [o.display_name, o.created_at, mou_signed_at, o.locations_count, o.ips_count]
       end
     end
   end
@@ -98,7 +107,7 @@ class Organisation < ApplicationRecord
       Organisation
         .select("organisations.*, users.name AS user_name")
         .joins("LEFT OUTER JOIN users ON users.email = organisations.service_email").each do |o|
-        csv << [o.service_email, o.name, o.user_name, o.created_at]
+        csv << [o.service_email, o.display_name, o.user_name, o.created_at]
       end
     end
   end

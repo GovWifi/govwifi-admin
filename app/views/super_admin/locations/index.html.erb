@@ -24,7 +24,7 @@
 
             </td>
             <td class="govuk-table__cell filter-by">
-              <%= link_to location.organisation.name, super_admin_organisation_path(location.organisation.id), class: "govuk-link" %>
+              <%= link_to location.organisation.display_name, super_admin_organisation_path(location.organisation.id), class: "govuk-link" %>
             </td>
           </tr>
         <% end %>

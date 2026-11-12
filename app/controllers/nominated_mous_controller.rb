@@ -17,7 +17,7 @@ class NominatedMousController < ApplicationController
       mou = @mou_form.save!(organisation: @nomination.organisation)
       @nomination.destroy!
       send_thank_you_email(mou)
-      redirect_to confirm_nominated_mous_path(organisation_name: @nomination.organisation_name), success: "MOU signed successfully."
+      redirect_to confirm_nominated_mous_path(organisation_name: @nomination.organisation_display_name), success: "MOU signed successfully."
     end
   end
 
@@ -47,7 +47,7 @@ private
     GovWifiMailer.thank_you_for_signing_the_mou(
       mou.name,
       mou.email_address,
-      mou.organisation.name,
+      mou.organisation.display_name,
       mou.formatted_date,
     ).deliver_now
   end

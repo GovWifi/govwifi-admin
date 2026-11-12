@@ -29,7 +29,7 @@
             <p class="govuk-body">
               <ul class="govuk-list"> Organisations:
                 <% @user.organisations.each do |organisation| %>
-                  <li><%= link_to organisation.name, super_admin_organisation_path(organisation), class: "govuk-link filter-by" %></li>
+                  <li><%= link_to organisation.display_name, super_admin_organisation_path(organisation), class: "govuk-link filter-by" %></li>
                 <% end %>
               </ul>
             </p>
