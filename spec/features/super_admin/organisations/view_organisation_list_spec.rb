@@ -68,17 +68,26 @@ describe "View a list of signed up organisations", type: :feature do
         expect(page).to have_link("Download all service emails in CSV format")
       end
 
-      describe "no certificates" do
-        it "shows the organisation does not use EAP-TLS" do
+      describe "cba enabled" do
+        it "shows the organisation has CBA enabled" do
           within("table tbody tr td:nth-child(6)") do
+            expect(page).to have_content("yes")
+          end
+        end
+      end
+
+      describe "certificates" do
+        it "shows the organisation does not use CBA certificates" do
+          within("table tbody tr td:nth-child(7)") do
             expect(page).to have_content("no")
           end
         end
       end
+
       describe "a certificate is present" do
         let(:organisation) { create(:organisation, cba_enabled:).tap { |org| create(:certificate, organisation: org) } }
-        it "shows the organisation uses EAP-TLS" do
-          within("table tbody tr td:nth-child(6)") do
+        it "shows the organisation uses CBA certificates" do
+          within("table tbody tr td:nth-child(7)") do
             expect(page).to have_content("yes")
           end
         end
