@@ -7,8 +7,9 @@
   <h1 class="govuk-heading-l">Read and Accept the Terms for GovWifi</h1>
   <h2 class="govuk-heading-m">Read the MOU</h2>
   <p class="govuk-body">
-    For your organisation to use GovWifi, you must read and accept GovWifi’s MOU. Read or share
-    <%= link_to "GovWifi's MOU (opens in another tab)", "https://www.wifi.service.gov.uk/memorandum-of-understanding/", target: "_blank", class: "govuk-link govuk-link--no-visited-state", rel: "noopener" %>.
+    For your organisation to use GovWifi, you must read and accept GovWifi’s MOU.
+    <br>
+    Read or share <%= link_to "GovWifi's MOU (opens in another tab)", "https://www.wifi.service.gov.uk/memorandum-of-understanding/", target: "_blank", class: "govuk-link govuk-link--no-visited-state", rel: "noopener" %>.
   </p>
 
   <div class="govuk-warning-text">
@@ -19,7 +20,7 @@
     </strong>
   </div>
 
-  <h2 class="govuk-heading-m">Sign MOU by providing a digital signature</h2>
+  <h2 class="govuk-heading-m">Sign the MOU by providing a digital signature</h2>
   <%= f.govuk_text_field :name, width: "two-thirds", label: { size: "s", text: "Name" }, value: current_user.name, readonly: true %>
   <%= f.govuk_email_field :email_address, width: "two-thirds", label: { size: "s", text: "Email" }, value: current_user.email, readonly: true %>
   <%= f.govuk_text_field :job_role, width: "two-thirds", label: { size: "s", text: "Job role" } %>

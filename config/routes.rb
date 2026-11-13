@@ -81,6 +81,9 @@ Rails.application.routes.draw do
   resources :settings, only: %i[index] do
     collection do
       get "initial", to: "settings#index", as: :new_organisation
+      get "review_mou", to: "settings#review_mou"
+      get "confirm_resign_mou", to: "settings#confirm_resign_mou"
+      post "resign_mou", to: "settings#resign_mou"
     end
   end
   get "setup_instructions", to: redirect("settings")
