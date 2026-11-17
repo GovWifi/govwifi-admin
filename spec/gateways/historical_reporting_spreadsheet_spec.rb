@@ -92,6 +92,14 @@ describe Gateways::HistoricalReportingSpreadsheet do
     end
   end
 
+  describe "DEFAULT_FILE_PATH" do
+    it "resolves to GovWifi Monthly Reporting Figures.ods in the current user's home directory" do
+      expect(described_class::DEFAULT_FILE_PATH).to eq(
+        File.join(Dir.home, "GovWifi Monthly Reporting Figures.ods"),
+      )
+    end
+  end
+
   describe "#entries" do
     before do
       write_ods_file(
