@@ -28,14 +28,14 @@ describe "metrics:import_historical_data rake task" do
     Rake::Task["metrics:import_historical_data"].invoke("/tmp/custom_figures.ods", "true")
   end
 
-  it "uses the default spreadsheet path and dry_run=false when no arguments are supplied" do
+  it "uses the default spreadsheet path in Dir.home and dry_run=false when no arguments are supplied" do
     use_case_double = instance_double(
       UseCases::Administrator::ImportHistoricalMetrics,
       execute: { total: 18, recorded: 10, skipped: 8, failed: 0 },
     )
 
     expect(UseCases::Administrator::ImportHistoricalMetrics).to receive(:new).with(
-      file_path: Gateways::HistoricalReportingSpreadsheet::DEFAULT_FILE_PATH,
+      file_path: File.join(Dir.home, "GovWifi Monthly Reporting Figures.ods"),
       dry_run: false,
       logger: anything,
     ).and_return(use_case_double)

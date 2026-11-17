@@ -6,7 +6,7 @@ require "zip"
 
 module Gateways
   class HistoricalReportingSpreadsheet
-    DEFAULT_FILE_PATH = "/Users/oisin/Downloads/GovWifi Monthly Reporting Figures.ods"
+    DEFAULT_FILE_PATH = File.join(Dir.home, "GovWifi Monthly Reporting Figures.ods").freeze
     NUMERIC_PATTERN = /\A-?\d+(\.\d+)?\z/
     MONTH_YEAR_PATTERN = /\A([A-Za-z]+)\s+(\d{4})\z/
     MAX_REPEATED_EMPTY_COLUMNS = 50
