@@ -25,9 +25,10 @@ module UseCases
         csv << TEAM_MEMBER_COLUMNS
         ::Organisation.all
           .order(:name)
-          .includes(:memberships)
+          .includes(:memberships, memberships: :user)
           .each do |o|
             o.memberships
+              .select(&:user)
               .sort_by { |m| [m.user.name.to_s, m.user.email.to_s] }
               .each { |m| csv << team_member_row(o, m) }
           end

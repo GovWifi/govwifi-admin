@@ -17,7 +17,6 @@ describe UseCases::BackupTeamMembers do
   let!(:alphabetically_second) do
     org = create(:organisation, name: "Gov Org 2")
     create(:membership, :confirmed, user: create(:user, name: "Grace Hopper", email: "grace@example.gov.uk"), organisation: org)
-    # Invited member: name is blank until they accept the invitation.
     create(:membership, :unconfirmed, permission_level: "view_only", user: create(:user, name: "", email: "pending@example.gov.uk", confirmed_at: nil), organisation: org)
     org
   end
@@ -73,6 +72,16 @@ describe UseCases::BackupTeamMembers do
     rows = read_csv(use_case.execute)
     beta_rows = rows.select { |r| r.first == "Gov Org 2" }
     expect(beta_rows.map(&:second)).to eq(["", "Grace Hopper"])
+  end
+
+  it "skips memberships whose user no longer exists" do
+    org = create(:organisation, name: "Gov Org 3")
+    create(:membership, :confirmed, user: create(:user, name: "Valid Member", email: "valid@example.gov.uk"), organisation: org)
+    membership = create(:membership, :confirmed, user: create(:user, name: "Ghost User", email: "ghost@example.gov.uk"), organisation: org)
+    membership.user.destroy!
+    csv = UseCases::BackupTeamMembers.new(writer: nil).build_csv
+    expect(csv).to include("Gov Org 3", "Valid Member")
+    expect(csv).not_to include("Ghost User")
   end
 
 private
