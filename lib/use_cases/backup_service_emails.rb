@@ -8,6 +8,7 @@ module UseCases
 
     def execute
       csv = ::Organisation.all
+              .order(:name)
               .map { |o| [o.display_name, o.service_email].to_csv }
               .join
 
