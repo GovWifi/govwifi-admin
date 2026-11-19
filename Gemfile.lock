@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/GovWifi/govwifi_two_factor_auth.git
-  revision: 24462f2523d965f83a157c980494dd91fe5d43d5
+  revision: 3b93665becb1debac0fda8ee45ed61a7be701557
   specs:
-    govwifi_two_factor_auth (1.0.3)
+    govwifi_two_factor_auth (1.0.4)
       base64
       benchmark
       bigdecimal
