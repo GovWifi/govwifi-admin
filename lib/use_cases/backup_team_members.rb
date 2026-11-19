@@ -24,7 +24,7 @@ module UseCases
       CSV.generate do |csv|
         csv << TEAM_MEMBER_COLUMNS
         ::Organisation.all
-          .order(:name)
+          .order(Arel.sql("TRIM(organisations.name) ASC"))
           .includes(:memberships, memberships: :user)
           .each do |o|
             o.memberships
