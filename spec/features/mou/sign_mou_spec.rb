@@ -71,7 +71,7 @@ describe "Sign MOU", type: :feature do
         end
 
         it "displays a button to review the MOU on the settings page after MOU creation" do
-          expect(page).to have_link("Review")
+          expect(page).to have_link("Re-sign the MOU")
         end
 
         it "redirects the user to the settings page after MOU creation" do
