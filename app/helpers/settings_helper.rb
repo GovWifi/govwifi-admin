@@ -13,7 +13,7 @@ module SettingsHelper
         ],
       },
       {
-        key: { text: "Memorandum of understanding (MOU)" },
+        key: { text: "Memorandum of Understanding (MOU)" },
         value: { text: mou_status_label(current_organisation) },
         actions: [mou_action(current_organisation)],
       },
@@ -55,7 +55,7 @@ module SettingsHelper
       {
         text: "Re-sign the MOU",
         href: review_mou_settings_path,
-        visually_hidden_text: "memorandum of understanding",
+        visually_hidden_text: "Memorandum of Understanding",
       }
     else
       { text: "Sign the MOU", href: show_options_mous_path }

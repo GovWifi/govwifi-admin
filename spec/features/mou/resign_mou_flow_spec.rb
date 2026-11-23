@@ -20,7 +20,7 @@ describe "Resign MOU flow", type: :feature do
     click_button "Re-sign the MOU"
 
     expect(page).to have_current_path(show_options_mous_path)
-    expect(page).to have_content("Your organisation must sign the memorandum of understanding again.")
+    expect(page).to have_content("Your organisation must sign the Memorandum of Understanding again.")
     expect(organisation.reload.mou_resign_required_at).to be_present
     expect(organisation.mous.count).to eq(1)
   end

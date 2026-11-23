@@ -14,7 +14,7 @@ class SettingsController < ApplicationController
   def resign_mou
     UseCases::Organisation::ResignMou.new(organisation_id: current_organisation.id).execute
     redirect_to show_options_mous_path,
-                notice: "Your organisation must sign the memorandum of understanding again."
+                notice: "Your organisation must sign the Memorandum of Understanding again."
   end
 
   def index
