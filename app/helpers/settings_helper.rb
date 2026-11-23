@@ -53,7 +53,7 @@ module SettingsHelper
       return { text: "Sign the MOU", href: show_options_mous_path } if current_organisation.resign_mou?
 
       {
-        text: "Review",
+        text: "Re-sign the MOU",
         href: review_mou_settings_path,
         visually_hidden_text: "memorandum of understanding",
       }
