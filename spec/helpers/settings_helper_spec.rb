@@ -59,9 +59,9 @@ describe SettingsHelper do
         create(:mou, organisation:, version: Mou.latest_known_version)
       end
 
-      it "returns Review action linking to review page" do
+      it "returns Re-sign the MOU action linking to review page" do
         action = helper.mou_action(organisation)
-        expect(action[:text]).to eq("Review")
+        expect(action[:text]).to eq("Re-sign the MOU")
         expect(action[:href]).to eq(review_mou_settings_path)
       end
     end
