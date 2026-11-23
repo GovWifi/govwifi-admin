@@ -221,7 +221,7 @@ describe "Adding an IP to an existing location", type: :feature do
       visit location_add_ips_path(location_id: location.id)
 
       expect(page).to have_current_path(ips_path)
-      expect(page).to have_content("Your organisation must sign the memorandum of understanding (MOU) before you can add IPs or multiple locations.")
+      expect(page).to have_content("Your organisation must sign the Memorandum of Understanding (MOU) before you can add IPs or multiple locations.")
     end
   end
 end
