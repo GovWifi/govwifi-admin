@@ -9,7 +9,7 @@ describe "Resign MOU flow", type: :feature do
 
   it "allows an organisation to re-sign the MOU while keeping the previous record" do
     visit settings_path
-    click_link "Review"
+    click_link "Re-sign the MOU"
 
     expect(page).to have_current_path(review_mou_settings_path)
     expect(page).to have_content("Review the MOU")
