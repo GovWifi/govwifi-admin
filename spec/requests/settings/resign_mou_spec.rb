@@ -25,6 +25,6 @@ describe "POST /settings/resign_mou", type: :request do
   it "redirects to show_options_mous_path with a notice" do
     post resign_mou_settings_path
     expect(response).to redirect_to(show_options_mous_path)
-    expect(flash[:notice]).to eq("Your organisation must sign the memorandum of understanding again.")
+    expect(flash[:notice]).to eq("Your organisation must sign the Memorandum of Understanding again.")
   end
 end
