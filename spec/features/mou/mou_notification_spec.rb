@@ -20,7 +20,7 @@ describe "MOU notification banner", type: :feature do
 
         expect(page).to have_css(".govuk-notification-banner")
         expect(page).to have_content("Your organisation hasn’t signed the MOU yet.")
-        expect(page).to have_link("Sign the memorandum of understanding", href: show_options_mous_path)
+        expect(page).to have_link("Sign the Memorandum of Understanding", href: show_options_mous_path)
       end
     end
 
