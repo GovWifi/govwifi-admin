@@ -14,6 +14,13 @@ describe "GovWifi locations map", type: :feature do
     assert_requested :post, "https://api.postcodes.io/postcodes", body: "postcodes%5B%5D=SE10HS"
   end
 
+  it "allows Google Maps to load on this page" do
+    csp = page.response_headers["Content-Security-Policy"]
+    expect(csp).to include("script-src 'self' https://maps.googleapis.com")
+    expect(csp).to include("https://*.gstatic.com")
+    expect(csp).to match(/style-src 'self' 'unsafe-inline' https:\/\/fonts.googleapis.com;/)
+  end
+
   it "takes the super admin back to the locations page" do
     click_link "Back to locations"
     expect(page).to have_content(location.address)
