@@ -8,6 +8,7 @@ module UseCases
 
     def execute
       csv = ::Organisation.all
+              .order(Arel.sql("TRIM(organisations.name) ASC"))
               .map { |o| [o.display_name, o.service_email].to_csv }
               .join
 
