@@ -1,5 +1,6 @@
 class AcceptInvitationForm
   class InvalidTokenError < StandardError; end
+  class InvalidUserError < StandardError; end
 
   include ActiveModel::Model
   include ActiveModel::Validations
@@ -21,6 +22,8 @@ class AcceptInvitationForm
   end
 
   def save!
+    raise InvalidUserError, "Invitation has no associated user" if user.nil?
+
     unless user.confirmed?
       user.name = name
       user.password = password

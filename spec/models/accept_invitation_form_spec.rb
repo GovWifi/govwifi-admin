@@ -102,4 +102,15 @@ describe AcceptInvitationForm do
       end
     end
   end
+  context "when the membership has no associated user" do
+    let(:organisation) { create(:organisation) }
+    let(:membership) { build(:membership, :unconfirmed, user: nil, organisation:) }
+    before do
+      allow(Membership).to receive(:find_by_invitation_token).and_return(membership)
+    end
+    let(:form) { AcceptInvitationForm.new(name:, password:) }
+    it "raises InvalidUserError" do
+      expect { form.save! }.to raise_error AcceptInvitationForm::InvalidUserError, /no associated user/
+    end
+  end
 end

@@ -2,6 +2,7 @@ class Users::InvitationsController < ApplicationController
   skip_before_action :authenticate_user!, :redirect_user_with_no_organisation, only: %i[edit update]
 
   rescue_from AcceptInvitationForm::InvalidTokenError, with: :error_handler
+  rescue_from AcceptInvitationForm::InvalidUserError, with: :error_handler
   rescue_from InvitationForm::InvalidPermissionsError, with: :error_handler
   # new invitation
   def new
