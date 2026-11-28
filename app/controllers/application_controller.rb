@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
 
   def configure_devise_permitted_parameters
     devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_in, except: [:remember_me])
   end
 
   def current_organisation
