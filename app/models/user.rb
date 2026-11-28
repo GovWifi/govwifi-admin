@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :memberships, inverse_of: :user, dependent: :destroy
   has_many :organisations, through: :memberships, inverse_of: :users
-  has_many :mous
+  has_many :mous, dependent: :destroy
 
   accepts_nested_attributes_for :organisations, :memberships
 

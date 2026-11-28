@@ -20,10 +20,13 @@ describe UseCases::DeleteInactiveUnconfirmed do
   describe "There is an unconfirmed user who has been inactive for more than the specified period" do
     before do
       @inactive_user_id = create(:user, :unconfirmed, created_at: 3.weeks.ago).id
+      organisation = create(:organisation)
+      create(:mou, user: User.find(@inactive_user_id), organisation:)
     end
-    it "deletes the unconfirmed user" do
+    it "deletes the unconfirmed user and their associated Mou" do
       subject.execute(inactive_period)
       expect(User.where(id: @inactive_user_id)).to_not exist
+      expect(Mou.exists?(user_id: @inactive_user_id)).to be(false)
     end
   end
   describe "There is a mix of unconfirmed and unconfirmed users" do

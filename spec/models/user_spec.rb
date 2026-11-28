@@ -237,4 +237,18 @@ describe User do
       expect(user.timeout_in).to eq(Devise.timeout_in)
     end
   end
+
+  describe "destroying a user with associated Mous" do
+    let(:user) { create(:user) }
+    let(:organisation) { create(:organisation) }
+
+    before do
+      create(:mou, user:, organisation:)
+    end
+
+    it "cascades the associated Mou to the database" do
+      expect { user.destroy }.not_to raise_error
+      expect(Mou.exists?(user.id)).to be(false)
+    end
+  end
 end
